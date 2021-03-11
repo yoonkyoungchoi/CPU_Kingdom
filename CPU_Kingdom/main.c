@@ -12,21 +12,21 @@
 // C++ function
 void guess_note();
 
-void setConsole(void);
-void setCursor(int flag, int size);
+void set_console(void);
+void set_cursor(int flag, int size);
 
 int main(void) {
-	setConsole();
+	set_console();
 
 	return 0;
 }
 
 // console settings function (chohadam 21-03-11)
-void setConsole(void) {
+void set_console(void) {
 	// set the console size
 	system("mode con:cols=240 lines=63");
 	// hide cursor
-	setCursor(0, 1);
+	set_cursor(0, 1);
 	// set title
 	system("title CPU KINGDOM");
 	// clear console
@@ -34,7 +34,7 @@ void setConsole(void) {
 }
 
 // cursor settings function (chohadam 21-03-11)
-void setCursor(int flag, int size) {
+void set_cursor(int flag, int size) {
 	CONSOLE_CURSOR_INFO cursor;
 	cursor.bVisible = flag;
 	cursor.dwSize = size;
