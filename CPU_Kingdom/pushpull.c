@@ -1,5 +1,5 @@
 #include "pushpull.h"
 
-void pushpull() {
+void pushpull(void) {
 	printf("push pull\n");
 }
