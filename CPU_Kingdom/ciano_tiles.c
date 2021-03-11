@@ -1,9 +1,11 @@
-#include "snake_game.h"
+// The Game Made by Hadam Cho
+
+#include "ciano_tiles.h"
 
 // _getch() value of ESC key
 #define ESC 27
 
-void snake_game(void) {
+void ciano_tiles(void) {
 	system("cls");
 
 	int x = 100, y = 20;
@@ -11,7 +13,7 @@ void snake_game(void) {
 
 	do {
 		gotoxy(x, y);
-		printf("SNAKE GAME");
+		printf("CIANO TILES");
 		key = _getch();
 	} while (key != ESC);
 }

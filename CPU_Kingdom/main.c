@@ -6,7 +6,7 @@
 #include <stdio.h>
 
 // header files
-#include "ciano_tile.h"
+#include "ciano_tiles.h"
 #include "maze_game.h"
 #include "pushpull.h"
 #include "snake_game.h"
@@ -32,7 +32,7 @@ int main(void) {
 		switch (select)
 		{
 		case 1:
-			ciano_tile();
+			ciano_tiles();
 			break;
 
 		case 2:

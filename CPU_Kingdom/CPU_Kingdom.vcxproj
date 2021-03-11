@@ -139,7 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="ciano_tile.c" />
+    <ClCompile Include="ciano_tiles.c" />
     <ClCompile Include="guess_note.cpp" />
     <ClCompile Include="main.c" />
     <ClCompile Include="maze_game.c" />
@@ -148,7 +148,7 @@
     <ClCompile Include="snake_game.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ciano_tile.h" />
+    <ClInclude Include="ciano_tiles.h" />
     <ClInclude Include="maze_game.h" />
     <ClInclude Include="modules.h" />
     <ClInclude Include="pushpull.h" />

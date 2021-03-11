@@ -18,9 +18,6 @@
     <ClCompile Include="main.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="ciano_tile.c">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="maze_game.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
@@ -36,11 +33,11 @@
     <ClCompile Include="modules.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="ciano_tiles.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ciano_tile.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="maze_game.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
@@ -51,6 +48,9 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="modules.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="ciano_tiles.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
