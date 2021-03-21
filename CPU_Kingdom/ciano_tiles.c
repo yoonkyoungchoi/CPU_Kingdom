@@ -26,6 +26,8 @@ void draw_menu();
 int select_menu();
 void menu_process(int selected_menu);
 void manual();
+// modules
+void print_str(int* x, int* y, char* str);
 
 void ciano_tiles(void) {
 	system("cls");
@@ -40,29 +42,31 @@ void ciano_tiles(void) {
 	menu_process(selected_menu);
 }
 
+// y += DISTANCE;
+// gotoxy(x, y);
+// printf("%s", str);
+void print_str(int* x, int* y, char* str) {
+	*y += DISTANCE;
+	gotoxy(*x, *y);
+	printf("%s", str);
+}
+
 // draw menu (chohadam 21-03-20)
 void draw_menu() {
 	int x = X;
 	int y = Y;
 
-	gotoxy(x, y);
-	printf("  CIANO TILES");
+	y -= DISTANCE;
+	print_str(&x, &y, "  CIANO TILES");
 
-	y += DISTANCE + 2;
-	gotoxy(x, y);
-	printf("      시작");
+	y += 2;
+	print_str(&x, &y, "      시작");
 
-	y += DISTANCE;
-	gotoxy(x, y);
-	printf("    게임 방법");
+	print_str(&x, &y, "    게임 방법");
 
-	y += DISTANCE;
-	gotoxy(x, y);
-	printf("      랭킹");
+	print_str(&x, &y, "      랭킹");
 
-	y += DISTANCE;
-	gotoxy(x, y);
-	printf("      종료");
+	print_str(&x, &y, "      종료");
 }
 
 // select menu (chohadam 21-03-20)
@@ -147,44 +151,27 @@ void manual() {
 	// clear console
 	system("cls");
 
-	gotoxy(x, y);
-	printf("각 칸에 내려오는 타일과 같은 위치에");
+	y -= DISTANCE;
+	print_str(&x, &y, "각 칸에 내려오는 타일과 같은 위치에");
+
+	print_str(&x, &y, "블럭을 가져다 놓으면");
+
+	print_str(&x, &y, "점수가 100점씩 올라갑니다.");
+
+	print_str(&x, &y, "실패할 경우 50점 감점되며");
+
+	print_str(&x, &y, "5번 실패할 경우 게임이 종료되고");
+
+	print_str(&x, &y, "점수가 기록됩니다.");
+
+	print_str(&x, &y, "점수가 오를 수록 타일이 내려오는");
+
+	print_str(&x, &y, "속도가 빨라집니다.");
+
+	print_str(&x, &y, "지금 바로 1등하러 GO GO!");
 
 	y += DISTANCE;
-	gotoxy(x, y);
-	printf("블럭을 가져다 놓으면");
-
-	y += DISTANCE;
-	gotoxy(x, y);
-	printf("점수가 100점씩 올라갑니다.");
-
-	y += DISTANCE;
-	gotoxy(x, y);
-	printf("실패할 경우 50점 감점되며");
-
-	y += DISTANCE;
-	gotoxy(x, y);
-	printf("5번 실패할 경우 게임이 종료되고");
-
-	y += DISTANCE;
-	gotoxy(x, y);
-	printf("점수가 기록됩니다.");
-
-	y += DISTANCE;
-	gotoxy(x, y);
-	printf("점수가 오를 수록 타일이 내려오는");
-
-	y += DISTANCE;
-	gotoxy(x, y);
-	printf("속도가 빨라집니다.");
-
-	y += DISTANCE;
-	gotoxy(x, y);
-	printf("지금 바로 1등하러 GO GO!");
-
-	y += DISTANCE * 2;
-	gotoxy(x, y);
-	printf("아무 키나 누르면 메뉴로 이동합니다.");
+	print_str(&x, &y, "아무 키나 누르면 메뉴로 이동합니다.");
 
 	_getch();
 
