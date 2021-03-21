@@ -10,53 +10,81 @@
 #define LEFT 75
 #define RIGHT 77
 
+// default coordinates
+#define X 113
+#define Y 25
+
+// line spacing (menu)
+#define DISTANCE 3
+
+// menu coordinates
+#define FIRST (Y + 2 + DISTANCE)
+#define LAST (FIRST + 3 * DISTANCE)
+
 // functions
-void draw_menu(int x, int y, int distance);
-int select_menu(int x, int y, int distance);
-void menu_process(int selected_menu, int first_menu_y, int distance);
+void draw_menu();
+int select_menu();
+void menu_process(int selected_menu);
+void manual();
+// modules
+void print_str(int* x, int* y, char* str);
+void print_block(int x, int y) {
+	gotoxy(x, y);
+	printf("■■■■■■■");
+	gotoxy(x, y + 1);
+	printf("■■■■■■■");
+	gotoxy(x, y + 2);
+	printf("■■■■■■■");
+}
 
 void ciano_tiles(void) {
 	system("cls");
 
-	// default coordinates
-	int x = 110, y = 30;
-	char key;
-
-	// line spacing (menu)
-	int distance = 3;
 	// draw menu
-	draw_menu(x, y, distance);
+	draw_menu();
 
 	// user select a menu
-	int selected_menu = select_menu(x, y, distance);
+	int selected_menu = select_menu();
 
 	// check selected menu
-	menu_process(selected_menu, y + distance + 2, distance);
+	menu_process(selected_menu);
+}
+
+// y += DISTANCE;
+// gotoxy(x, y);
+// printf("%s", str);
+void print_str(int* x, int* y, char* str) {
+	*y += DISTANCE;
+	gotoxy(*x, *y);
+	printf("%s", str);
 }
 
 // draw menu (chohadam 21-03-20)
-void draw_menu(int x, int y, int distance) {
-	gotoxy(x, y);
-	printf("  CIANO TILES");
-	gotoxy(x, y += distance + 2);
-	printf("      시작");
-	gotoxy(x, y += distance);
-	printf("    게임 방법");
-	gotoxy(x, y += distance);
-	printf("      랭킹");
-	gotoxy(x, y += distance);
-	printf("      종료");
+void draw_menu() {
+	int x = X;
+	int y = Y;
+
+	y -= DISTANCE;
+	print_str(&x, &y, "      CIANO TILES");
+
+	y += 2;
+	print_str(&x, &y, "          시작");
+
+	print_str(&x, &y, "        게임 방법");
+
+	print_str(&x, &y, "          랭킹");
+
+	print_str(&x, &y, "          종료");
 }
 
 // select menu (chohadam 21-03-20)
-int select_menu(int x, int y, int distance) {
+int select_menu() {
 	// Enter, Up, Down
 	char pressed_key;
-	// menu coordinates
-	int first_menu_y = y + distance + 2;
-	int last_menu_y = first_menu_y + distance * 3;
-	// set y
-	y = first_menu_y;
+
+	// set x, y
+	int x = X;
+	int y = FIRST;
 
 	do {
 		gotoxy(x, y);
@@ -71,21 +99,21 @@ int select_menu(int x, int y, int distance) {
 		switch (pressed_key) {
 		// ↑
 		case UP:
-			y -= distance;
+			y -= DISTANCE;
 			// press the UP key on the first menu
-			if (y < first_menu_y) {
+			if (y < FIRST) {
 				// go to last menu
-				y = last_menu_y;
+				y = LAST;
 			}
 			break;
 		
 		// ↓
 		case DOWN:
-			y += distance;
+			y += DISTANCE;
 			// press the DOWN key on the last menu
-			if (y > last_menu_y) {
+			if (y > LAST) {
 				// go to first menu
-				y = first_menu_y;
+				y = FIRST;
 			}
 			break;
 
@@ -98,29 +126,95 @@ int select_menu(int x, int y, int distance) {
 }
 
 // check selected menu (chohadam, 21-03-20)
-void menu_process(int selected_menu, int first_menu_y, int distance) {
-	int last_menu_y = first_menu_y + distance * 4 + 2;
-	while (selected_menu != last_menu_y) {
-		// start
-		if (selected_menu == first_menu_y) {
-
-		}
-		// game manual
-		else if (selected_menu == first_menu_y + distance) {
-
-		}
-		// ranking
-		else if (selected_menu == first_menu_y + distance * 2) {
-
-		}
-		// end
-		else if (selected_menu = last_menu_y) {
-
-		}
-		// error
-		else {
-			printf("Something Wrong");
-			exit(1);
-		}
+void menu_process(int selected_menu) {
+	// start
+	if (selected_menu == FIRST) {
+		ciano_tiles();
 	}
+	// game manual
+	else if (selected_menu == FIRST + DISTANCE) {
+		manual();
+	}
+	// ranking
+	else if (selected_menu == FIRST + DISTANCE * 2) {
+		ciano_tiles();
+	}
+	// end
+	else if (selected_menu == LAST) {
+		return;
+	}
+	// error
+	else {
+		printf("Something Wrong");
+		exit(1);
+	}
+}
+
+// print game manual (chohadam, 21-03-21)
+void manual() {
+	// clear console
+	system("cls");
+
+	// set x, y
+	int x = X - 55;
+	int y = Y - 8;
+
+	print_block(x, y);
+
+	y += DISTANCE * 2;
+	print_str(&x, &y, "      │      ");
+	y -= DISTANCE - 1;
+	print_str(&x, &y, "      ↓      ");
+
+	y += DISTANCE * 2;
+	print_block(x, y);
+	y -= 2;
+	x -= 6;
+	print_str(&x, &y, "←");
+	y -= DISTANCE;
+	x += 24;
+	print_str(&x, &y, "→");
+
+	x = X - 20;
+	y = Y - 9;
+	print_str(&x, &y, "1단계");
+	y += 1;
+	print_str(&x, &y, "점수\t\t0");
+	print_str(&x, &y, "실패\t\t0");
+	y += 1;
+	print_str(&x, &y, "이동\t\t← →");
+	print_str(&x, &y, "종료\t\tESC");
+
+
+	x = X + 40;
+	y = Y - 13;
+
+	y -= DISTANCE;
+	print_str(&x, &y, "각 칸에 내려오는 타일과 같은 위치에");
+
+	print_str(&x, &y, "블럭을 가져다 놓으면");
+
+	print_str(&x, &y, "점수가 100점씩 올라갑니다.");
+
+	print_str(&x, &y, "실패할 경우 50점 감점되며");
+
+	print_str(&x, &y, "5번 실패할 경우 게임이 종료되고");
+
+	print_str(&x, &y, "점수가 기록됩니다.");
+
+	y += DISTANCE;
+	print_str(&x, &y, "점수가 오를 수록 타일이 내려오는");
+
+	print_str(&x, &y, "속도가 빨라집니다.");
+
+	y += DISTANCE;
+	print_str(&x, &y, "지금 바로 1등하러 GO GO!");
+
+	y += DISTANCE * 3;
+	x -= 45;
+	print_str(&x, &y, ">> 아무 키나 누르면 메뉴로 이동합니다.");
+
+	_getch();
+
+	ciano_tiles();
 }
