@@ -159,6 +159,7 @@ void manual() {
 	int x = X - 55;
 	int y = Y - 8;
 
+	// draw game screenshot
 	print_block(x, y);
 
 	y += DISTANCE * 2;
@@ -186,6 +187,7 @@ void manual() {
 	print_str(&x, &y, "Á¾·á\t\tESC");
 
 
+	// draw description
 	x = X + 40;
 	y = Y - 13;
 
@@ -216,5 +218,6 @@ void manual() {
 
 	_getch();
 
+	// go to the menu
 	ciano_tiles();
 }
