@@ -11,7 +11,7 @@
 #define RIGHT 77
 
 // default coordinates
-#define X 120
+#define X 113
 #define Y 25
 
 // line spacing (menu)
@@ -28,6 +28,14 @@ void menu_process(int selected_menu);
 void manual();
 // modules
 void print_str(int* x, int* y, char* str);
+void print_block(int x, int y) {
+	gotoxy(x, y);
+	printf("■■■■■■■");
+	gotoxy(x, y + 1);
+	printf("■■■■■■■");
+	gotoxy(x, y + 2);
+	printf("■■■■■■■");
+}
 
 void ciano_tiles(void) {
 	system("cls");
@@ -57,16 +65,16 @@ void draw_menu() {
 	int y = Y;
 
 	y -= DISTANCE;
-	print_str(&x, &y, "  CIANO TILES");
+	print_str(&x, &y, "      CIANO TILES");
 
 	y += 2;
-	print_str(&x, &y, "      시작");
+	print_str(&x, &y, "          시작");
 
-	print_str(&x, &y, "    게임 방법");
+	print_str(&x, &y, "        게임 방법");
 
-	print_str(&x, &y, "      랭킹");
+	print_str(&x, &y, "          랭킹");
 
-	print_str(&x, &y, "      종료");
+	print_str(&x, &y, "          종료");
 }
 
 // select menu (chohadam 21-03-20)
@@ -144,12 +152,42 @@ void menu_process(int selected_menu) {
 
 // print game manual (chohadam, 21-03-21)
 void manual() {
-	// set x, y
-	int x = -10 + X;
-	int y = -5 + Y;
-
 	// clear console
 	system("cls");
+
+	// set x, y
+	int x = X - 55;
+	int y = Y - 8;
+
+	print_block(x, y);
+
+	y += DISTANCE * 2;
+	print_str(&x, &y, "      │      ");
+	y -= DISTANCE - 1;
+	print_str(&x, &y, "      ↓      ");
+
+	y += DISTANCE * 2;
+	print_block(x, y);
+	y -= 2;
+	x -= 6;
+	print_str(&x, &y, "←");
+	y -= DISTANCE;
+	x += 24;
+	print_str(&x, &y, "→");
+
+	x = X - 20;
+	y = Y - 9;
+	print_str(&x, &y, "1단계");
+	y += 1;
+	print_str(&x, &y, "점수\t\t0");
+	print_str(&x, &y, "실패\t\t0");
+	y += 1;
+	print_str(&x, &y, "이동\t\t← →");
+	print_str(&x, &y, "종료\t\tESC");
+
+
+	x = X + 40;
+	y = Y - 13;
 
 	y -= DISTANCE;
 	print_str(&x, &y, "각 칸에 내려오는 타일과 같은 위치에");
@@ -164,14 +202,17 @@ void manual() {
 
 	print_str(&x, &y, "점수가 기록됩니다.");
 
+	y += DISTANCE;
 	print_str(&x, &y, "점수가 오를 수록 타일이 내려오는");
 
 	print_str(&x, &y, "속도가 빨라집니다.");
 
+	y += DISTANCE;
 	print_str(&x, &y, "지금 바로 1등하러 GO GO!");
 
-	y += DISTANCE;
-	print_str(&x, &y, "아무 키나 누르면 메뉴로 이동합니다.");
+	y += DISTANCE * 3;
+	x -= 45;
+	print_str(&x, &y, ">> 아무 키나 누르면 메뉴로 이동합니다.");
 
 	_getch();
 
