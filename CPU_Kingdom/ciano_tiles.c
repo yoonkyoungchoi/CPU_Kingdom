@@ -22,20 +22,13 @@
 #define LAST (FIRST + 3 * DISTANCE)
 
 // functions
-void draw_menu();
-int select_menu();
+void draw_menu(void);
+int select_menu(void);
 void menu_process(int selected_menu);
-void manual();
+void draw_rectangle(void);
+void manual(void);
 // modules
 void print_str(int* x, int* y, char* str);
-void print_block(int x, int y) {
-	gotoxy(x, y);
-	printf("¡á¡á¡á¡á¡á¡á¡á");
-	gotoxy(x, y + 1);
-	printf("¡á¡á¡á¡á¡á¡á¡á");
-	gotoxy(x, y + 2);
-	printf("¡á¡á¡á¡á¡á¡á¡á");
-}
 
 void ciano_tiles(void) {
 	system("cls");
@@ -50,6 +43,15 @@ void ciano_tiles(void) {
 	menu_process(selected_menu);
 }
 
+void print_block(int x, int y) {
+	gotoxy(x, y);
+	printf("¡á¡á¡á¡á¡á¡á¡á");
+	gotoxy(x, y + 1);
+	printf("¡á¡á¡á¡á¡á¡á¡á");
+	gotoxy(x, y + 2);
+	printf("¡á¡á¡á¡á¡á¡á¡á");
+}
+
 // y += DISTANCE;
 // gotoxy(x, y);
 // printf("%s", str);
@@ -60,7 +62,7 @@ void print_str(int* x, int* y, char* str) {
 }
 
 // draw menu (chohadam 21-03-20)
-void draw_menu() {
+void draw_menu(void) {
 	int x = X;
 	int y = Y;
 
@@ -78,7 +80,7 @@ void draw_menu() {
 }
 
 // select menu (chohadam 21-03-20)
-int select_menu() {
+int select_menu(void) {
 	// Enter, Up, Down
 	char pressed_key;
 
@@ -129,6 +131,8 @@ int select_menu() {
 void menu_process(int selected_menu) {
 	// start
 	if (selected_menu == FIRST) {
+		draw_rectangle();
+		_getch();
 		ciano_tiles();
 	}
 	// game manual
@@ -150,8 +154,57 @@ void menu_process(int selected_menu) {
 	}
 }
 
+// draw the area where tiles down (chohadam, 21-03-22)
+void draw_rectangle(void) {
+	int x = X - 80;
+	int y = Y - 15;
+
+	int width = 50;
+	int height = 40;
+
+	// ¦£¡ª¡ª¡ª¡ª¦¤
+	gotoxy(x, y);
+	printf("¦£");
+	for (int i = 1; i < width; i++) {
+		printf("¡ª");
+	}
+	printf("¦¤");
+
+	// £ü      £ü
+	// ¦§¡ª¡ª¡ª¡ª¦©
+	for (int i = 1; i < height; i++) {
+		gotoxy(x, y + i);
+		if (i == height - 5) {
+			// ¦§¡ª¡ª¡ª¡ª¦©
+			printf("¦§");
+			for (int j = 1; j < width; j++) {
+				printf("¡ª");
+			}
+			printf("¦©");
+		}
+		else {
+			// £ü      £ü
+			printf("£ü");
+
+			for (int j = 1; j < width - 1; j++) {
+				printf("¡¡");
+			}
+			printf(" ");
+
+			printf("£ü");
+		}
+	}
+
+	gotoxy(x, y + height);
+	printf("¦¦");
+	for (int i = 1; i < width; i++) {
+		printf("¡ª");
+	}
+	printf("¦¥");
+}
+
 // print game manual (chohadam, 21-03-21)
-void manual() {
+void manual(void) {
 	// clear console
 	system("cls");
 
