@@ -22,10 +22,15 @@
 #define LAST (FIRST + 3 * DISTANCE)
 
 // functions
+// menu
 void draw_menu(void);
 int select_menu(void);
 void menu_process(int selected_menu);
+// game
+void game_process(void);
 void draw_rectangle(void);
+void game_ready(void);
+// manual
 void manual(void);
 // modules
 void print_str(int* x, int* y, char* str);
@@ -131,9 +136,7 @@ int select_menu(void) {
 void menu_process(int selected_menu) {
 	// start
 	if (selected_menu == FIRST) {
-		draw_rectangle();
-		_getch();
-		ciano_tiles();
+		game_process();
 	}
 	// game manual
 	else if (selected_menu == FIRST + DISTANCE) {
@@ -152,6 +155,14 @@ void menu_process(int selected_menu) {
 		printf("Something Wrong");
 		exit(1);
 	}
+}
+
+// 
+void game_process(void) {
+	draw_rectangle();
+	game_ready();
+	_getch();
+	ciano_tiles();
 }
 
 // draw the area where tiles down (chohadam, 21-03-22)
@@ -195,12 +206,29 @@ void draw_rectangle(void) {
 		}
 	}
 
+	// └――――┘
 	gotoxy(x, y + height);
 	printf("└");
 	for (int i = 1; i < width; i++) {
 		printf("―");
 	}
 	printf("┘");
+}
+
+// game ready description (chohadam, 21-03-22)
+void game_ready(void) {
+	int x = X - 50;
+	int y = Y + 5;
+
+	// print description
+	gotoxy(x, y);
+	printf(">>   아무 키나 누르면 게임이 시작됩니다.");
+
+	_getch();
+
+	// remove description
+	gotoxy(x, y);
+	printf("                                        ");
 }
 
 // print game manual (chohadam, 21-03-21)
