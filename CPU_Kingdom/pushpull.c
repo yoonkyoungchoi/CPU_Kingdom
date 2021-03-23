@@ -3,6 +3,7 @@
 // _getch() value of ESC key
 #define ESC 27
 
+/*
 double rule(char name[][10]);
 int result(char name[][10], int* result1, int* result2);
 void gotoxy(int x, int y);
@@ -13,7 +14,7 @@ int main(void) {
 
 	time = rule(name);
 }
-
+*/
 void pushpull(void) {
 	system("cls");
 
@@ -31,6 +32,7 @@ void pushpull(void) {
 	} while (key != ESC);
 }
 
+/*
 double rule(char name[][10]) { 
 	double time = 20; //제한시간 20초
 	int i;
@@ -86,4 +88,4 @@ void rope(int a){ //줄다리기 줄 설정
 		}else
 			printf("◆");
 	}
-}
+} */
