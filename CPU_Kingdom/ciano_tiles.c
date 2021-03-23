@@ -21,6 +21,16 @@
 #define FIRST (Y + 2 + DISTANCE)
 #define LAST (FIRST + 3 * DISTANCE)
 
+// tile size
+#define TILE_WIDTH 14
+#define TILE_HEIGHT 6
+
+// global variables
+// player name
+char name[20];
+// game score, fail count, current step
+int score, fail, step = 1;
+
 // functions
 // menu
 void draw_menu(void);
@@ -28,8 +38,11 @@ int select_menu(void);
 void menu_process(int selected_menu);
 // game
 void game_process(void);
+void get_player_name(void);
 void draw_rectangle(void);
 void game_ready(void);
+void game_start(void);
+void print_score(void);
 // manual
 void manual(void);
 // modules
@@ -48,7 +61,7 @@ void ciano_tiles(void) {
 	menu_process(selected_menu);
 }
 
-void print_block(int x, int y) {
+void print_tile(int x, int y) {
 	gotoxy(x, y);
 	printf("■■■■■■■");
 	gotoxy(x, y + 1);
@@ -157,12 +170,32 @@ void menu_process(int selected_menu) {
 	}
 }
 
-// 
+// start game (chohadam, 21-03-22)
 void game_process(void) {
+	get_player_name();
 	draw_rectangle();
 	game_ready();
+	game_start();
 	_getch();
 	ciano_tiles();
+}
+
+// input player name (chohadam, 21-03-23)
+void get_player_name(void) {
+	// clear console
+	system("cls");
+
+	// set x, y
+	int x = X;
+	int y = Y;
+
+	// print description
+	print_str(&x, &y, "이름을 입력해주세요.");
+	print_str(&x, &y, ">> ");
+	
+	// input player name
+	scanf_s("%s", &name, 20);
+	fflush(stdin);
 }
 
 // draw the area where tiles down (chohadam, 21-03-22)
@@ -172,6 +205,9 @@ void draw_rectangle(void) {
 
 	int width = 50;
 	int height = 40;
+
+	// clear console
+	system("cls");
 
 	// ┌――――┐
 	gotoxy(x, y);
@@ -231,6 +267,58 @@ void game_ready(void) {
 	printf("                                        ");
 }
 
+// start block down (chohadam, 21-03-24)
+void game_start(void) {
+	int x = X;
+	int y = Y - 15;
+
+	int rnd = 0;
+	int tile_y = y - 5;
+	int tile_x[4] = {
+		x,
+		x + TILE_WIDTH,
+		x + TILE_WIDTH * 2,
+		x + TILE_WIDTH * 3
+	};
+
+	// setting use random
+	srand((unsigned int)time(NULL));
+
+	// default delay time
+	int delay = 40;
+
+	char pressed_key;
+	while ((pressed_key = get_key()) != ESC) {
+		print_score();
+	}
+}
+
+// print score, fail, step, etc. (chohadam, 21-03-24)
+void print_score(void) {
+	int x = X + 55;
+	int y = Y - 7;
+
+	// string temp
+	char str[20];
+
+	sprintf_s(str, sizeof(str), "[  %s  ] 님", name);
+	print_str(&x, &y, str);
+
+	sprintf_s(str, sizeof(str), "%d단계", step);
+	print_str(&x, &y, str);
+
+	y += DISTANCE;
+	sprintf_s(str, sizeof(str), "점수\t\t\t%5d", score);
+	print_str(&x, &y, str);
+
+	sprintf_s(str, sizeof(str), "실패\t\t\t%5d", fail);
+	print_str(&x, &y, str);
+
+	print_str(&x, &y, "이동\t\t\t← →");
+
+	print_str(&x, &y, "종료\t\t\t  ESC");
+}
+
 // print game manual (chohadam, 21-03-21)
 void manual(void) {
 	// clear console
@@ -241,7 +329,7 @@ void manual(void) {
 	int y = Y - 8;
 
 	// draw game screenshot
-	print_block(x, y);
+	print_tile(x, y);
 
 	y += DISTANCE * 2;
 	print_str(&x, &y, "      │      ");
@@ -249,7 +337,7 @@ void manual(void) {
 	print_str(&x, &y, "      ↓      ");
 
 	y += DISTANCE * 2;
-	print_block(x, y);
+	print_tile(x, y);
 	y -= 2;
 	x -= 6;
 	print_str(&x, &y, "←");
