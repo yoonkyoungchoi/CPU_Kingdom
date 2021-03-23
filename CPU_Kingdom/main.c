@@ -7,6 +7,7 @@
 
 // header files
 #include "ciano_tiles.h"
+#include "guess_note.h"
 #include "maze_game.h"
 #include "pushpull.h"
 #include "snake_game.h"
@@ -14,9 +15,6 @@
 
 // _getch() value of ESC key (chohadam 21-03-11)
 #define ESC 27
-
-// C++ function
-void guess_note();
 
 void set_console(void);
 void set_cursor(int flag, int size);

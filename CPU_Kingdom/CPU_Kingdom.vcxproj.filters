@@ -27,7 +27,7 @@
     <ClCompile Include="snake_game.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="guess_note.cpp">
+    <ClCompile Include="guess_note.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="modules.c">
@@ -51,6 +51,9 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="ciano_tiles.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="guess_note.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
