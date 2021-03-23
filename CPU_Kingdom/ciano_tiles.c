@@ -47,6 +47,8 @@ void print_score(void);
 void manual(void);
 // modules
 void print_str(int* x, int* y, char* str);
+void print_tile(int x, int y);
+void remove_tile(int x, int y);
 
 void ciano_tiles(void) {
 	system("cls");
@@ -68,6 +70,15 @@ void print_tile(int x, int y) {
 	printf("¡á¡á¡á¡á¡á¡á¡á");
 	gotoxy(x, y + 2);
 	printf("¡á¡á¡á¡á¡á¡á¡á");
+}
+
+void remove_tile(int x, int y) {
+	gotoxy(x, y);
+	printf("              ");
+	gotoxy(x, y + 1);
+	printf("              ");
+	gotoxy(x, y + 2);
+	printf("              ");
 }
 
 // y += DISTANCE;
@@ -201,10 +212,10 @@ void get_player_name(void) {
 // draw the area where tiles down (chohadam, 21-03-22)
 void draw_rectangle(void) {
 	int x = X - 80;
-	int y = Y - 15;
+	int y = Y - 10;
 
-	int width = 50;
-	int height = 40;
+	int width = TILE_WIDTH * 4;
+	int height = TILE_HEIGHT * 6;
 
 	// clear console
 	system("cls");
@@ -269,11 +280,11 @@ void game_ready(void) {
 
 // start block down (chohadam, 21-03-24)
 void game_start(void) {
-	int x = X;
-	int y = Y - 15;
+	int x = X - 76;
+	int y = Y - 8;
 
-	int rnd = 0;
-	int tile_y = y - 5;
+	int rnd = rand() % 4;
+	int tile_y = y;
 	int tile_x[4] = {
 		x,
 		x + TILE_WIDTH,
@@ -289,7 +300,24 @@ void game_start(void) {
 
 	char pressed_key;
 	while ((pressed_key = get_key()) != ESC) {
+		// print name, score, fail, step, etc.
 		print_score();
+
+		// print tile during delay time
+		print_tile(tile_x[rnd], tile_y);
+		Sleep(delay);
+		remove_tile(tile_x[rnd], tile_y);
+
+		if (tile_y < y + 25) {
+			// falling
+			tile_y += 1;
+		}
+		else {
+			// get random number
+			rnd = rand() % 4;
+			// top
+			tile_y = y;
+		}
 	}
 }
 
