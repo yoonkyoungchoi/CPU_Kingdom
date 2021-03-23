@@ -3,6 +3,7 @@
 // _getch() value of ESC key
 #define ESC 27
 
+// ¡÷ºÆ 
 /*
 double rule(char name[][10]);
 int result(char name[][10], int* result1, int* result2);
