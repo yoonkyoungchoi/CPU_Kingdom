@@ -23,12 +23,28 @@ void pushpull(void) {
 	char key;
 
 	do {
-		gotoxy(x, y);
-		printf("★★★★ 줄다리기 ★★★★");
-		printf("★ 스페이스바와 엔터를 활용하여 ★");
-		printf("★ 줄을 가장 빨리 자기쪽으로 당기는 게임입니다!★");
-		printf("★ 단판 승부! ★");
-		printf("PUSHPULL");
+		gotoxy(96, y);
+		printf("★★★★★★★★★★ 줄다리기 ★★★★★★★★★★\n");
+		gotoxy(96, 21);
+		printf("★");
+		gotoxy(144, 21);
+		printf("★");
+		gotoxy(96, 22);
+		printf("★       스페이스바와 엔터를 활용하여           ★\n");
+		gotoxy(96, 23);
+		printf("★ 줄을 가장 빨리 자기쪽으로 당기는 게임입니다! ★\n");
+		gotoxy(96, 24);
+		printf("★                 단판 승부!                   ★\n");
+		gotoxy(96, 25);
+		printf("★");
+		gotoxy(144, 25);
+		printf("★");
+		gotoxy(96, 26);
+		printf("★                    >.<                        ★ ");
+		gotoxy(144, 26);
+		printf("★");
+		gotoxy(96, 27);
+		printf("★★★★★★★★★★★★★★★★★★★★★★★★★\n");
 		key = _getch();
 	} while (key != ESC);
 }
