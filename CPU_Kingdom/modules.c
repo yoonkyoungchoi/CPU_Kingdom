@@ -29,10 +29,7 @@ int get_key(void) {
 }
 
 // move to the arrow key function (chohadam 21-03-11)
-void move_arrow_key(char key, int* x, int* y) {
-	// moving size
-	int size = 1;
-
+void move_arrow_key(char key, int* x, int* y, int size) {
 	switch (key) {
 	// pressed ก่
 	case UP:

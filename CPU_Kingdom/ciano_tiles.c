@@ -218,7 +218,7 @@ void draw_rectangle(void) {
 	int y = Y - 13;
 
 	int width = TILE_WIDTH / 2 * TILE_LINE + 2;
-	int height = TILE_HEIGHT * 6;
+	int height = TILE_HEIGHT * 6 - 1;
 
 	// clear console
 	system("cls");
@@ -235,7 +235,7 @@ void draw_rectangle(void) {
 	// ├――――┤
 	for (int i = 1; i < height; i++) {
 		gotoxy(x, y + i);
-		if (i == height - 5) {
+		if (i == height - 4) {
 			// ├――――┤
 			printf("├");
 			for (int j = 1; j < width; j++) {
@@ -298,6 +298,10 @@ void game_start(void) {
 		x + TILE_WIDTH * 4
 	};
 
+	// 유저 영역 시작
+	int user_y = Y - 13 + TILE_HEIGHT * 6 - 4;
+	int user_x = x;
+
 	// setting use random
 	srand((unsigned int)time(NULL));
 
@@ -309,20 +313,64 @@ void game_start(void) {
 		// print name, score, fail, step, etc.
 		print_score();
 
+		// print user tile
+		print_tile(user_x, user_y);
+
 		// print tile during delay time
 		print_tile(tile_x[rnd], tile_y);
 		Sleep(delay);
 		remove_tile(tile_x[rnd], tile_y);
 
+		// 시작점 + (타일 높이 * 6) - 유저 영역 - 위 아래
 		if (tile_y < y + TILE_HEIGHT * 6 - 6 - 3) {
 			// falling
 			tile_y += 1;
 		}
 		else {
+			if (tile_x[rnd] == user_x) {
+				// tile position == user tile position
+				score += 100;
+			}
+			else {
+				// fail
+				score -= 50;
+				fail += 1;
+				if (fail == 5) {
+					// game over
+					break;
+				}
+			}
 			// get random number
 			rnd = rand() % TILE_LINE;
 			// top
 			tile_y = y;
+		}
+
+		// remove user tile
+		remove_tile(user_x, user_y);
+		// move user tile
+		move_arrow_key(pressed_key, &user_x, &user_y, TILE_WIDTH);
+
+		// set step and delay time
+		if (score >= 500 && score < 1500) {
+			// stage 2
+			step = 2;
+			delay = 30;
+		}
+		else if (score >= 1500 && score < 3000) {
+			// stage 3
+			step = 3;
+			delay = 20;
+		}
+		else if (score >= 3000 && score < 5000) {
+			// stage 4
+			step = 4;
+			delay = 10;
+		}
+		else if (score >= 5000) {
+			// stage 5
+			step = 5;
+			delay = 5;
 		}
 	}
 }
