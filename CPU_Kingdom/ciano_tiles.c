@@ -46,6 +46,7 @@ void draw_rectangle(void);
 void game_ready(void);
 void game_start(void);
 void print_score(void);
+void game_over(void);
 // manual
 void manual(void);
 // modules
@@ -190,8 +191,6 @@ void game_process(void) {
 	draw_rectangle();
 	game_ready();
 	game_start();
-	_getch();
-	ciano_tiles();
 }
 
 // input player name (chohadam, 21-03-23)
@@ -337,6 +336,7 @@ void game_start(void) {
 				fail += 1;
 				if (fail == 5) {
 					// game over
+					game_over();
 					break;
 				}
 			}
@@ -382,6 +382,25 @@ void game_start(void) {
 			delay = 5;
 		}
 	}
+}
+
+void game_over(void) {
+	// clear console
+	system("cls");
+
+	// print game over
+	gotoxy(X + 10, Y + 5);
+	printf("GAME OVER");
+
+	// 2초간 보여줌
+	Sleep(2000);
+
+	gotoxy(X - 5, Y + 30);
+	printf(">> 아무 키나 누르면 메뉴로 돌아갑니다.");
+	_getch();
+
+	// go to menu
+	ciano_tiles();
 }
 
 // print score, fail, step, etc. (chohadam, 21-03-24)
