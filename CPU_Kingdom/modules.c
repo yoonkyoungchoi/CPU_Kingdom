@@ -6,12 +6,6 @@
 #define LEFT 75
 #define RIGHT 77
 
-// coordinate minimum, maximum (chohadam 21-03-11)
-#define X_MIN 2
-#define Y_MIN 1
-#define X_MAX 238
-#define Y_MAX 62
-
 // move the cursor funtion (chohadam 21-03-11)
 void gotoxy(int x, int y) {
 	COORD pos = { x, y };
@@ -29,30 +23,41 @@ int get_key(void) {
 }
 
 // move to the arrow key function (chohadam 21-03-11)
-void move_arrow_key(char key, int* x, int* y) {
-	// moving size
-	int size = 1;
+void move_arrow_key(
+	char key,
+	int* x,
+	int* y,
+	int size,
+	int y_min,
+	int y_max,
+	int x_min,
+	int x_max
+) {
+	const int Y_MIN = y_min;
+	const int Y_MAX = y_max;
+	const int X_MIN = x_min;
+	const int X_MAX = x_max;
 
 	switch (key) {
 	// pressed ก่
 	case UP:
 		*y -= size;
-		if (*y < Y_MIN) *y = Y_MIN;
+		if (*y < Y_MIN) *y = Y_MAX;
 		break;
 	// pressed ก้
 	case DOWN:
 		*y += size;
-		if (*y > Y_MAX) *y = Y_MAX;
+		if (*y > Y_MAX) *y = Y_MIN;
 		break;
 	// pressed ก็
 	case LEFT:
 		*x -= size;
-		if (*x < X_MIN) *x = X_MIN;
+		if (*x < X_MIN) *x = X_MAX;
 		break;
 	// pressed กๆ
 	case RIGHT:
 		*x += size;
-		if (*x > X_MAX) *x = X_MAX;
+		if (*x > X_MAX) *x = X_MIN;
 		break;
 	}
 }
