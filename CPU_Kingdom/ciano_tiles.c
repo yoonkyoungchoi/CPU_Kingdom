@@ -25,6 +25,9 @@
 #define TILE_WIDTH 14
 #define TILE_HEIGHT 6
 
+// column
+#define TILE_LINE 5
+
 // global variables
 // player name
 char name[20];
@@ -211,10 +214,10 @@ void get_player_name(void) {
 
 // draw the area where tiles down (chohadam, 21-03-22)
 void draw_rectangle(void) {
-	int x = X - 80;
-	int y = Y - 10;
+	int x = X - 70;
+	int y = Y - 13;
 
-	int width = TILE_WIDTH * 4;
+	int width = TILE_WIDTH / 2 * TILE_LINE + 2;
 	int height = TILE_HEIGHT * 6;
 
 	// clear console
@@ -280,16 +283,19 @@ void game_ready(void) {
 
 // start block down (chohadam, 21-03-24)
 void game_start(void) {
-	int x = X - 76;
-	int y = Y - 8;
+	// draw rectangle x - 2
+	// draw rectangle y - 1
+	int x = X - 68;
+	int y = Y - 12;
 
-	int rnd = rand() % 4;
+	int rnd = rand() % TILE_LINE;
 	int tile_y = y;
-	int tile_x[4] = {
+	int tile_x[TILE_LINE] = {
 		x,
 		x + TILE_WIDTH,
 		x + TILE_WIDTH * 2,
-		x + TILE_WIDTH * 3
+		x + TILE_WIDTH * 3,
+		x + TILE_WIDTH * 4
 	};
 
 	// setting use random
@@ -308,13 +314,13 @@ void game_start(void) {
 		Sleep(delay);
 		remove_tile(tile_x[rnd], tile_y);
 
-		if (tile_y < y + 25) {
+		if (tile_y < y + TILE_HEIGHT * 6 - 6 - 3) {
 			// falling
 			tile_y += 1;
 		}
 		else {
 			// get random number
-			rnd = rand() % 4;
+			rnd = rand() % TILE_LINE;
 			// top
 			tile_y = y;
 		}
