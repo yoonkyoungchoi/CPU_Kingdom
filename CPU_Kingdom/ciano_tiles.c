@@ -349,7 +349,16 @@ void game_start(void) {
 		// remove user tile
 		remove_tile(user_x, user_y);
 		// move user tile
-		move_arrow_key(pressed_key, &user_x, &user_y, TILE_WIDTH);
+		move_arrow_key(
+			pressed_key,
+			&user_x,
+			&user_y,
+			TILE_WIDTH,
+			user_y,
+			user_y,
+			x,
+			x + TILE_WIDTH * 4
+		);
 
 		// set step and delay time
 		if (score >= 500 && score < 1500) {
