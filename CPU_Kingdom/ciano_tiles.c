@@ -49,6 +49,8 @@ void print_score(void);
 void game_over(void);
 // manual
 void manual(void);
+// ranking
+void save_score(void);
 // modules
 void print_str(int* x, int* y, char* str);
 void print_tile(int x, int y);
@@ -273,7 +275,7 @@ void game_ready(void) {
 	gotoxy(x, y);
 	printf(">>   아무 키나 누르면 게임이 시작됩니다.");
 
-	_getch();
+	char _ = _getch();
 
 	// remove description
 	gotoxy(x, y);
@@ -397,7 +399,11 @@ void game_over(void) {
 
 	gotoxy(X - 5, Y + 30);
 	printf(">> 아무 키나 누르면 메뉴로 돌아갑니다.");
-	_getch();
+	
+	char _ = _getch();
+
+	// save score
+	save_score();
 
 	// go to menu
 	ciano_tiles();
@@ -495,8 +501,25 @@ void manual(void) {
 	x -= 45;
 	print_str(&x, &y, ">> 아무 키나 누르면 메뉴로 이동합니다.");
 
-	_getch();
+	char _ = _getch();
 
 	// go to the menu
 	ciano_tiles();
 }
+
+void save_score(void) {
+	FILE* fp;
+	// file name
+	char file[22] = "ciano-tiles-score.txt";
+
+	fopen_s(&fp, file, "a");
+	
+	if (fp != NULL) {
+		// write name and score
+		fprintf_s(fp, "%s %d\n", name, score);
+		// close
+		fclose(fp);
+	}
+}
+
+
