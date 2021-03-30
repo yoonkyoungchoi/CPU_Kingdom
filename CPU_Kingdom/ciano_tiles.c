@@ -28,9 +28,12 @@
 // column
 #define TILE_LINE 5
 
+// name size
+#define NAME_SIZE 20
+
 // global variables
 // player name
-char name[20];
+char name[NAME_SIZE];
 // game score, fail count, current step
 int score, fail, step = 1;
 
@@ -51,6 +54,8 @@ void game_over(void);
 void manual(void);
 // ranking
 void save_score(void);
+void ranking(void);
+void test(void);
 // modules
 void print_str(int* x, int* y, char* str);
 void print_tile(int x, int y);
@@ -174,7 +179,7 @@ void menu_process(int selected_menu) {
 	}
 	// ranking
 	else if (selected_menu == FIRST + DISTANCE * 2) {
-		ciano_tiles();
+		ranking();
 	}
 	// end
 	else if (selected_menu == LAST) {
@@ -268,7 +273,7 @@ void draw_rectangle(void) {
 
 // game ready description (chohadam, 21-03-22)
 void game_ready(void) {
-	int x = X - 50;
+	int x = X - 53;
 	int y = Y + 5;
 
 	// print description
@@ -507,12 +512,13 @@ void manual(void) {
 	ciano_tiles();
 }
 
+// save score and player name to file (chohadam, 21-03-30)
 void save_score(void) {
 	FILE* fp;
 	// file name
-	char file[22] = "ciano-tiles-score.txt";
+	char* filename = "ciano-tiles-score.txt";
 
-	fopen_s(&fp, file, "a");
+	fopen_s(&fp, filename, "a");
 	
 	if (fp != NULL) {
 		// write name and score
@@ -522,4 +528,87 @@ void save_score(void) {
 	}
 }
 
+// get score and player name from file (chohadam, 21-03-30)
+void ranking(void) {
+	FILE* fp;
+	char* filename = "ciano-tiles-score.txt";
 
+	// read file
+	fopen_s(&fp, filename, "r");
+
+	// info variables of 100 people
+	char players_name[100][20];
+	int players_score[100];
+
+	// set x, y
+	int x = X - 8, y = Y - 20;
+
+	// used variables
+	int count = 0, score_temp;
+	char name_temp[NAME_SIZE];
+
+	// clear console
+	system("cls");
+
+	// print
+	//		랭킹
+	// 이름		점수
+	gotoxy(x + 17, y);
+	printf("랭킹");
+	y += DISTANCE;
+	print_str(&x, &y, "이름");
+	gotoxy(x + 32, y);
+	printf("점수");
+
+	if (fp != NULL) {
+		while (!feof(fp)) {
+			// read line from file
+			fscanf_s(fp, "%s %d\n", players_name[count], NAME_SIZE, &players_score[count]);
+			count++;
+		}
+
+		// order by desc (score)
+		for (int i = 0; i < count - 1; i++) {
+			for (int j = i + 1; j < count; j++) {
+				if (players_score[i] < players_score[j]) {
+					score_temp = players_score[i];
+					players_score[i] = players_score[j];
+					players_score[j] = score_temp;
+
+					// move player name
+					strcpy_s(name_temp, NAME_SIZE - 1, players_name[i]);
+					strcpy_s(players_name[i], NAME_SIZE - 1, players_name[j]);
+					strcpy_s(players_name[j], NAME_SIZE - 1, name_temp);
+				}
+			}
+		}
+
+		// print 10 people
+		count = count < 10 ? count : 10;
+
+		// print name and score
+		for (int i = 0; i < count; i++) {
+			print_str(&x, &y, players_name[i]);
+			gotoxy(x + 30, y);
+			printf("%5d", players_score[i]);
+		}
+
+		// close
+		fclose(fp);
+
+		gotoxy(x, Y + 30);
+		printf(">> 아무 키나 누르면 메뉴로 이동합니다. ");
+
+		int _ = _getch();
+
+		ciano_tiles();
+	}
+	else {
+		gotoxy(x, Y + 30);
+		printf(">> 아무 키나 누르면 메뉴로 이동합니다.");
+
+		int _ = _getch();
+
+		ciano_tiles();
+	}
+}
