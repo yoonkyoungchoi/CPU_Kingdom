@@ -49,6 +49,8 @@ void print_score(void);
 void game_over(void);
 // manual
 void manual(void);
+// ranking
+void save_score(void);
 // modules
 void print_str(int* x, int* y, char* str);
 void print_tile(int x, int y);
@@ -400,6 +402,9 @@ void game_over(void) {
 	
 	char _ = _getch();
 
+	// save score
+	save_score();
+
 	// go to menu
 	ciano_tiles();
 }
@@ -501,3 +506,20 @@ void manual(void) {
 	// go to the menu
 	ciano_tiles();
 }
+
+void save_score(void) {
+	FILE* fp;
+	// file name
+	char file[22] = "ciano-tiles-score.txt";
+
+	fopen_s(&fp, file, "a");
+	
+	if (fp != NULL) {
+		// write name and score
+		fprintf_s(fp, "%s %d\n", name, score);
+		// close
+		fclose(fp);
+	}
+}
+
+
