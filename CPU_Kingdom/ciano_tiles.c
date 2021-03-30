@@ -55,7 +55,6 @@ void manual(void);
 // ranking
 void save_score(void);
 void ranking(void);
-void test(void);
 // modules
 void print_str(int* x, int* y, char* str);
 void print_tile(int x, int y);
@@ -339,7 +338,10 @@ void game_start(void) {
 			}
 			else {
 				// fail
-				score -= 50;
+				// minus score
+				if (score >= 50) {
+					score -= 50;
+				}
 				fail += 1;
 				if (fail == 5) {
 					// game over
