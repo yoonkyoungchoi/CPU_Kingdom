@@ -1,108 +1,135 @@
 #include "pushpull.h"
+#include <conio.h>
 
 // _getch() value of ESC key
 #define ESC 27
 
-// 주석 
-/*
-double rule(char name[][10]);
-int result(char name[][10], int* result1, int* result2);
-void gotoxy(int x, int y);
+void start_game(void);
+void game_fun(void);
+char key;
+char t_name1;
+char t_name2;
+char click;
+int line_start = 100;
+int win = 0;
 
-int main(void) {
-	char name[2][10];
-	double time;
-
-	time = rule(name);
-}
-*/
 void pushpull(void) {
+	char t_name1;
+	char t_name2;
 	system("cls");
 
-	int x = 100, y = 20;
-	char key;
-
 	do {
-		gotoxy(96, y);
+		gotoxy(96, 15);
 		printf("★★★★★★★★★★ 줄다리기 ★★★★★★★★★★\n");
+		gotoxy(96, 16);
+		printf("★");
+		gotoxy(144, 16);
+		printf("★");
+		gotoxy(96, 17);
+		printf("★         A키와 L키를 마구마구 연타!!          ★\n");
+		gotoxy(96, 18);
+		printf("★ 줄을 가장 빨리 자기쪽으로 당기는 게임입니다! ★\n");
+		gotoxy(96, 19);
+		printf("★                 단판 승부!                   ★\n");
+		gotoxy(96, 20);
+		printf("★");
+		gotoxy(144, 20);
+		printf("★");
 		gotoxy(96, 21);
 		printf("★");
 		gotoxy(144, 21);
 		printf("★");
 		gotoxy(96, 22);
-		printf("★       스페이스바와 엔터를 활용하여           ★\n");
+		printf("★      아무키나 누르면 게임이 시작됩니다!      ★ ");
 		gotoxy(96, 23);
-		printf("★ 줄을 가장 빨리 자기쪽으로 당기는 게임입니다! ★\n");
+		printf("★");
+		gotoxy(144, 23);
+		printf("★");
 		gotoxy(96, 24);
-		printf("★                 단판 승부!                   ★\n");
-		gotoxy(96, 25);
-		printf("★");
-		gotoxy(144, 25);
-		printf("★");
-		gotoxy(96, 26);
-		printf("★                    >.<                        ★ ");
-		gotoxy(144, 26);
-		printf("★");
-		gotoxy(96, 27);
 		printf("★★★★★★★★★★★★★★★★★★★★★★★★★\n");
-		key = _getch();
+		do {
+			start_game();
+			do {
+				game_fun();
+				} while (win = 1);
+			} while (key != ESC);
 	} while (key != ESC);
 }
 
-/*
-double rule(char name[][10]) { 
-	double time = 20; //제한시간 20초
-	int i;
-	for (i = 0; i < 3; i++) {
-		print("%d번 팀 이름을 입력해주세요! -> "); //팀 이름 입력받음
-		scanf("%s", &name[i]); // for문으로 2번 반복
-	}
-
-	printf("\n\n\n");
-	printf("☆ 제한시간 : ", time);
-	sleep(1000);
-	time--; //시간 감소
-
-	//중앙점 표시
-	gotoxy(38, 6); 
-	printf("▼");
-	gotoxy(40, 7);
-	printf("▲");
-
-	return time;
-	
-}
-
-int result(char name[][10], int* result1, int* result2) { //결과값 출력
-	gotoxy(1, 14);
-	if (*result1 == 2) {
-		printf("☆☆☆ %s 승리! ☆☆☆");
-		return 1;
-	}
-	else if (*result2 == 2) {
-		printf("☆☆☆ %s 승리! ☆☆☆");
-		return 2;
-	}
-	return 0;
-}
-
-void rope(int a){ //줄다리기 줄 설정
-	int i, line[21] = { 0 }; // 21칸
-	line[10] = 1; //선 범위 지정
+void line(int rnd)
+{
+	system("cls");
+	int i, line[21] = { 0 };
+	line[10] = 1;
 	line[4] = 2;
 	line[16] = 2;
-	gotoxy(1, 8);
-	for (i = 0; i < 78; i++) {
+	gotoxy(107, 17);
+	for (i = 0; i < 78; i++)
 		printf(" ");
-	}
-	gotoxy(a, 8);
 
-	for (i = 0; i < 21; i++) { 
-		if (line[i] == 0) {
+	gotoxy(88, 17);
+	printf("%s", &t_name1);
+	gotoxy(153, 17);
+	printf("%s", &t_name2);
+
+	gotoxy(rnd, 17);
+
+	for (i = 0; i < 21; i++)
+		if (line[i] == 0)
 			printf("□");
-		}else if (line[i] == 1) { //중심점
+		else if (line[i] == 1)
 			printf("■");
-		}else
+		else
 			printf("◆");
+}
+
+void start_game() {
+	gotoxy(107, 26);
+	printf("시작 전 팀 이름을 정해주세요!\n");
+	gotoxy(105, 27);
+	printf("첫번째 팀 이름입력 후 엔터!> ");
+	scanf_s("%s", &t_name1,100);
+	gotoxy(105, 28);
+	printf("두번째 팀 이름입력 후 엔터!> ");
+	scanf_s("%s", &t_name2, 100);
+	system("cls");
+	line(line_start);
+
+	gotoxy(118, 19);
+	printf("기준점");
+	gotoxy(120, 16);
+	printf("▼");
+	gotoxy(120, 18);
+	printf("▲");
+
+}
+
+void game_fun() {
+	int count = 0;
+	switch (click) {
+	case 'A':
+		count += 10;
+		for (int i = line_start; i > line_start + count; i--) {
+			line(i);
+			Sleep(100);
+		}
+	case 'L':
+		count -= 10;
+		for (int i = line_start; i > line_start + count; i--) {
+			line(i);
+			Sleep(100);
+		}
+	case 'a':
+		count += 10;
+		for (int i = line_start; i > line_start + count; i--) {
+			line(i);
+			Sleep(100);
+		}
+	case 'l':
+		count -= 10;
+		for (int i = line_start; i > line_start + count; i--) {
+			line(i);
+			Sleep(100);
+		}
 	}
-} */
+}
