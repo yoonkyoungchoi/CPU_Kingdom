@@ -12,7 +12,7 @@ void reset(void);
 void draw_map(void);
 void move(int dir);
 void pause(void);
-void game_over(void);
+void over(void);
 void target(void);
 void status(void);
 void print(void);
