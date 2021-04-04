@@ -410,7 +410,7 @@ void maze_game(void) {
 
 	int choose;
 	gotoxy(70, 10);
-	printf("1. 1단계 모드(15x15)\n");
+	printf("1. 1단계 모드(21x21)\n");
 	gotoxy(70, 12);
 	printf("2. 2단계 모드(25x25)\n");
 	gotoxy(70, 14);
