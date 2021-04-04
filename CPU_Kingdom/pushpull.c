@@ -40,7 +40,7 @@ void pushpull(void) {
 		gotoxy(144, 21);
 		printf("★");
 		gotoxy(96, 22);
-		printf("★      아무키나 누르면 게임이 시작됩니다!      ★ ");
+		printf("★ ESC를 누르면 다시 게임선택으로 돌아갑니다! ★ ");
 		gotoxy(96, 23);
 		printf("★");
 		gotoxy(144, 23);
@@ -81,6 +81,32 @@ void line(int rnd)
 			printf("■");
 		else
 			printf("◆");
+
+	gotoxy(118, 20);
+	printf("기준점");
+	gotoxy(120, 16);
+	printf("▼");
+	gotoxy(120, 18);
+	printf("▲");
+
+	gotoxy(105, 30);
+	printf("메뉴로 돌아가려면 ESC를 눌러주세요\n");
+
+	char go_menu = _getch();
+
+	do {
+		if (_kbhit()) {
+			if (go_menu == 27) {
+				pushpull();
+				break;
+			}
+		}
+	}
+	while (go_menu != 27);
+	char go_menu1 = _getch();
+	pushpull();
+	
+	
 }
 
 void start_game() {
@@ -94,13 +120,6 @@ void start_game() {
 	scanf_s("%s", &t_name2, 100);
 	system("cls");
 	line(line_start);
-
-	gotoxy(118, 19);
-	printf("기준점");
-	gotoxy(120, 16);
-	printf("▼");
-	gotoxy(120, 18);
-	printf("▲");
 
 }
 
