@@ -126,25 +126,27 @@ void start_game() {
 void game_fun() {
 	int count = 0;
 	switch (click) {
-	case 'A':
+
+
+	case 65:
 		count += 10;
 		for (int i = line_start; i > line_start + count; i--) {
 			line(i);
 			Sleep(100);
 		}
-	case 'L':
+	case 97:
 		count -= 10;
 		for (int i = line_start; i > line_start + count; i--) {
 			line(i);
 			Sleep(100);
 		}
-	case 'a':
+	case 76:
 		count += 10;
 		for (int i = line_start; i > line_start + count; i--) {
 			line(i);
 			Sleep(100);
 		}
-	case 'l':
+	case 108:
 		count -= 10;
 		for (int i = line_start; i > line_start + count; i--) {
 			line(i);
