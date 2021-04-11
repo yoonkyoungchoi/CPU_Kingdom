@@ -9,9 +9,9 @@ void game_fun(void);
 char key;
 char t_name1;
 char t_name2;
-char click;
 int line_start = 100;
 int win = 0;
+int win_lose = 0;
 
 void pushpull(void) {
 	char t_name1;
@@ -56,7 +56,7 @@ void pushpull(void) {
 	} while (key != ESC);
 }
 
-void line(int rnd)
+void line(int r)
 {
 	system("cls");
 	int i, line[21] = { 0 };
@@ -67,12 +67,12 @@ void line(int rnd)
 	for (i = 0; i < 78; i++)
 		printf(" ");
 
-	gotoxy(88, 17);
+	gotoxy(88, 16);
 	printf("%s", &t_name1);
-	gotoxy(153, 17);
+	gotoxy(153, 16);
 	printf("%s", &t_name2);
 
-	gotoxy(rnd, 17);
+	gotoxy(r, 17);
 
 	for (i = 0; i < 21; i++)
 		if (line[i] == 0)
@@ -94,7 +94,7 @@ void line(int rnd)
 
 	char menu_key = _getch();
 	if (menu_key == ESC) {
-		pullpush();
+		pushpull();
 	}
 
 }
@@ -114,31 +114,32 @@ void start_game() {
 }
 
 void game_fun() {
-	int count = 0;
+	int count = line_start;
+	char click;
 	if (_kbhit()) {
 		click = _getch();
 		switch (click) {
-		case 65:
+		case 65: // A
 			count += 10;
-			for (int i = line_start; i > line_start + count; i--) {
+			for (int i = line_start; i < (line_start + count); i++) {
 				line(i);
 				Sleep(100);
 			}
-		case 97:
-			count -= 10;
-			for (int i = line_start; i > line_start + count; i--) {
-				line(i);
-				Sleep(100);
-			}
-		case 76:
+		case 97: // a
 			count += 10;
-			for (int i = line_start; i > line_start + count; i--) {
+			for (int i = line_start; i < (line_start + count); i++) {
 				line(i);
 				Sleep(100);
 			}
-		case 108:
+		case 76: // L
 			count -= 10;
-			for (int i = line_start; i > line_start + count; i--) {
+			for (int i = line_start; i > (line_start + count); i--) {
+				line(i);
+				Sleep(100);
+			}
+		case 108: // l
+			count -= 10;
+			for (int i = line_start; i > (line_start + count); i--) {
 				line(i);
 				Sleep(100);
 			}
