@@ -114,34 +114,35 @@ void start_game() {
 }
 
 void game_fun() {
-	int count = line_start;
+	int count = rand() % 100;
 	char click;
 	if (_kbhit()) {
 		click = _getch();
 		switch (click) {
 		case 65: // A
 			count += 10;
-			for (int i = line_start; i < (line_start + count); i++) {
+			for (int i = line_start; i > (line_start + count); i--) {
 				line(i);
 				Sleep(100);
 			}
 		case 97: // a
 			count += 10;
-			for (int i = line_start; i < (line_start + count); i++) {
+			for (int i = line_start; i >(line_start + count); i--) {
 				line(i);
 				Sleep(100);
 			}
 		case 76: // L
 			count -= 10;
-			for (int i = line_start; i > (line_start + count); i--) {
+			for (int i = line_start; i < (line_start + count); i++) {
 				line(i);
 				Sleep(100);
 			}
 		case 108: // l
 			count -= 10;
-			for (int i = line_start; i > (line_start + count); i--) {
+			for (int i = line_start; i < (line_start + count); i++) {
 				line(i);
 				Sleep(100);
+
 			}
 		case ESC:
 			exit(0);
