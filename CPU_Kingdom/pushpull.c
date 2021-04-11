@@ -93,8 +93,8 @@ void line(int rnd)
 	printf("메뉴로 돌아가려면 ESC를 눌러주세요\n");
 
 	char menu_key = _getch();
-	if (menu_key == ESC || menu_key == 27) {
-		pushpull();
+	if (menu_key == ESC) {
+		pullpush();
 	}
 
 }
@@ -115,32 +115,36 @@ void start_game() {
 
 void game_fun() {
 	int count = 0;
-	switch (click) {
-
-
-	case 65:
-		count += 10;
-		for (int i = line_start; i > line_start + count; i--) {
-			line(i);
-			Sleep(100);
-		}
-	case 97:
-		count -= 10;
-		for (int i = line_start; i > line_start + count; i--) {
-			line(i);
-			Sleep(100);
-		}
-	case 76:
-		count += 10;
-		for (int i = line_start; i > line_start + count; i--) {
-			line(i);
-			Sleep(100);
-		}
-	case 108:
-		count -= 10;
-		for (int i = line_start; i > line_start + count; i--) {
-			line(i);
-			Sleep(100);
+	if (_kbhit()) {
+		click = _getch();
+		switch (click) {
+		case 65:
+			count += 10;
+			for (int i = line_start; i > line_start + count; i--) {
+				line(i);
+				Sleep(100);
+			}
+		case 97:
+			count -= 10;
+			for (int i = line_start; i > line_start + count; i--) {
+				line(i);
+				Sleep(100);
+			}
+		case 76:
+			count += 10;
+			for (int i = line_start; i > line_start + count; i--) {
+				line(i);
+				Sleep(100);
+			}
+		case 108:
+			count -= 10;
+			for (int i = line_start; i > line_start + count; i--) {
+				line(i);
+				Sleep(100);
+			}
+		case ESC:
+			exit(0);
 		}
 	}
+	
 }
