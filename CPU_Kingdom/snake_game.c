@@ -109,9 +109,9 @@ void reset(void) {
     for (i = 0; i < length; i++) {
         x[i] = MAP_WIDTH / 2 + i;
         y[i] = MAP_HEIGHT / 2;
-        print(MAP_X + x[i], MAP_Y + y[i], "ㅇ");
+        print(MAP_X + x[i], MAP_Y + y[i], "■");
     }
-    print(MAP_X + x[0], MAP_Y + y[0], "ㅎ");
+    print(MAP_X + x[0], MAP_Y + y[0], "●");
     target();
 }
 
@@ -140,12 +140,12 @@ void move(int dir) {
         y[length - 1] = y[length - 2];
     }
     if (x[0] == 0 || x[0] == MAP_WIDTH - 1 || y[0] == 0 || y[0] == MAP_HEIGHT - 1) {
-        game_over();
+        over();
         return;
     }
     for (i = 1; i < length; i++) {
         if (x[0] == x[i] && y[0] == y[i]) {
-            game_over();
+           over();
             return;
         }
     }
@@ -185,7 +185,7 @@ void pause(void) {
     }
 }
 
-void game_over(void) { //게임종료 함수 
+void over(void) { //게임종료 함수 
     print(MAP_X + (MAP_WIDTH / 2) - 6, MAP_Y + 5, "+----------------------+");
     print(MAP_X + (MAP_WIDTH / 2) - 6, MAP_Y + 6, "|      GAME OVER..     |");
     print(MAP_X + (MAP_WIDTH / 2) - 6, MAP_Y + 7, "+----------------------+");
