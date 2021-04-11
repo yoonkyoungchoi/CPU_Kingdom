@@ -40,7 +40,7 @@ void pushpull(void) {
 		gotoxy(144, 21);
 		printf("★");
 		gotoxy(96, 22);
-		printf("★ ESC를 누르면 다시 게임선택으로 돌아갑니다! ★ ");
+		printf("★  ESC를 누르면 다시 게임선택으로 돌아갑니다!  ★ ");
 		gotoxy(96, 23);
 		printf("★");
 		gotoxy(144, 23);
@@ -51,7 +51,7 @@ void pushpull(void) {
 			start_game();
 			do {
 				game_fun();
-				} while (win = 1);
+				} while (key != ESC);
 			} while (key != ESC);
 	} while (key != ESC);
 }
@@ -92,21 +92,11 @@ void line(int rnd)
 	gotoxy(105, 30);
 	printf("메뉴로 돌아가려면 ESC를 눌러주세요\n");
 
-	char go_menu = _getch();
-
-	do {
-		if (_kbhit()) {
-			if (go_menu == 27) {
-				pushpull();
-				break;
-			}
-		}
+	char menu_key = _getch();
+	if (menu_key == ESC || menu_key == 27) {
+		pushpull();
 	}
-	while (go_menu != 27);
-	char go_menu1 = _getch();
-	pushpull();
-	
-	
+
 }
 
 void start_game() {
