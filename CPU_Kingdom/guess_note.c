@@ -1,6 +1,4 @@
 #include "guess_note.h"
-#include "string.h"
-#include "time.h"
 
 // _getch() value of ESC key
 #define ESC 27
@@ -11,7 +9,8 @@ void guess_note(void) {
 	int x = 100, y = 20;
 	char key;
 
-	makeRandom();
+	char* p[SIZE] = { "도", "레", "미", "파", "솔" , "라", "시" };
+	pr_str_array(p, SIZE);
 
 	do {
 		gotoxy(x, y);
@@ -20,37 +19,32 @@ void guess_note(void) {
 	} while (key != ESC);
 }
 
-int makeRandom() {
-	system("cls");
-	int count = 0;
+int pr_str_array(char** dp, int n) {
 	while (1) {
-		char note[7][2] = { "도", "레", "미", "파", "솔", "라", "시" };
 		double frequency[] = { 523.2511, 587.3295, 659.2551, 698.456, 783.9909, 880, 987.7666 };
 		const int note_len = 600;
 
-		//1-7사이의 랜덤 숫자
 		srand((unsigned int)time(NULL));
-		int random = 1 + (rand() % 7); 
-		int strcmp(const void* ptr1, const void* ptr2);
-		char answer[20];
+		int random = (rand() % 7);
 
 		for (int i = 0; i < 7; i++) {
 			if (random == i + 1) {
 				Sleep(200);
 			}
 		}
-		Beep(frequency[random - 1], note_len);
+		Beep(frequency[random], note_len);
+
+
+		char answer[10];
 
 		printf("정답은 무엇일까요?: ");
-		scanf_s("%s", answer);
+		scanf("%s", answer);
 
-		if (!strcmp(answer, note[random - 1])) {
+		if (!strcmp(answer, *(dp + random))) {
 			printf("맞았습니다.\n");
-			rewind(stdin);
 		}
 		else {
-			printf("틀렸습니다.");
-			printf("정답은 %s입니다. ", note[random - 1]);
+			printf("틀렸습니다. 정답은 %s입니다.\n", *(dp + random));
 			break;
 		}
 	}
