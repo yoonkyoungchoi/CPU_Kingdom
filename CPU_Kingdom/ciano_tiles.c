@@ -391,6 +391,11 @@ void game_start(void) {
 			delay = 5;
 		}
 	}
+
+	// reset
+	score = 0;
+	fail = 0;
+	step = 1;
 }
 
 void game_over(void) {
@@ -528,6 +533,11 @@ void save_score(void) {
 		// close
 		fclose(fp);
 	}
+
+	// reset
+	score = 0;
+	fail = 0;
+	step = 1;
 }
 
 // get score and player name from file (chohadam, 21-03-30)
