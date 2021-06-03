@@ -12,6 +12,8 @@
 #include "pushpull.h"
 #include "snake_game.h"
 #include "modules.h"
+#include "avoidgame.h"
+#include "bluewhite.h"
 
 // _getch() value of ESC key (chohadam 21-03-11)
 #define ESC 27
@@ -50,11 +52,12 @@ int main(void) {
 			break;
 
 		case 6:
-			snake_game();
+			// 눈피하기 게임
+			//PlayGame();
 			break;
 
 		case 7:
-			snake_game();
+			//청기백기 게임
 			break;
 
 		// end game
