@@ -16,7 +16,7 @@ int win_lose = 0;
 void pushpull(void) {
 	char t_name1;
 	char t_name2;
-	system("cls");
+	system("cls"); 
 
 	do {
 		gotoxy(96, 15);
