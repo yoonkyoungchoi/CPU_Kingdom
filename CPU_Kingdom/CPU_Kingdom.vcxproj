@@ -141,6 +141,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="avoid.c" />
+    <ClCompile Include="bluewhite.c" />
     <ClCompile Include="ciano_tiles.c" />
     <ClCompile Include="guess_note.c" />
     <ClCompile Include="main.c" />
@@ -150,6 +152,8 @@
     <ClCompile Include="snake_game.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="avoidgame.h" />
+    <ClInclude Include="bluewhite.h" />
     <ClInclude Include="ciano_tiles.h" />
     <ClInclude Include="guess_note.h" />
     <ClInclude Include="maze_game.h" />

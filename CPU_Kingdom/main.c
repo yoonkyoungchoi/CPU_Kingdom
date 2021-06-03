@@ -49,8 +49,16 @@ int main(void) {
 			snake_game();
 			break;
 
-		// end game
 		case 6:
+			snake_game();
+			break;
+
+		case 7:
+			snake_game();
+			break;
+
+		// end game
+		case 8:
 			exit(1);
 
 		default:

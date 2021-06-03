@@ -36,6 +36,12 @@
     <ClCompile Include="ciano_tiles.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="avoid.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="bluewhite.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="maze_game.h">
@@ -54,6 +60,12 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="guess_note.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="avoidgame.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="bluewhite.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
