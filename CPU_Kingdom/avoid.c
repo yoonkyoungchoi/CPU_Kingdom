@@ -313,7 +313,7 @@ bool ing() {
 	return Outgame(); // 다시하기 메뉴 호출
 }
 //// main 함수 ////
-void main(void)
+void main_avoid(void)
 {
 	bool t;
 

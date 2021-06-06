@@ -53,14 +53,7 @@ int main_bluewhite(void)
 	return 0;
 }
 
-//콘솔 커서 이동
-void gotoxy(int x, int y)
-{
-	COORD Pos;
-	Pos.X = 2 * x;
-	Pos.Y = y;
-	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), Pos);
-}
+
 
 //콘솔 크기, 타이틀
 void SetConsoleView()
