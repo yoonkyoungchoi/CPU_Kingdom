@@ -473,11 +473,11 @@ void animation(char key) {
         gotoxy(57, 11);
         printf("#¢Á##¢Á#");
         gotoxy(57, 12);
-        printf("#######");
+        printf("########");
         gotoxy(57, 13);
-        printf("#_____#");
+        printf("#______#");
         gotoxy(57, 14);
-        printf("#######");
+        printf("########");
         gotoxy(60, 15);
         printf("##");
         gotoxy(48, 16);
@@ -490,13 +490,13 @@ void animation(char key) {
         printf("¡á¡á¡á¡á¡á¡á¡á");
         gotoxy(54, 20);
         printf("¡á¡á¡á¡á¡á¡á¡á");
-        gotoxy(46, 16);
+        gotoxy(44, 16);
         printf("¦¡");
-        gotoxy(45, 16);
+        gotoxy(42, 16);
         printf("¡á");
-        gotoxy(68, 16);
+        gotoxy(70, 16);
         printf("¦¡");
-        gotoxy(69, 16);
+        gotoxy(72, 16);
         printf("¡à");
     }
 }
