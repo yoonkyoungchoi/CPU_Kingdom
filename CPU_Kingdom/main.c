@@ -74,7 +74,7 @@ int main(void) {
 // console settings function (chohadam 21-03-11)
 void set_console(void) {
 	// set the console size
-	system("mode con:cols=240 lines=63");
+	system("mode con:cols=120 lines=31");
 	// hide cursor
 	set_cursor(0, 1);
 	// set title
