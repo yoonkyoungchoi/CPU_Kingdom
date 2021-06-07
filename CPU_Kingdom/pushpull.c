@@ -54,6 +54,12 @@ void pushpull(void) {
 		do {
 			x = 40;
 			start_game(x, y);
+			/*
+			key = _getch();
+			if (key == ESC) {
+				exit(0);
+				return 0;
+			}*/
 			do {
 				game_fun();
 				} while (key != ESC);

@@ -52,12 +52,11 @@ int main(void) {
 			break;
 
 		case 6:
-			// 눈피하기 게임
-			//PlayGame();
+			main_avoid();
 			break;
 
 		case 7:
-			//청기백기 게임
+			main_bluewhtie();
 			break;
 
 		// end game
