@@ -60,7 +60,7 @@ int main_bluewhtie(void)
 //콘솔 크기, 타이틀
 void SetConsoleView()
 {
-    system("mode con:cols=100 lines=25"); //가로 70 세로 25
+    system("mode con:cols=240 lines=63"); //가로 70 세로 25
     system("title 청기백기");    //타이틀
 }
 
@@ -68,19 +68,19 @@ void SetConsoleView()
 void DrawReadyGame()
 {
     system("cls");          //clean screen - 화면 청소
-    gotoxy(15, 7);
+    gotoxy(45, 7);
     printf("******************************");
-    gotoxy(15, 8);
+    gotoxy(45, 8);
     printf("*        청 기 백 기         *");
-    gotoxy(15, 9);
+    gotoxy(45, 9);
     printf("******************************");
-    gotoxy(15, 11);
+    gotoxy(44, 11);
     printf("↑↓ 키와 enter키 사용하여 이동");
-    gotoxy(20, 13);
+    gotoxy(55, 13);
     printf("GameStart");
-    gotoxy(20, 14);
+    gotoxy(55, 14);
     printf("GameInfo");
-    gotoxy(20, 15);
+    gotoxy(55, 15);
     printf("Quit\n");
 }
 
@@ -88,24 +88,27 @@ void DrawReadyGame()
 void DrawInfoGame()
 {
     system("cls");
-    gotoxy(15, 8);
-    printf("*******************************************");
-    gotoxy(15, 9);
-    printf("| 제한시간은 15초이며 총 3단계입니다      |");
-    gotoxy(15, 10);
-    printf("|                                         |");
-    gotoxy(15, 11);
-    printf("|                                         |");
-    gotoxy(15, 12);
-    printf("|                                         |");
-    gotoxy(15, 13);
-    printf("| 청기 올려 Q  청기 내려 A                |");
-    gotoxy(15, 14);
-    printf("| 백기 올려 E  백기 내려 D                |");
-    gotoxy(15, 15);
-    printf("|                                         |");
-    gotoxy(15, 16);
-    printf("*******************************************");
+    gotoxy(40, 8);
+    printf("********************************************");
+    gotoxy(40, 9);
+    printf("|     제한시간은 15초이며 총 3단계입니다   |");
+    gotoxy(40, 10);
+    printf("|                                          |");
+    gotoxy(40, 11);
+    printf("|                                          |");
+    gotoxy(40, 12);
+    printf("|                                          |");
+    gotoxy(40, 13);
+    printf("|         청기 올려 Q  청기 내려 A         |");
+    gotoxy(40, 14);
+    printf("|         백기 올려 E  백기 내려 D         |");
+    gotoxy(40, 15);
+    printf("|                                          |");
+    gotoxy(40, 16);
+    printf("********************************************");
+
+    gotoxy(40, 19);
+    printf("아무키나 누르면 다시 메뉴화면으로 돌아갑니다.");
 }
 
 enum MENU ReadyGame()
@@ -127,7 +130,7 @@ enum MENU ReadyGame()
             y = 2;
         }
 
-        gotoxy(19, 13 + y); // 커서 메뉴에 맞춰서 위치조정
+        gotoxy(53, 13 + y); // 커서 메뉴에 맞춰서 위치조정
         printf(">");
 
         input = _getch();    //키보드로 하나의 키 입력
@@ -171,17 +174,17 @@ void GameOver() {
     //시간초과시 게임오버 
     Sleep(2000);
     system("cls");
-    gotoxy(15, 8);
+    gotoxy(45, 8);
     printf("******************************");
-    gotoxy(15, 9);
+    gotoxy(45, 9);
     printf("*      G A M E  O V E R      *");
-    gotoxy(15, 10);
+    gotoxy(45, 10);
     printf("******************************");
-    gotoxy(15, 11);
+    gotoxy(45, 11);
     printf("    시간이 초과 되었습니다");
-    gotoxy(15, 12);
+    gotoxy(45, 12);
     printf(" 당신의 총 점수는 %d점 입니다", score_bluewhite);
-    gotoxy(12, 15);
+    gotoxy(42, 15);
     printf("메인화면으로 넘어갈려면 아무키나 2번 눌러주세요");
     score_bluewhite = 0;
 
@@ -202,18 +205,18 @@ void FlagRandom() {
                           "백기 내려", "청기 올리지 말고 백기 내려","백기 내리고 청기 올리지마" //D 키
     };
 
-    gotoxy(11, 3);
+    gotoxy(41, 3);
     printf("\n 현재점수 : %d", score_bluewhite);
     old_time = clock();    //시작 시간
     animation(0);
 
     for (int j = 1; j <= 10; j++) {  //문제 실행
         system("cls");
-        gotoxy(22, 2);
+        gotoxy(58, 5);
         printf("%dROUND \n", RoundCnt);
-        gotoxy(21, 1);
+        gotoxy(55, 3);
         printf("현재점수 : %d", score_bluewhite);
-        gotoxy(18, 6);
+        gotoxy(46, 7);
         int rn = (rand() % 12) + 1;
         printf("%d. %s", j, flag[rn - 1]);
 
@@ -234,7 +237,7 @@ void FlagRandom() {
                 if (rn == 1 || rn == 2 || rn == 3)
                     score_bluewhite += 50;
                 else {
-                    gotoxy(20, 8);
+                    gotoxy(59, 9);
                     printf("다시!");
                     c = _getch();
                 }
@@ -245,7 +248,7 @@ void FlagRandom() {
                 if (rn == 4 || rn == 5 || rn == 6)
                     score_bluewhite += 50;
                 else {
-                    gotoxy(20, 8);
+                    gotoxy(59, 9);
                     printf("다시!");
                     c = _getch();
                 }
@@ -256,7 +259,7 @@ void FlagRandom() {
                 if (rn == 7 || rn == 8 || rn == 9)
                     score_bluewhite += 50;
                 else {
-                    gotoxy(20, 8);
+                    gotoxy(59, 9);
                     printf("다시!");
                     c = _getch();
                 }
@@ -267,12 +270,12 @@ void FlagRandom() {
                 if (rn == 10 || rn == 11 || rn == 12)
                     score_bluewhite += 50;
                 else {
-                    gotoxy(20, 8);
+                    gotoxy(59,9);
                     printf("다시!");
                     c = _getch();
                 }
                 break;
-            default:  gotoxy(20, 8); printf("다시!"); c = _getch(); break; //Q A E D가 아니면 그냥 계속
+            default:  gotoxy(40, 8); printf("다시!"); c = _getch(); break; //Q A E D가 아니면 그냥 계속
             }
 
         }
@@ -280,15 +283,15 @@ void FlagRandom() {
             RoundCnt++;
             check = 1;
             system("cls");
-            gotoxy(15, 8);
+            gotoxy(45, 8);
             printf("******************************");
-            gotoxy(15, 9);
+            gotoxy(45, 9);
             printf("*       TOTAL SCORE=%d        *", score_bluewhite);
-            gotoxy(15, 10);
+            gotoxy(45, 10);
             printf("******************************");
 
             Sleep(1000);
-            gotoxy(12, 15);
+            gotoxy(32, 15);
             printf("\n  다음단계로 넘어갈려면 아무키나 2번 눌러주세요");
             Sleep(1000);
         }
@@ -301,54 +304,55 @@ void FlagRandom() {
 
 void animation(char key) {
 
-    gotoxy(22, 10);
+    gotoxy(50, 12);
     printf("▲▲▲▲");
-    gotoxy(22, 11);
+    gotoxy(50, 13);
     printf("#⊙##⊙#");
-    gotoxy(22, 12);
+    gotoxy(50, 14);
     printf("#######");
-    gotoxy(22, 13);
+    gotoxy(50, 15);
     printf("#_____#");
-    gotoxy(22, 14);
+    gotoxy(50, 16);
     printf("#######");
-    gotoxy(23, 15);
+    gotoxy(52, 17);
     printf("##");
-    gotoxy(16, 16);
+    gotoxy(48, 18);
     printf("──■■■■■■■■■■■──");
-    gotoxy(20, 17);
+    gotoxy(54, 19);
     printf("■■■■■■■");
-    gotoxy(20, 18);
+    gotoxy(54, 20);
     printf("■■■■■■■");
-    gotoxy(20, 19);
+    gotoxy(54, 21);
     printf("■■■■■■■");
-    gotoxy(20, 20);
+    gotoxy(54, 22);
     printf("■■■■■■■");
 
     erase();
+
     switch (key)
     {
     case 'q':
-        gotoxy(22, 10);
+        gotoxy(50, 10);
         printf("▲▲▲▲");
-        gotoxy(22, 11);
+        gotoxy(50, 11);
         printf("#⊙##⊙#");
-        gotoxy(22, 12);
+        gotoxy(50, 12);
         printf("#######");
-        gotoxy(22, 13);
+        gotoxy(50, 13);
         printf("#_____#");
-        gotoxy(22, 14);
+        gotoxy(50, 14);
         printf("#######");
-        gotoxy(23, 15);
+        gotoxy(52, 15);
         printf("##");
-        gotoxy(16, 16);
+        gotoxy(48, 16);
         printf("──■■■■■■■■■■■──");
-        gotoxy(20, 17);
+        gotoxy(54, 17);
         printf("■■■■■■■");
-        gotoxy(20, 18);
+        gotoxy(54, 18);
         printf("■■■■■■■");
-        gotoxy(20, 19);
+        gotoxy(54, 19);
         printf("■■■■■■■");
-        gotoxy(20, 20);
+        gotoxy(54, 20);
         printf("■■■■■■■");
         gotoxy(14, 14);
         printf("□");
@@ -362,27 +366,27 @@ void animation(char key) {
         printf("■");
         break;
     case 'a':
-        gotoxy(22, 10);
+        gotoxy(5022, 10);
         printf("▲▲▲▲");
-        gotoxy(22, 11);
+        gotoxy(50, 11);
         printf("#⊙##⊙#");
-        gotoxy(22, 12);
+        gotoxy(50, 12);
         printf("#######");
-        gotoxy(22, 13);
+        gotoxy(50, 13);
         printf("#_____#");
-        gotoxy(22, 14);
+        gotoxy(50, 14);
         printf("#######");
-        gotoxy(23, 15);
+        gotoxy(52, 15);
         printf("##");
-        gotoxy(16, 16);
+        gotoxy(48, 16);
         printf("──■■■■■■■■■■■──");
-        gotoxy(20, 17);
+        gotoxy(54, 17);
         printf("■■■■■■■");
-        gotoxy(20, 18);
+        gotoxy(54, 18);
         printf("■■■■■■■");
-        gotoxy(20, 19);
+        gotoxy(54, 19);
         printf("■■■■■■■");
-        gotoxy(20, 20);
+        gotoxy(54, 20);
         printf("■■■■■■■");
         gotoxy(14, 18);
         printf("□");
@@ -396,27 +400,27 @@ void animation(char key) {
         printf("■");
         break;
     case 'e':
-        gotoxy(22, 10);
+        gotoxy(50, 10);
         printf("▲▲▲▲");
-        gotoxy(22, 11);
+        gotoxy(50, 11);
         printf("#⊙##⊙#");
-        gotoxy(22, 12);
+        gotoxy(50, 12);
         printf("#######");
-        gotoxy(22, 13);
+        gotoxy(50, 13);
         printf("#_____#");
-        gotoxy(22, 14);
+        gotoxy(50, 14);
         printf("#######");
-        gotoxy(23, 15);
+        gotoxy(52, 15);
         printf("##");
-        gotoxy(16, 16);
+        gotoxy(48, 16);
         printf("──■■■■■■■■■■■──");
-        gotoxy(20, 17);
+        gotoxy(54, 17);
         printf("■■■■■■■");
-        gotoxy(20, 18);
+        gotoxy(54, 18);
         printf("■■■■■■■");
-        gotoxy(20, 19);
+        gotoxy(54, 19);
         printf("■■■■■■■");
-        gotoxy(20, 20);
+        gotoxy(54, 20);
         printf("■■■■■■■");
         gotoxy(30, 14);
         printf("■");
@@ -430,27 +434,27 @@ void animation(char key) {
         printf("□");
         break;
     case 'd':
-        gotoxy(22, 10);
+        gotoxy(50, 10);
         printf("▲▲▲▲");
-        gotoxy(22, 11);
+        gotoxy(50, 11);
         printf("#⊙##⊙#");
-        gotoxy(22, 12);
+        gotoxy(50, 12);
         printf("#######");
-        gotoxy(22, 13);
+        gotoxy(50, 13);
         printf("#_____#");
-        gotoxy(22, 14);
+        gotoxy(50, 14);
         printf("#######");
-        gotoxy(23, 15);
+        gotoxy(52, 15);
         printf("##");
-        gotoxy(16, 16);
+        gotoxy(48, 16);
         printf("──■■■■■■■■■■■──");
-        gotoxy(20, 17);
+        gotoxy(54, 17);
         printf("■■■■■■■");
-        gotoxy(20, 18);
+        gotoxy(54, 18);
         printf("■■■■■■■");
-        gotoxy(20, 19);
+        gotoxy(54, 19);
         printf("■■■■■■■");
-        gotoxy(20, 20);
+        gotoxy(54, 20);
         printf("■■■■■■■");
         gotoxy(30, 18);
         printf("■");
@@ -464,62 +468,62 @@ void animation(char key) {
         printf("□");
         break;
     default:
-        gotoxy(22, 10);
+        gotoxy(57, 10);
         printf("▲▲▲▲");
-        gotoxy(22, 11);
+        gotoxy(57, 11);
         printf("#⊙##⊙#");
-        gotoxy(22, 12);
+        gotoxy(57, 12);
         printf("#######");
-        gotoxy(22, 13);
+        gotoxy(57, 13);
         printf("#_____#");
-        gotoxy(22, 14);
+        gotoxy(57, 14);
         printf("#######");
-        gotoxy(23, 15);
+        gotoxy(60, 15);
         printf("##");
-        gotoxy(16, 16);
+        gotoxy(48, 16);
         printf("──■■■■■■■■■■■──");
-        gotoxy(20, 17);
+        gotoxy(54, 17);
         printf("■■■■■■■");
-        gotoxy(20, 18);
+        gotoxy(54, 18);
         printf("■■■■■■■");
-        gotoxy(20, 19);
+        gotoxy(54, 19);
         printf("■■■■■■■");
-        gotoxy(20, 20);
+        gotoxy(54, 20);
         printf("■■■■■■■");
-        gotoxy(30, 16);
+        gotoxy(46, 16);
         printf("─");
-        gotoxy(32, 16);
+        gotoxy(45, 16);
         printf("■");
-        gotoxy(14, 16);
+        gotoxy(68, 16);
         printf("─");
-        gotoxy(12, 16);
+        gotoxy(69, 16);
         printf("□");
     }
 }
 void erase(void)
 {
-    gotoxy(1, 10);
-    printf("                                                                                                ");
-    gotoxy(1, 11);
-    printf("                                                                                                ");
-    gotoxy(1, 12);
-    printf("                                                                                                ");
-    gotoxy(1, 13);
-    printf("                                                                                                ");
-    gotoxy(1, 14);
-    printf("                                                                                                ");
-    gotoxy(1, 15);
-    printf("                                                                                                ");
-    gotoxy(1, 16);
-    printf("                                                                                                ");
-    gotoxy(1, 17);
-    printf("                                                                                                ");
-    gotoxy(1, 18);
-    printf("                                                                                                ");
-    gotoxy(1, 19);
-    printf("                                                                                                ");
-    gotoxy(1, 20);
-    printf("                                                                                                ");
+    gotoxy(48, 10);
+    printf("                                                                                                          ");
+    gotoxy(481, 11);
+    printf("                                                                                                          ");
+    gotoxy(48, 12);
+    printf("                                                                                                          ");
+    gotoxy(48, 13);
+    printf("                                                                                                          ");
+    gotoxy(48, 14);
+    printf("                                                                                                          ");
+    gotoxy(481, 15);
+    printf("                                                                                                          ");
+    gotoxy(48, 16);
+    printf("                                                                                                          ");
+    gotoxy(48, 17);
+    printf("                                                                                                          ");
+    gotoxy(48, 18);
+    printf("                                                                                                          ");
+    gotoxy(48, 19);
+    printf("                                                                                                          ");
+    gotoxy(48, 20);
+    printf("                                                                                                          ");
 
 
 }
@@ -546,7 +550,7 @@ void GameClear() {
 //1단계
 void Step1() {
     int time = 20; //제한시간
-    gotoxy(21, 2);
+    gotoxy(58, 5);
     printf("1ROUND \n");
     Sleep(1000); //1초후 시작
     //Timer20();//20초제한시간
@@ -557,7 +561,7 @@ void Step1() {
 //2단계
 void Step2() {
     int time = 15; //제한시간
-    gotoxy(21, 2);
+    gotoxy(58, 5);
     printf("2ROUND \n");
     Sleep(1000); //1초후 시작
     FlagRandom();
@@ -565,7 +569,7 @@ void Step2() {
 }
 void Step3() {
     int time = 15; //제한시간
-    gotoxy(21, 2);
+    gotoxy(58, 5);
     printf("3ROUND \n");
     Sleep(1000); //1초후 시작
     FlagRandom();
@@ -574,7 +578,7 @@ void Step3() {
 
 //2초타이머
 void Timer2() {
-    gotoxy(20, 1);
+    gotoxy(52, 1);
     printf("2초후 시작 합니다\n");
     Sleep(2000); //1000 -> 1초
     system("cls");

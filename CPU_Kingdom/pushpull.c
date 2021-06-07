@@ -101,6 +101,9 @@ void line(int x, int y)
 	gotoxy(87, 13);
 	printf("/＼");
 
+	gotoxy(42, 2);
+	printf("움직이지 않는다면 한영키를 바꿔보세요!");
+
 	gotoxy(x, y);
 	for (i = 0; i < 21; i++)
 		if (line[i] == 0)
