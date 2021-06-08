@@ -22,6 +22,7 @@ int x = 40;
 int y = 11;
 int win = 0;
 int win_lose = 0;
+int input = 0;
 
 enum MENU
 {
@@ -53,8 +54,9 @@ void pushpull(void) {
 			break;
 
 		case EXIT:
-			if (key == ENTER) exit(0);
+			if (key == 13) exit(0);
 			return 0;
+			break;
 		}
 	}
 	return 0;
@@ -119,7 +121,6 @@ void main_show() {
 enum MENU game()
 {
 	int y = 0; 
-	int input = 0;
 	while (1){
 		main_show();
 
@@ -153,7 +154,7 @@ enum MENU game()
 				break;
 			}
 		}
-		else if (input == ENTER) //enter 눌렀을 경우
+		else if (input == 13) //enter 눌렀을 경우
 		{
 			switch (y)            
 			{
@@ -227,10 +228,10 @@ void line(int x, int y)
 	gotoxy(45, 19);
 	printf("메뉴로 돌아가려면 ESC를 눌러주세요\n");
 
-	//char menu_key = _getch();
-	//if (menu_key == ESC) {
-	//	pushpull();
-	//}
+	char end = _getch();
+	if (end == ESC) {
+		pushpull();
+	}
 
 }
 
