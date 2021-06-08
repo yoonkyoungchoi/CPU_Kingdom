@@ -40,7 +40,7 @@ enum KEYBOARD
 };
 
 // 게임 시작 메인 함수
-void pushpull(void) {
+void pushpull() {
 	system("cls");
 	while (1) {
 		switch (game()) {
@@ -54,9 +54,8 @@ void pushpull(void) {
 			break;
 
 		case EXIT:
-			if (key == 13) exit(0);
+			exit(0);
 			return 0;
-			break;
 		}
 	}
 	return 0;
@@ -118,8 +117,7 @@ void main_show() {
 }
 
 // 메뉴 선택 커서 함수
-enum MENU game()
-{
+enum MENU game(){
 	int y = 0; 
 	while (1){
 		main_show();
@@ -162,7 +160,7 @@ enum MENU game()
 				return GAMESTART;
 			case 2:    
 				return RULE;
-			case 4:    
+			case 4:  
 				return EXIT;
 			}
 		}
@@ -289,7 +287,6 @@ void game_fun() {
 			break;
 		case ESC:
 			pushpull();
-			break;
 		}
 	}
 }
