@@ -67,6 +67,7 @@ void pushpull(void) {
 	} while (key != ESC);
 }
 
+
 void line(int x, int y)
 {
 	system("cls");
@@ -130,7 +131,12 @@ void line(int x, int y)
 
 }
 
+void startgame() {
+
+}
+
 void start_game() {
+
 	gotoxy(47, 17);
 	printf("시작 전 팀 이름을 정해주세요!\n");
 	gotoxy(47, 18);
@@ -149,7 +155,7 @@ void game_fun() {
 		pushpull();
 	}
 	switch (click) {
-		case A: case a: // A
+		case 97: case 65: // A
 			x -= 2;
 			line(x, y);
 			Sleep(100);
