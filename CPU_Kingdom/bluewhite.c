@@ -1,8 +1,4 @@
-#include<stdio.h>
-#include <stdlib.h>
-#include<Windows.h>
-#include<conio.h>
-#include <time.h>
+#include "bluewhite.h"
 
 #define MAGIC_KEY 224 //방향키
 #define SPACE 32
@@ -38,7 +34,6 @@ void erase();
 //메인 루프
 int main_bluewhtie(void)
 {
-    SetConsoleView();    //프로그램 시작시 콘솔 크기 조정
     while (1)
     {
         switch (ReadyGame())    //리턴값 받아서 판단.
@@ -55,13 +50,6 @@ int main_bluewhtie(void)
         }
     }
     return 0;
-}
-
-//콘솔 크기, 타이틀
-void SetConsoleView()
-{
-    system("mode con:cols=240 lines=63"); //가로 70 세로 25
-    system("title 청기백기");    //타이틀
 }
 
 //메인화면
