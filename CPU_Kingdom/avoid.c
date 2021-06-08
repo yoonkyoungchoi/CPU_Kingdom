@@ -1,7 +1,3 @@
-#include<stdio.h>
-#include<stdbool.h>
-#include<Windows.h>
-#include <time.h>
 #include "avoidgame.h"
 
 //사용자 정의 세미콜론 없어야함

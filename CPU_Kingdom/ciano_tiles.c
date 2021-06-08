@@ -11,8 +11,8 @@
 #define RIGHT 77
 
 // default coordinates
-#define X 113
-#define Y 25
+#define X 50
+#define Y 10
 
 // line spacing (menu)
 #define DISTANCE 3
@@ -26,7 +26,7 @@
 #define TILE_HEIGHT 6
 
 // column
-#define TILE_LINE 5
+#define TILE_LINE 4
 
 // name size
 #define NAME_SIZE 20
@@ -219,11 +219,11 @@ void get_player_name(void) {
 
 // draw the area where tiles down (chohadam, 21-03-22)
 void draw_rectangle(void) {
-	int x = X - 70;
-	int y = Y - 13;
+	int x = X - 35;
+	int y = Y - 7;
 
 	int width = TILE_WIDTH / 2 * TILE_LINE + 2;
-	int height = TILE_HEIGHT * 6 - 1;
+	int height = TILE_HEIGHT * 4 - 1;
 
 	// clear console
 	system("cls");
@@ -272,8 +272,8 @@ void draw_rectangle(void) {
 
 // game ready description (chohadam, 21-03-22)
 void game_ready(void) {
-	int x = X - 53;
-	int y = Y + 5;
+	int x = X - 35;
+	int y = Y + 20;
 
 	// print description
 	gotoxy(x, y);
@@ -290,8 +290,8 @@ void game_ready(void) {
 void game_start(void) {
 	// draw rectangle x - 2
 	// draw rectangle y - 1
-	int x = X - 68;
-	int y = Y - 12;
+	int x = X - 33;
+	int y = Y - 6;
 
 	int rnd = rand() % TILE_LINE;
 	int tile_y = y;
@@ -300,18 +300,18 @@ void game_start(void) {
 		x + TILE_WIDTH,
 		x + TILE_WIDTH * 2,
 		x + TILE_WIDTH * 3,
-		x + TILE_WIDTH * 4
+		// x + TILE_WIDTH * 4
 	};
 
 	// 유저 영역 시작
-	int user_y = Y - 13 + TILE_HEIGHT * 6 - 4;
+	int user_y = y + TILE_HEIGHT * 4 - 5;
 	int user_x = x;
 
 	// setting use random
 	srand((unsigned int)time(NULL));
 
 	// default delay time
-	int delay = 40;
+	int delay = 50;
 
 	char pressed_key;
 	while ((pressed_key = get_key()) != ESC) {
@@ -326,8 +326,8 @@ void game_start(void) {
 		Sleep(delay);
 		remove_tile(tile_x[rnd], tile_y);
 
-		// 시작점 + (타일 높이 * 6) - 유저 영역 - 위 아래
-		if (tile_y < y + TILE_HEIGHT * 6 - 6 - 3) {
+		// 시작점 + (타일 높이 * 4) - 유저 영역 - 위 아래
+		if (tile_y < y + TILE_HEIGHT * 4 - 6 - 3) {
 			// falling
 			tile_y += 1;
 		}
@@ -366,29 +366,29 @@ void game_start(void) {
 			user_y,
 			user_y,
 			x,
-			x + TILE_WIDTH * 4
+			x + TILE_WIDTH * (TILE_LINE - 1)
 		);
 
 		// set step and delay time
 		if (score >= 500 && score < 1500) {
 			// stage 2
 			step = 2;
-			delay = 30;
+			delay = 40;
 		}
 		else if (score >= 1500 && score < 3000) {
 			// stage 3
 			step = 3;
-			delay = 20;
+			delay = 30;
 		}
 		else if (score >= 3000 && score < 5000) {
 			// stage 4
 			step = 4;
-			delay = 10;
+			delay = 20;
 		}
 		else if (score >= 5000) {
 			// stage 5
 			step = 5;
-			delay = 5;
+			delay = 10;
 		}
 	}
 
@@ -403,13 +403,13 @@ void game_over(void) {
 	system("cls");
 
 	// print game over
-	gotoxy(X + 10, Y + 5);
+	gotoxy(X + 5, Y + 5);
 	printf("GAME OVER");
 
 	// 2초간 보여줌
 	Sleep(2000);
 
-	gotoxy(X - 5, Y + 30);
+	gotoxy(X - 5, Y + 10);
 	printf(">> 아무 키나 누르면 메뉴로 돌아갑니다.");
 	
 	char _ = _getch();
@@ -423,7 +423,7 @@ void game_over(void) {
 
 // print score, fail, step, etc. (chohadam, 21-03-24)
 void print_score(void) {
-	int x = X + 55;
+	int x = X + 33;
 	int y = Y - 7;
 
 	// string temp
@@ -453,8 +453,8 @@ void manual(void) {
 	system("cls");
 
 	// set x, y
-	int x = X - 55;
-	int y = Y - 8;
+	int x = X - 40;
+	int y = Y - 4;
 
 	// draw game screenshot
 	print_tile(x, y);
@@ -473,8 +473,8 @@ void manual(void) {
 	x += 24;
 	print_str(&x, &y, "→");
 
-	x = X - 20;
-	y = Y - 9;
+	x = X - 15;
+	y = Y - 5;
 	print_str(&x, &y, "1단계");
 	y += 1;
 	print_str(&x, &y, "점수\t\t0");
@@ -485,32 +485,31 @@ void manual(void) {
 
 
 	// draw description
-	x = X + 40;
-	y = Y - 13;
+	x = X + 20;
+	y = Y - 5;
 
 	y -= DISTANCE;
 	print_str(&x, &y, "각 칸에 내려오는 타일과 같은 위치에");
-
+	y -= 1;
 	print_str(&x, &y, "블럭을 가져다 놓으면");
-
+	y -= 1;
 	print_str(&x, &y, "점수가 100점씩 올라갑니다.");
-
+	y -= 1;
 	print_str(&x, &y, "실패할 경우 50점 감점되며");
-
+	y -= 1;
 	print_str(&x, &y, "5번 실패할 경우 게임이 종료되고");
-
+	y -= 1;
 	print_str(&x, &y, "점수가 기록됩니다.");
 
-	y += DISTANCE;
 	print_str(&x, &y, "점수가 오를 수록 타일이 내려오는");
-
+	y -= 1;
 	print_str(&x, &y, "속도가 빨라집니다.");
 
-	y += DISTANCE;
+	y += 1;
 	print_str(&x, &y, "지금 바로 1등하러 GO GO!");
 
-	y += DISTANCE * 3;
-	x -= 45;
+	y += DISTANCE - 1;
+	x = X - 40;
 	print_str(&x, &y, ">> 아무 키나 누르면 메뉴로 이동합니다.");
 
 	char _ = _getch();
@@ -553,7 +552,7 @@ void ranking(void) {
 	int players_score[100];
 
 	// set x, y
-	int x = X - 8, y = Y - 20;
+	int x = X - 8, y = Y - 7;
 
 	// used variables
 	int count = 0, score_temp;

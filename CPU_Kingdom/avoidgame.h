@@ -1,5 +1,7 @@
-#include <stdio.h>
-#include <windows.h>
+#include<stdio.h>
+#include<stdbool.h>
+#include<Windows.h>
+#include <time.h>
 
 //적(피할 것)
 typedef struct
