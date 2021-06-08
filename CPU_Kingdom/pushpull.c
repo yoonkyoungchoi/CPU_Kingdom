@@ -54,8 +54,8 @@ void pushpull() {
 			break;
 
 		case EXIT:
-			exit(0);
-			return 0;
+			main();
+			break;
 		}
 	}
 	return 0;
@@ -131,28 +131,28 @@ enum MENU game(){
 			y = 2;
 		}
 
-		gotoxy(53, 13 + y); // 커서 메뉴에 맞춰서 위치조정
+		gotoxy(53, 13 + y); 
 		printf(">");
 
-		input = _getch();    //키보드로 하나의 키 입력
+		input = _getch();   
 
-		if (input == MAGIC_KEY) //방향키를 눌렀을 경우 -> 방향키 판별
+		if (input == MAGIC_KEY) 
 		{
 			switch (_getch())
 			{
-			case UP:            //방향키 위
+			case UP:            
 				gotoxy(53, 13 + y);
 				printf("  ");
 				y = y - 2;
 				break;
-			case DOWN:            //방향키 아래
+			case DOWN:           
 				gotoxy(53, 13 + y);
 				printf("  ");
 				y = y + 2;
 				break;
 			}
 		}
-		else if (input == 13) //enter 눌렀을 경우
+		else if (input == 13)
 		{
 			switch (y)            
 			{
@@ -257,7 +257,6 @@ void game_fun() {
 		char click = _getch();
 
 		switch (click) {
-			// 한칸가고 다시 돌아오고 에러
 		case 97: case 65: // A
 			x -= 2;
 			line(x, y);
