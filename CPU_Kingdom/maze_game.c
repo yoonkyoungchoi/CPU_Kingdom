@@ -8,10 +8,10 @@
 #define ESC 27
 
 // 미로 찾기 단계
-#define STEP1 19
-#define STEP2 21
-#define STEP3 25
-#define STEP4 27
+#define STEP1 15
+#define STEP2 19
+#define STEP3 23
+#define STEP4 25
 
 // 기타 필요한 것
 #define DELAY 100
@@ -202,7 +202,7 @@ void showBoard(int row, int col)
 
 	// 미로 크기에 따라 ♥ 위치 다르게 설정
 	if (row == STEP1) {
-		maze[13][17] = 3;
+		maze[13][13] = 3;
 		for (int i = 0; i < row; i += 3) {
 			for (int j = 0; j < row; j += 5) {
 				if (maze[i][j] != 0) {
@@ -212,7 +212,7 @@ void showBoard(int row, int col)
 		}
 	}
 	else if (row == STEP2) {
-		maze[19][19] = 3;
+		maze[17][17] = 3;
 		for (int i = 0; i < row; i += 3) {
 			for (int j = 0; j < row; j += 5) {
 				if (maze[i][j] != 0) {
@@ -223,7 +223,7 @@ void showBoard(int row, int col)
 		maze[5][5] = 4;
 	}
 	else if (row == STEP3) {
-		maze[21][23] = 3;
+		maze[21][21] = 3;
 		for (int i = 0; i < row; i += 3) {
 			for (int j = 0; j < row; j += 5) {
 				if (maze[i][j] != 0) {
@@ -233,7 +233,7 @@ void showBoard(int row, int col)
 		}
 	}
 	else if (row == STEP4) {
-		maze[25][25] = 3;
+		maze[23][23] = 3;
 		for (int i = 0; i < row; i += 3) {
 			for (int j = 0; j < row; j += 5) {
 				if (maze[i][j] != 0) {
@@ -356,9 +356,8 @@ int detect(int x, int y)
 	// ★(출구)에 도착했을 때
 	else if (maze[*x1][*y1] == 3) {
 		system("cls");
-		gotoxy(50, 50);
 		for (int helper = 0; helper <= 15; helper++) {
-			gotoxy(50, 30); textcolor(helper); //막 승리했다고 띄워주면 마무리되겠죠?
+			gotoxy(51, 15); textcolor(helper); //막 승리했다고 띄워주면 마무리되겠죠?
 			printf("★탈출했습니다!★");
 			Sleep(100);
 		}
@@ -447,13 +446,13 @@ void secondView(void) {
 	printf("점수 : %d", score);
 	int x = 9;
 	gotoxy(secondView_x, x);
-	printf("1. 1단계 모드(19x19)\n");
+	printf("1. 1단계 모드(%dx%d)\n",STEP1, STEP1);
 	gotoxy(secondView_x, x + 2);
-	printf("2. 2단계 모드(21x21)\n");
+	printf("2. 2단계 모드(%dx%d)\n",STEP2, STEP2);
 	gotoxy(secondView_x, x + 4);
-	printf("3. 3단계 모드(25x25) \n");
+	printf("3. 3단계 모드(%dx%d) \n",STEP3,STEP3);
 	gotoxy(secondView_x, x + 6);
-	printf("4. 4단계 모드(27x27)\n");
+	printf("4. 4단계 모드(%dx%d))\n",STEP4,STEP4);
 	gotoxy(secondView_x, x + 8);
 	printf("5. 종료 하기\n");
 
@@ -466,18 +465,22 @@ void secondView(void) {
 		switch (choose) {
 		case 1:
 			showBoard(STEP1, STEP1);
+			*x1 = 0;  *y1 = 1;
 			character_static();
 			break;
 		case 2:
 			showBoard(STEP2, STEP2);
+			*x1 = 0;  *y1 = 1;
 			character_static();
 			break;
 		case 3:
 			showBoard(STEP3, STEP3);
+			*x1 = 0;  *y1 = 1;
 			character_static();
 			break;
 		case 4:
 			showBoard(STEP4, STEP4);
+			*x1 = 0;  *y1 = 1;
 			character_static();
 			break;
 		case 5:

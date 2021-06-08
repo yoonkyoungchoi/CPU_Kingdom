@@ -78,20 +78,27 @@ int menuDraw() {
 }
 
 void print_piano() {
-	puts("　　　　　　┃ ┃┃┃┃ ┃  ┃ ┃┃┃┃┃┃ ┃  ┃ ┃┃┃┃ ┃  ┃");
-	puts("　　　　　　┃ ┃┃┃┃ ┃  ┃ ┃┃┃┃┃┃ ┃  ┃ ┃┃┃┃ ┃  ┃");
-	puts("　　　　　　┃ ┃┃┃┃ ┃  ┃ ┃┃┃┃┃┃ ┃  ┃ ┃┃┃┃ ┃  ┃");
-	puts("　　　　　　┃ ┃┃┃┃ ┃  ┃ ┃┃┃┃┃┃ ┃  ┃ ┃┃┃┃ ┃  ┃");
-	puts("　　　　　　┃ ┃┃┃┃ ┃  ┃ ┃┃┃┃┃┃ ┃  ┃ ┃┃┃┃ ┃  ┃");
-	puts("　　　　　　┃ ┗┛┗┛ ┃  ┃ ┗┛┗┛┗┛ ┃  ┃ ┗┛┗┛ ┃  ┃");
-	puts("　　　　　　┃  ┃  ┃  ┃  ┃  ┃  ┃  ┃  ┃  ┃  ┃  ┃  ┃  ┃");
-	puts("　　　　　　┃  ┃  ┃  ┃  ┃  ┃  ┃  ┃  ┃  ┃  ┃  ┃  ┃  ┃");
-	puts("　　　　　　┃  ┃  ┃  ┃  ┃  ┃  ┃  ┃  ┃  ┃  ┃  ┃  ┃  ┃");
-	puts("　　　　　　┗━┻━┻━┻━┻━┻━┻━┻━┻━┻━┻━┻━┻━┛");
-
+	gotoxy(34, 11);
+	puts("□□■■ ■■□□□■■ ■■ ■■□□□■■ ■■□□");
+	gotoxy(34, 12);
+	puts("□  ■■ ■■  □  ■■ ■■ ■■  □  ■■ ■■  □ ");
+	gotoxy(34, 13);
+	puts("□  ■■ ■■  □  ■■ ■■ ■■  □  ■■ ■■  □ ");
+	gotoxy(34, 14);
+	puts("□  ■■ ■■  □  ■■ ■■ ■■  □  ■■ ■■  □ ");
+	gotoxy(34, 15);
+	puts("□  ■■ ■■  □  ■■ ■■ ■■  □  ■■ ■■  □ ");
+	gotoxy(34, 16);
+	puts("□  ■■ ■■  □  ■■ ■■ ■■  □  ■■ ■■  □ ");
+	gotoxy(34, 17);
+	puts("□   □   □   □   □   □   □   □   □   □   □");
+	gotoxy(34, 18);
+	puts("□   □   □   □   □   □   □   □   □   □   □");
+	gotoxy(34, 19);
+	puts("□□□□□□□□□□□□□□□□□□□□□□□□□□");
 }
 
-int pr_str_array(char** dp, int n) {
+int pr_str_array(char** dp, int n) {	
 	while (1) {
 		double frequency[] = { 523.2511, 587.3295, 659.2551, 698.456, 783.9909, 880, 987.7666 };
 		const int note_len = 600;
@@ -113,16 +120,23 @@ int pr_str_array(char** dp, int n) {
 
 		print_piano();
 
-		gotoxy(29, 17);
+		gotoxy(34, 9);
 		printf("무슨 음일까요?: ");
 		scanf("%s", answer);
 
 		if (!strcmp(answer, *(dp + random))) {
-			printf("정답입니다.\n");
+			gotoxy(76, 9);
+			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14 | (0 << 4));
+			printf("정답입니다!\n");
 		}
 		else {
-			printf("틀렸습니다. 정답은 %s입니다.\n", *(dp + random));
-			//2초 후에 꺼지게
+			gotoxy(67, 9);
+			printf("땡! 정답은 %s입니다.\n", *(dp + random));
+			gotoxy(82, 28);
+			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 12 | (0 << 4));
+			printf("3초 후에 메인화면으로 돌아갑니다...");
+			Sleep(3000);
+			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15 | (0 << 4));
 			break;
 		}
 	}
@@ -132,8 +146,6 @@ int pr_str_array(char** dp, int n) {
 int playGame() {
 	char* p[SIZE] = { "도", "레", "미", "파", "솔" , "라", "시" };
 	while (1) {
-		if (keyControl() == SUBMIT)
-			break;
 		int n = keyControl();
 		switch (n) {
 		case SUBMIT: {
@@ -146,7 +158,7 @@ int playGame() {
 void rule() {
 	system("cls");
 	gotoxy(26, 14);
-	printf("그냥 듣고 맞추세여");
+	printf("게임 시작 전 한글로 설정되어 있는지 확인해주세요.");
 	gotoxy(75, 29);
 	printf("게임을 시작하려면 스페이스바를 누르세요...");
 	playGame();
