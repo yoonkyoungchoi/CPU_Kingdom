@@ -343,15 +343,15 @@ void animation(char key) {
         printf("¡á¡á¡á¡á¡á¡á¡á");
         gotoxy(54, 20);
         printf("¡á¡á¡á¡á¡á¡á¡á");
-        gotoxy(14, 14);
+        gotoxy(47, 14);
         printf("¡à");
-        gotoxy(14, 15);
+        gotoxy(47, 15);
         printf("¦¢");
-        gotoxy(14, 16);
+        gotoxy(47, 16);
         printf("¦¦");
-        gotoxy(30, 16);
+        gotoxy(63, 16);
         printf("¦¡");
-        gotoxy(32, 16);
+        gotoxy(64, 16);
         printf("¡á");
         break;
     case 'a':
