@@ -16,3 +16,5 @@ void target(void);
 void status(void);
 void print(void);
 void snake(void);
+void snake_start(void);
+int choose_mode();

@@ -9,8 +9,8 @@
 #define PAUSE 112
 #define ENTER 13
 
-#define MAP_X 3
-#define MAP_Y 2
+#define MAP_X 16
+#define MAP_Y 5
 #define MAP_WIDTH 30
 #define MAP_HEIGHT 20
 
@@ -25,7 +25,68 @@ int dir;
 int key;
 int status_on = 0;
 
+
+int choose_mode() {
+    system("cls");
+    int x = 50;
+    int y = 10;
+
+    print(MAP_X + (MAP_WIDTH / 2) - 7, MAP_Y + 5, ">   게 임 시 작 \n");
+    print(MAP_X + (MAP_WIDTH / 2) - 7, MAP_Y + 7, "    게 임 방 법  \n");
+    print(MAP_X + (MAP_WIDTH / 2) - 7, MAP_Y + 9, "       종 료 \n");
+
+
+    while (1) {
+        int n = keyControl();
+        switch (n) {
+            case UP: {
+                if (y > 10) {
+                    gotoxy(x - 2, y);
+                    printf(" ");
+
+                    gotoxy(x - 2, y -= 2);
+                    printf(">");
+                }
+                break;
+            }
+            case DOWN: {
+                if (y < 14) {
+                    gotoxy(x - 2, y);
+                    printf(" ");
+
+                    gotoxy(x - 2, y += 2);
+                    printf(">");
+                }
+                break;
+            }
+            case ENTER: {
+                return y - 10;
+            }
+        }
+    }
+    return 0;
+}
+
 void snake_game(void) {
+
+    while (1) {
+        int select = choose_mode();
+        switch (select) {
+        case 0:
+            snake_start();
+            break;
+        case 2:
+            //rule();
+            break;
+        case 4:
+            return;
+            break;
+        }
+        system("cls");
+    }
+}
+
+void snake_start(void) {
     system("cls");
 
     title();
@@ -175,9 +236,6 @@ void over(void) { //게임종료 함수
         print(MAP_X + (MAP_WIDTH / 2) - 4, MAP_Y + 10, "♥ BEST SCORE ♥");
     }
     Sleep(500);
-    /*
-    while (_kbhit()) _getch();
-    key = _getch();*/
     if (_kbhit()) {
         key = _getch();
         if (key == ENTER)
