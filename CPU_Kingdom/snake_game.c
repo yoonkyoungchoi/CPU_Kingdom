@@ -7,6 +7,7 @@
 #define UP 72
 #define DOWN 80
 #define PAUSE 112
+#define ENTER 13
 
 #define MAP_X 3
 #define MAP_Y 2
@@ -23,7 +24,6 @@ int last_score = 0;
 int dir;
 int key;
 int status_on = 0;
-
 
 void snake_game(void) {
     system("cls");
@@ -168,16 +168,23 @@ void over(void) { //게임종료 함수
     print(MAP_X + (MAP_WIDTH / 2) - 6, MAP_Y + 8, " YOUR SCORE : ");
     printf("%d", last_score = score);
 
-    print(MAP_X + (MAP_WIDTH / 2) - 7, MAP_Y + 12, " Press any keys to restart.. ");
+    print(MAP_X + (MAP_WIDTH / 2) - 7, MAP_Y + 12, " PRESS ENTER KEY TO RESTART.. ");
 
     if (score > best_score) {
         best_score = score;
         print(MAP_X + (MAP_WIDTH / 2) - 4, MAP_Y + 10, "♥ BEST SCORE ♥");
     }
     Sleep(500);
+    /*
     while (_kbhit()) _getch();
-    key = _getch();
-    title();
+    key = _getch();*/
+    if (_kbhit()) {
+        key = _getch();
+        if (key == ENTER)
+            title();
+        if (key == ESC)
+            main();
+    }
 }
 
 void target(void) {
