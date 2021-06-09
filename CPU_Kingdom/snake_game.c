@@ -29,18 +29,24 @@ int status_on = 0;
 int choose_mode() {
     system("cls");
     int x = 50;
-    int y = 10;
+    int y = 19;
 
-    print(MAP_X + (MAP_WIDTH / 2) - 7, MAP_Y + 5, ">   게 임 시 작 \n");
-    print(MAP_X + (MAP_WIDTH / 2) - 7, MAP_Y + 7, "    게 임 방 법  \n");
-    print(MAP_X + (MAP_WIDTH / 2) - 7, MAP_Y + 9, "       종 료 \n");
+    print(MAP_X + (MAP_WIDTH / 2) - 15, MAP_Y + 4,  "===========================================================");
+    print(MAP_X + (MAP_WIDTH / 2) - 15, MAP_Y + 5,  "=                                                         =");
+    print(MAP_X + (MAP_WIDTH / 2) - 15, MAP_Y + 6,  "=            방향키를 사용해서 지렁이를 움직여요!         =");
+    print(MAP_X + (MAP_WIDTH / 2) - 15, MAP_Y + 8,  "=지도에 보이는 별★을 먹을 때 마다 길이가 조금씩 늘어나요!=");
+    print(MAP_X + (MAP_WIDTH / 2) - 15, MAP_Y + 10, "=           속도도 조금씩 빨라지니 집중하세요!            =");
+    print(MAP_X + (MAP_WIDTH / 2) - 15, MAP_Y + 11, "=                                                         =");
+    print(MAP_X + (MAP_WIDTH / 2) - 15, MAP_Y + 12, "===========================================================");
+    print(MAP_X + (MAP_WIDTH / 2) - 7, MAP_Y + 14,  ">   게 임 시 작 \n");
+    print(MAP_X + (MAP_WIDTH / 2) - 7, MAP_Y + 16,  "       종 료 \n");
 
 
     while (1) {
         int n = keyControl();
         switch (n) {
             case UP: {
-                if (y > 10) {
+                if (y > 19) {
                     gotoxy(x - 2, y);
                     printf(" ");
 
@@ -50,7 +56,7 @@ int choose_mode() {
                 break;
             }
             case DOWN: {
-                if (y < 14) {
+                if (y < 21) {
                     gotoxy(x - 2, y);
                     printf(" ");
 
@@ -60,7 +66,7 @@ int choose_mode() {
                 break;
             }
             case ENTER: {
-                return y - 10;
+                return y - 19;
             }
         }
     }
@@ -76,13 +82,10 @@ void snake_game(void) {
             snake_start();
             break;
         case 2:
-            //rule();
-            break;
-        case 4:
             return;
             break;
         }
-        system("cls");
+        //system("cls");
     }
 }
 

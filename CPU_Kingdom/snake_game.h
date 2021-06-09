@@ -18,3 +18,4 @@ void print(void);
 void snake(void);
 void snake_start(void);
 int choose_mode();
+void how(void);
