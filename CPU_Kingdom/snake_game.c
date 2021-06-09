@@ -24,6 +24,7 @@ int dir;
 int key;
 int status_on = 0;
 
+
 void snake_game(void) {
     system("cls");
 
@@ -42,9 +43,6 @@ void snake_game(void) {
                 (dir == DOWN && key != UP))
                 dir = key;
             key = 0;
-            break;
-        case PAUSE:
-            pause();
             break;
         case 115:
             if (status_on == 0) status_on = 1;
@@ -79,8 +77,7 @@ void title(void) {
     print(MAP_X + (MAP_WIDTH / 2) - 7, MAP_Y + 9, " < PRESS ANY KEY TO START > ");
 
     print(MAP_X + (MAP_WIDTH / 2) - 7, MAP_Y + 11, "   ◇ ←,→,↑,↓ : Move      ");
-    print(MAP_X + (MAP_WIDTH / 2) - 7, MAP_Y + 12, "   ◇ P : Pause the game              ");
-    print(MAP_X + (MAP_WIDTH / 2) - 7, MAP_Y + 13, "   ◇ ESC : Quit the game             ");
+    print(MAP_X + (MAP_WIDTH / 2) - 7, MAP_Y + 12, "   ◇ ESC : Quit the game             ");
 
     while (1) {
         if (_kbhit()) {
@@ -104,7 +101,7 @@ void reset(void) {
     while (_kbhit()) _getch();
 
     dir = LEFT;
-    speed = 100;
+    speed = 150;
     length = 5;
     score = 0;
     for (i = 0; i < length; i++) {
@@ -164,28 +161,6 @@ void move(int dir) {
     print(MAP_X + x_move[i], MAP_Y + y_move[i], "●");
 }
 
-void pause(void) {
-    while (1) {
-        if (key == PAUSE) {
-            print(MAP_X + (MAP_WIDTH / 2) - 9, MAP_Y, "< PAUSE : PRESS ANY KEY TO RESUME > ");
-            Sleep(400);
-            print(MAP_X + (MAP_WIDTH / 2) - 9, MAP_Y, "                                    ");
-            Sleep(400);
-        }
-        else {
-            draw_map();
-            return;
-        }
-        if (_kbhit()) {
-
-            do {
-                key = _getch();
-            } while (key == 224);
-        }
-
-    }
-}
-
 void over(void) { //게임종료 함수 
     print(MAP_X + (MAP_WIDTH / 2) - 6, MAP_Y + 5, "+----------------------+");
     print(MAP_X + (MAP_WIDTH / 2) - 6, MAP_Y + 6, "|      GAME OVER..     |");
@@ -230,7 +205,7 @@ void target(void) {
         if (target_crush_on == 1) continue;
 
         print(MAP_X + target_x, MAP_Y + target_y, "★");
-        speed -= 3;
+        speed -= 10;
         break;
 
     }
