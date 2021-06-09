@@ -299,6 +299,9 @@ void ShowInfo(void) {
 	gotoxy(80, 11);
 	textcolor(15);
 	printf(" : 출구");
+
+	gotoxy(76, 14);
+	printf("ESC를 누르면 게임이 종료됩니다..");
 }
 
 // ● 출력 (21-03-29)
