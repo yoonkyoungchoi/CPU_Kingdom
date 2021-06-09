@@ -170,11 +170,12 @@ void GameOver() {
     printf("******************************");
     gotoxy(45, 11);
     printf("    시간이 초과 되었습니다");
-    gotoxy(45, 12);
+    gotoxy(44, 12);
     printf(" 당신의 총 점수는 %d점 입니다", score_bluewhite);
-    gotoxy(42, 15);
+    gotoxy(37, 15);
     printf("메인화면으로 넘어갈려면 아무키나 2번 눌러주세요");
     score_bluewhite = 0;
+    RoundCnt = 1;
 
     system("pause>null");
 }
@@ -193,16 +194,16 @@ void FlagRandom() {
                           "백기 내려", "청기 올리지 말고 백기 내려","백기 내리고 청기 올리지마" //D 키
     };
 
-    gotoxy(41, 3);
+    gotoxy(54, 3);
     printf("\n 현재점수 : %d", score_bluewhite);
     old_time = clock();    //시작 시간
     animation(0);
 
     for (int j = 1; j <= 10; j++) {  //문제 실행
         system("cls");
-        gotoxy(58, 5);
+        gotoxy(57, 5);
         printf("%dROUND \n", RoundCnt);
-        gotoxy(55, 3);
+        gotoxy(54, 3);
         printf("현재점수 : %d", score_bluewhite);
         gotoxy(46, 7);
         int rn = (rand() % 12) + 1;
@@ -258,12 +259,12 @@ void FlagRandom() {
                 if (rn == 10 || rn == 11 || rn == 12)
                     score_bluewhite += 50;
                 else {
-                    gotoxy(59,9);
+                    gotoxy(59, 9);
                     printf("다시!");
                     c = _getch();
                 }
                 break;
-            default:  gotoxy(40, 8); printf("다시!"); c = _getch(); break; //Q A E D가 아니면 그냥 계속
+            default: gotoxy(59, 9); printf("다시!"); c = _getch(); break; //Q A E D가 아니면 그냥 계속
             }
 
         }
@@ -279,8 +280,8 @@ void FlagRandom() {
             printf("******************************");
 
             Sleep(1000);
-            gotoxy(32, 15);
-            printf("\n  다음단계로 넘어갈려면 아무키나 2번 눌러주세요");
+            gotoxy(37, 15);
+            printf("다음화면으로 넘어갈려면 아무키나 2번 눌러주세요");
             Sleep(1000);
         }
     }
@@ -289,7 +290,7 @@ void FlagRandom() {
 
 
 
-
+//애니메이션 소은아 여기서부터 고쳐
 void animation(char key) {
 
     gotoxy(50, 12);
@@ -519,17 +520,18 @@ void erase(void)
 
 void GameClear() {
     system("cls");
-    gotoxy(15, 8);
+    gotoxy(45, 8);
     printf("******************************");
-    gotoxy(15, 9);
+    gotoxy(45, 9);
     printf("*    G A M E  C L E A R      *");
-    gotoxy(15, 10);
+    gotoxy(45, 10);
     printf("******************************");
-    gotoxy(15, 11);
+    gotoxy(45, 11);
     printf("  당신의 총 점수는 %d점 입니다", score_bluewhite);
-    gotoxy(12, 15);
+    gotoxy(37, 15);
     printf("메인화면으로 넘어갈려면 아무키나 2번 눌러주세요");
     score_bluewhite = 0;
+    RoundCnt = 1;
     system("pause>null");
 
 }; //3단계까지 성공하면
@@ -538,7 +540,7 @@ void GameClear() {
 //1단계
 void Step1() {
     int time = 20; //제한시간
-    gotoxy(58, 5);
+    gotoxy(57, 5);
     printf("1ROUND \n");
     Sleep(1000); //1초후 시작
     //Timer20();//20초제한시간
@@ -549,7 +551,7 @@ void Step1() {
 //2단계
 void Step2() {
     int time = 15; //제한시간
-    gotoxy(58, 5);
+    gotoxy(57, 5);
     printf("2ROUND \n");
     Sleep(1000); //1초후 시작
     FlagRandom();
@@ -557,7 +559,7 @@ void Step2() {
 }
 void Step3() {
     int time = 15; //제한시간
-    gotoxy(58, 5);
+    gotoxy(57, 5);
     printf("3ROUND \n");
     Sleep(1000); //1초후 시작
     FlagRandom();
