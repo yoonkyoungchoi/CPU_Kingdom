@@ -157,7 +157,7 @@ int select_game(void) {
 	gotoxy(53, 10);
 	printf("1. 피아노 타일");
 	gotoxy(53, 12);
-	printf("2. 절대 음감");
+	printf("2. 절대음감인 사람~?");
 	gotoxy(53, 14);
 	printf("3. 미로 탈출");
 	gotoxy(53, 16);
