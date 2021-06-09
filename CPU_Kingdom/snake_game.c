@@ -52,7 +52,8 @@ void snake_game(void) {
             key = 0;
             break;
         case ESC:
-            exit(0);
+			main();
+			break;
         }
         move(dir);
 
@@ -84,7 +85,7 @@ void title(void) {
     while (1) {
         if (_kbhit()) {
             key = _getch();
-            if (key == ESC) exit(0);
+            if (key == ESC) main();
             else break;
         }
         print(MAP_X + (MAP_WIDTH / 2) - 7, MAP_Y + 9, " < PRESS ANY KEY TO START > ");
