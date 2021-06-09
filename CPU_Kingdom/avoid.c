@@ -1,19 +1,19 @@
 #include "avoidgame.h"
 
 //사용자 정의 세미콜론 없어야함
-#define CT 13
-#define WIDTH 34
-#define HEIGHT 15
+#define CT 29
+#define WIDTH 59
+#define HEIGHT 20
 #define TRUE 1
 #define FALSE 0
 #define LV1 100
-#define LV2 40
+#define LV2 50
 #define LV3 17
 #define LV4 0
 
 
 //전역변수 선언
-Snow snow[WIDTH];
+Snow snow[WIDTH - CT];
 Player one;
 clock_t start, c;
 double time1;
@@ -21,15 +21,16 @@ double max_time = 0, cn;
 int revelnum;
 int nowrevel;
 int speed;
+int len = WIDTH - CT;
 
 //// 초기값 ////
 void init()
 {
     int i;
-    for (i = CT; i < WIDTH; i++)
+    for (i = 0; i < len; i++)
         snow[i].con = FALSE;
     //플레이어 위치는 중앙
-    one.x = (WIDTH + CT) / 2;
+    one.x = (WIDTH * 2) / 2;
 }
 
 //// 피할 적들 처리 ////
@@ -38,13 +39,13 @@ void CreateEnemy()
 {
     int i;
 
-    for (i = CT; i < WIDTH; i++)
+    for (i = 0; i < len; i++)
     {
         //해당 인덱스[i]에 적이 없으면 (FALSE 이면 실행)
         if (!snow[i].con)
         {
             //가로 (x축) 무작위로 적 출현, 세로(y축)은 출현 위치 항상 일치
-            snow[i].x = (rand() % (WIDTH - CT)) + CT;
+            snow[i].x = (rand() % (WIDTH + 3)) + CT;
             snow[i].y = HEIGHT - 2;
             //적이 출현한 인덱스 [i]의 상태 = TRUE로 변경
             snow[i].con = TRUE;
@@ -53,23 +54,26 @@ void CreateEnemy()
     }
 }
 /* 적의 움직임 */
-void FallEnemy()
+int FallEnemy()
 {
     int i;
-    for (i = CT; i < WIDTH; i++)
+    for (i = 0; i < len; i++)
     {
         //해당 인덱스 [i]에 적이 있으면 (TRUE라면) 움직임 실행
         if (snow[i].con)
         {
             snow[i].y--;
+            if ((snow[i].y == 0) && (snow[i].x == one.x)) return TRUE;
         }
     }
+    return FALSE;
+
 }
 /* 피하기 성공한 적(바닥에 떨어진 적) 삭제 */
 void DelEnemy()
 {
     int i;
-    for (i = CT; i < WIDTH; i++)
+    for (i = 0; i < len; i++)
     {
         if (snow[i].con && snow[i].y < 0)
             snow[i].con = FALSE;
@@ -79,10 +83,10 @@ void DelEnemy()
 int DamagedPlayer()
 {
     int i;
-    for (i = CT; i < WIDTH; i++)
+    for (i = 0; i < len; i++)
     {
         //적의 상태가 TRUE && 적의 위치가 y=0 즉 바닥 && 적의 x축 위치 = 플레이어의 x축 위치
-        if ((snow[i].con && snow[i].y == 0) && (snow[i].x == one.x))
+        if ((snow[i].con && snow[i].y == 0) && (snow[i].x == one.x || snow[i].x-1 == one.x))
             return TRUE;
     }
     //닿지 않았으면 FALSE 반환
@@ -101,18 +105,24 @@ int isKeyDown(int key)
 }
 
 /* 플레이어 이동 (좌/우) */
-void MovePlayer()
+int MovePlayer()
 {
     //왼쪽 방향키 입력 시
     if (isKeyDown(VK_LEFT))
         one.x--;
+    if (DamagedPlayer()) {
+        return TRUE;
+    }
     if (isKeyDown(VK_RIGHT))
         one.x++;
+    if (DamagedPlayer()) {
+        return TRUE;
+    }
     //위치 범위 제한
     if (one.x < CT)
         one.x = CT;
-    if (one.x > WIDTH - 1)
-        one.x = WIDTH - 1;
+    if (one.x > WIDTH * 2 - CT - 1)
+        one.x = WIDTH * 2 - CT - 1;
 }
 
 //// 게임 화면 출력 ////
@@ -126,20 +136,20 @@ void PrintGame()
     //printf("\n");
     gotoxy(CT, 1);
     switch (nowrevel) {
-    case 1: {printf("【  Lv.1 │");  break; }
-    case 2: {printf("【  Lv.2 │");  break; }
-    case 3: {printf("【  Lv.3 │");  break; }
-    default: {printf("【   Lv.4 │"); break; }
+    case 1: {printf("【\tLv.1\t│");  break; }
+    case 2: {printf("【\tLv.2\t│");  break; }
+    case 3: {printf("【\tLv.3\t│");  break; }
+    default: {printf("【\tLv.4\t│"); break; }
     }
-    printf("  CPU 피하기 게임  "); //중간 title
+    printf("\t      CPU 피하기 게임\t      "); //중간 title
     //현재시간 출력
-    printf("│   %.1f초   】\n", cn);
+    printf("│    %.1f초   】\n", cn);
     gotoxy(CT, 2);
     int i;
     for (i = CT; i < WIDTH; i++)
         printf("──");//▩
 
-    for (i = CT; i < WIDTH; i++)
+    for (i = 0; i < len; i++)
     {
         if (snow[i].con)
         {
@@ -154,7 +164,7 @@ void PrintGame()
 
     //바닥 출력
     gotoxy(CT, HEIGHT + 1);
-    for (i = CT; i < WIDTH; i++)
+    for (i = CT; i < WIDTH + 1; i++)
         printf("▲");//▩
     printf("\n");
 
@@ -177,7 +187,7 @@ void endTimer() {
 //게임 끝났을때 메뉴
 bool Outgame(void) {
     bool Bet;
-    int wt = 17;    //열중앙 조절바
+    int wt = 45;    //열중앙 조절바
     //경과시간 출력
     gotoxy(wt, 5);
     printf("┌───────────────────────┐\n");
@@ -198,7 +208,7 @@ bool Outgame(void) {
     gotoxy(wt, 10);
     printf("│                       │\n");
     gotoxy(wt, 11);
-    if (max_time < 10.0) printf("│    최고기록 : %0.1lf초   │\n", max_time); //10미만이면 앞에 0붙이기
+    if (max_time < 10.0) printf("│   최고기록 :  %0.1lf초   │\n", max_time); //10미만이면 앞에 0붙이기
     else printf("│   최고기록 : %0.1lf초   │\n", max_time); //앞이 두자리면 그대로
     gotoxy(wt, 12);
     printf("│                       │\n");
@@ -207,13 +217,15 @@ bool Outgame(void) {
     gotoxy(wt, 14);
     printf("│                       │\n");
     gotoxy(wt, 15);
-    printf("│  그만하기   다시하기  │\n");
+    printf("│   그만하기   다시하기 │\n");
     gotoxy(wt, 16);
     printf("│                       │\n");
     gotoxy(wt, 17);
-    printf("│     Y     :    N      │");
+    printf("│     Y      :     N    │");
     gotoxy(wt, 18);
     printf("└───────────────────────┘\n");
+
+
 
     //Y/N 중에 하나를 누를때까지 반복
     while (1) {
@@ -232,7 +244,7 @@ bool Outgame(void) {
 }
 //게임 시작 안내판
 void startMenu(void) {
-    int ws = 13;
+    int ws = 38;
     while (1) {
         /*gotoxy(ws, 3); 타이틀 위에부분 테두리
         for (int i = 0; i < 45; i++)
@@ -244,22 +256,22 @@ void startMenu(void) {
             printf(".");
         }
         //초반 설명글
-        gotoxy(ws, 4);
-        printf("................「눈 피하기」................");
-        gotoxy(ws + 1, 6);
-        printf("●떨어지는 눈덩이를 피해 살아남으세요!●");
-        gotoxy(ws + 9, 7);
+        gotoxy(ws + 2, 4);
+        printf("................「눈 피하기」...............");
+        gotoxy(ws, 6);
+        printf("   ●떨어지는 눈덩이를 피해 살아남으세요!●");
+        gotoxy(ws + 19, 7);
         printf("← ▷ →");
-        gotoxy(ws + 3, 8);
+        gotoxy(ws + 7, 8);
         printf("《시작하려면 아무키를 누르세요》");
 
         //밑에부분 테두리
         gotoxy(ws, 14);
-        for (int i = 0; i < 45; i++)
+        for (int i = 0; i < 46; i++)
             printf(".");
         //오른쪽 기둥 테두리
         for (int i = 4; i < 14; i++) {
-            gotoxy(ws + 22, i);
+            gotoxy(ws + 45, i);
             printf(".");
         }
         Sleep(200);
@@ -271,16 +283,12 @@ int revel() {
     system("cls");
     startMenu(); //안내말 호출
     //레벨 선택 글자 출력
-    int ws = 18;
-    gotoxy(ws + 1, 10);
-    printf("○  * 레벨선택 * \t○");
-    // gotoxy(ws, 11);
-     //printf("------------------------\n");
+    int ws = 48;
+    gotoxy(ws + 3, 10);
+    printf("○  * 레벨선택 * ○");
+
     gotoxy(ws, 12);
     printf("   ¹    ²    ³   ⁴ ");
-    //gotoxy(ws, 13);
-    //printf("------------------------");
-
 
 
     /*0이나 (0x0000) : 이전에 누른 적이 없고 호출 시점에서 안눌린 상태
@@ -327,11 +335,10 @@ bool ing() {
         srand((int)malloc(NULL));
 
         CreateEnemy();  //적생성
-        FallEnemy();    //적 움직이기
+        if (FallEnemy()) break;    //적 움직이기
         DelEnemy();     //떨어진 적 없애기
-
-        MovePlayer();   //사용자 움직임
-
+        if (MovePlayer()) break;   //사용자 움직임
+        if (DamagedPlayer()) break;
         PrintGame();    //화면 만들기
 
         //현재시간 구하기
@@ -341,7 +348,7 @@ bool ing() {
         //게임의 속도 조절을 위해 Sleep 설정
         Sleep(speed);
 
-    } while (!(DamagedPlayer()));    //닿지 않으면 반복
+    } while (!(DamagedPlayer()));     //닿지 않으면 반복
     endTimer(); //타이머 종료
     return Outgame(); // 다시하기 메뉴 호출
 }
