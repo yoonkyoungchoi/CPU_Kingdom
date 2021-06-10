@@ -28,7 +28,7 @@ int status_on = 0;
 
 int choose_mode() {
     system("cls");
-    int x = 50;
+    int x = 54;
     int y = 19;
 
     print(MAP_X + (MAP_WIDTH / 2) - 15, MAP_Y + 4,  "===========================================================");
@@ -38,8 +38,8 @@ int choose_mode() {
     print(MAP_X + (MAP_WIDTH / 2) - 15, MAP_Y + 10, "=           속도도 조금씩 빨라지니 집중하세요!            =");
     print(MAP_X + (MAP_WIDTH / 2) - 15, MAP_Y + 11, "=                                                         =");
     print(MAP_X + (MAP_WIDTH / 2) - 15, MAP_Y + 12, "===========================================================");
-    print(MAP_X + (MAP_WIDTH / 2) - 7, MAP_Y + 14,  ">   게 임 시 작 \n");
-    print(MAP_X + (MAP_WIDTH / 2) - 7, MAP_Y + 16,  "       종 료 \n");
+    print(MAP_X + (MAP_WIDTH / 2) - 5, MAP_Y + 14,  ">   게 임 시 작 \n");
+    print(MAP_X + (MAP_WIDTH / 2) - 5, MAP_Y + 16,  "       종 료 \n");
 
 
     while (1) {
