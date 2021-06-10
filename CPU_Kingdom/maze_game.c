@@ -445,6 +445,7 @@ void secondView(void) {
 	system("cls");
 	int choose;
 
+	textcolor(15);
 	gotoxy(secondView_x, 7);
 	printf("점수 : %d", score);
 	int x = 9;
@@ -489,8 +490,11 @@ void secondView(void) {
 		case 5:
 			main();
 		default:
-			gotoxy(70, 20);
+			textcolor(4);
+			gotoxy(46, 22);
 			printf("다시 입력해주세요.");
+			Sleep(1000);
+			secondView();
 			continue;
 		}
 	}
