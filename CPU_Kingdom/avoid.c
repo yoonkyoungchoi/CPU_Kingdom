@@ -10,6 +10,7 @@
 #define LV2 50
 #define LV3 17
 #define LV4 0
+#define ESC 27
 
 
 //전역변수 선언
@@ -264,6 +265,8 @@ void startMenu(void) {
         printf("← ▷ →");
         gotoxy(ws + 7, 8);
         printf("《시작하려면 아무키를 누르세요》");
+		gotoxy(ws + 7, 13);
+		printf("ESC를 누르면 메인으로 돌아갑니다.");
 
         //밑에부분 테두리
         gotoxy(ws, 14);
@@ -276,6 +279,12 @@ void startMenu(void) {
         }
         Sleep(200);
         if (_kbhit()) break;
+		
+		char key = _getch();
+		if (key == ESC) {
+			main();
+			break;
+		}
     }
 }
 //시작할 때 메뉴
