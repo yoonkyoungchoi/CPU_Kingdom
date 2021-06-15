@@ -1,6 +1,6 @@
 #include "pushpull.h"
 #include <conio.h>
-#include<windows.h>
+#include <windows.h>
 
 // _getch() value of ESC key
 #define MAGIC_KEY 224
@@ -257,7 +257,7 @@ void game_fun() {
 		char click = _getch();
 
 		switch (click) {
-		case 97: case 65: // A
+		case A: case a: // A
 			x -= 2;
 			line(x, y);
 			Sleep(100);
