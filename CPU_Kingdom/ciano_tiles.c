@@ -594,8 +594,8 @@ void ranking(void) {
 			}
 		}
 
-		// print 10 people
-		count = count < 10 ? count : 10;
+		// print 5 people
+		count = count < 5 ? count : 5;
 
 		// print name and score
 		for (int i = 0; i < count; i++) {
@@ -607,7 +607,7 @@ void ranking(void) {
 		// close
 		fclose(fp);
 
-		gotoxy(x, Y + 30);
+		gotoxy(x, y + 5);
 		printf(">> 아무 키나 누르면 메뉴로 이동합니다. ");
 
 		int _ = _getch();
