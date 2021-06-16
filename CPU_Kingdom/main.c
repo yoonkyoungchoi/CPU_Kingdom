@@ -108,7 +108,7 @@ int select_game(void) {
 	system("cls");
 
 	// default x, y
-	int x = 8;
+	int x = 6;
 	int y = 2;
 
 	print_auto_y(&x, &y, "                       |>>>");
@@ -130,7 +130,7 @@ int select_game(void) {
 	print_auto_y(&x, &y, "`~    '--~~__|.    |+++++__|----~    ~`---,");
 	print_auto_y(&x, &y, "             ~---__|,--~'");
 
-	x = 54;
+	x = 52;
 	y = 4;
 	print_auto_y(&x, &y, "                   _____   _____    _    _");
 	print_auto_y(&x, &y, "                  / ____| |  __ ¡¬ | |  | |");
