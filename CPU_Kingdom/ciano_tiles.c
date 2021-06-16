@@ -10,6 +10,17 @@
 #define LEFT 75
 #define RIGHT 77
 
+// color
+enum {
+	BLUE = 9,
+	GREEN,
+	MINT,
+	RED,
+	PURPLE,
+	YELLOW,
+	WHITE
+};
+
 // default coordinates
 #define X 50
 #define Y 10
@@ -130,7 +141,7 @@ int select_menu(void) {
 	do {
 		gotoxy(x, y);
 		// print cursor
-		printf("▶");
+		printf(">");
 
 		pressed_key = _getch();
 		// remove cursor
@@ -270,20 +281,32 @@ void draw_rectangle(void) {
 	printf("┘");
 }
 
+void print_desc(int x, int y, char* str, int color) {
+	while (1) {
+		if (_kbhit()) {
+			break;
+		}
+		gotoxy(x, y);
+		// set color
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color);
+		printf(str);
+		Sleep(400);
+
+		gotoxy(x, y);
+		printf("                                           ");
+		Sleep(400);
+	}
+	// reset color
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), WHITE);
+}
+
 // game ready description (chohadam, 21-03-22)
 void game_ready(void) {
-	int x = X - 35;
-	int y = Y + 20;
+	int x = X - 24;
+	int y = Y + 3;
 
 	// print description
-	gotoxy(x, y);
-	printf(">>   아무 키나 누르면 게임이 시작됩니다.");
-
-	char _ = _getch();
-
-	// remove description
-	gotoxy(x, y);
-	printf("                                        ");
+	print_desc(x, y, "<  아무 키나 누르면 게임이 시작됩니다  >", BLUE);
 }
 
 // start block down (chohadam, 21-03-24)
@@ -403,14 +426,18 @@ void game_over(void) {
 	system("cls");
 
 	// print game over
+	// color red
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), RED);
 	gotoxy(X + 5, Y + 5);
 	printf("GAME OVER");
 
 	// 2초간 보여줌
 	Sleep(2000);
 
-	gotoxy(X - 5, Y + 10);
-	printf(">> 아무 키나 누르면 메뉴로 돌아갑니다.");
+	// color white
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), WHITE);
+	gotoxy(X - 10, Y + 10);
+	printf("<  아무 키나 누르면 메뉴로 돌아갑니다  >");
 	
 	char _ = _getch();
 
@@ -429,19 +456,29 @@ void print_score(void) {
 	// string temp
 	char str[20];
 
+	// color mint
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), MINT);
 	sprintf_s(str, sizeof(str), "[  %s  ] 님", name);
 	print_str(&x, &y, str);
 
+	// color white
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), WHITE);
 	sprintf_s(str, sizeof(str), "%d단계", step);
 	print_str(&x, &y, str);
 
 	y += DISTANCE;
+	// color blue
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), BLUE);
 	sprintf_s(str, sizeof(str), "점수\t\t\t%5d", score);
 	print_str(&x, &y, str);
 
+	// color red
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), RED);
 	sprintf_s(str, sizeof(str), "실패\t\t\t%5d", fail);
 	print_str(&x, &y, str);
 
+	// color white
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), WHITE);
 	print_str(&x, &y, "이동\t\t\t← →");
 
 	print_str(&x, &y, "종료\t\t\t  ESC");
@@ -454,7 +491,7 @@ void manual(void) {
 
 	// set x, y
 	int x = X - 40;
-	int y = Y - 4;
+	int y = Y - 5;
 
 	// draw game screenshot
 	print_tile(x, y);
@@ -477,8 +514,17 @@ void manual(void) {
 	y = Y - 5;
 	print_str(&x, &y, "1단계");
 	y += 1;
+
+	// color: mint
+	SetConsoleTextAttribute( GetStdHandle( STD_OUTPUT_HANDLE ), MINT);
 	print_str(&x, &y, "점수\t\t0");
+
+	// color red
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), RED);
 	print_str(&x, &y, "실패\t\t0");
+
+	// color white
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), WHITE);
 	y += 1;
 	print_str(&x, &y, "이동\t\t← →");
 	print_str(&x, &y, "종료\t\tESC");
@@ -508,11 +554,9 @@ void manual(void) {
 	y += 1;
 	print_str(&x, &y, "지금 바로 1등하러 GO GO!");
 
-	y += DISTANCE - 1;
+	y += DISTANCE + 1;
 	x = X - 40;
-	print_str(&x, &y, ">> 아무 키나 누르면 메뉴로 이동합니다.");
-
-	char _ = _getch();
+	print_desc(x, y, "<  아무 키나 누르면 메뉴로 이동합니다  >", YELLOW);
 
 	// go to the menu
 	ciano_tiles();
@@ -608,15 +652,15 @@ void ranking(void) {
 		fclose(fp);
 
 		gotoxy(x, y + 5);
-		printf(">> 아무 키나 누르면 메뉴로 이동합니다. ");
+		printf("<  아무 키나 누르면 메뉴로 이동합니다  >");
 
 		int _ = _getch();
 
 		ciano_tiles();
 	}
 	else {
-		gotoxy(x, Y + 30);
-		printf(">> 아무 키나 누르면 메뉴로 이동합니다.");
+		gotoxy(x, Y + 15);
+		printf("<  아무 키나 누르면 메뉴로 이동합니다  >");
 
 		int _ = _getch();
 
