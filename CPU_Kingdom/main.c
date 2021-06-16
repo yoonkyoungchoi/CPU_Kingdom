@@ -15,8 +15,14 @@
 #include "avoidgame.h"
 #include "bluewhite.h"
 
-// _getch() value of ESC key (chohadam 21-03-11)
+// _getch() values (chohadam 21-03-11)
 #define ESC 27
+#define ENTER 13
+// _getch() value of arrow key (chohadam 21-03-11)
+#define UP 72
+#define DOWN 80
+#define LEFT 75
+#define RIGHT 77
 
 void set_console(void);
 void set_cursor(int flag, int size);
@@ -91,90 +97,103 @@ void set_cursor(int flag, int size) {
 	SetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE), &cursor);
 }
 
-// select the game function (chohadam 21-03-11)
+void print_auto_y(int* x, int* y, char* str) {
+	gotoxy(*x, *y);
+	printf(str);
+	*y += 1;
+}
+
+// select the game (chohadam, 21-06-16)
 int select_game(void) {
 	system("cls");
 
-	// temporary menu
-	gotoxy(60, 1);
-	printf("▶");
-	gotoxy(60, 2);
-	printf("|");
-	gotoxy(60, 3);
-	printf("|");
-	gotoxy(59, 4);
-	printf("▲");
-	gotoxy(57, 5);
-	printf("▲▼▲");
-	gotoxy(55, 6);
-	printf("▲▼▲▼▲");
-	gotoxy(52, 7);
-	printf("▲▼▲▲▼▲▼▲");
-	gotoxy(40, 8);
-	printf("■■■■■■■■■■■■■■■■■■■■");
-	gotoxy(34, 9);
-	printf("■■■■■                                ■■■■■ ");
-	gotoxy(30, 10);
-	printf("■■■■■                                        ■■■■■");
-	gotoxy(27, 11);
-	printf(" ■■■■                                                ■■■■ ");
-	gotoxy(26, 12);
-	printf("■                                                                ■ ");
-	gotoxy(26, 13);
-	printf("■                                                                ■ ");
-	gotoxy(26, 14);
-	printf("■                                                                ■ ");
-	gotoxy(26, 15);
-	printf("■                                                                ■ ");
-	gotoxy(26, 16);
-	printf("■                                                                ■ ");
-	gotoxy(26, 17); 
-	printf("■                                                                ■ ");
-	gotoxy(26, 18); 
-	printf("■                                                                ■ ");
-	gotoxy(26, 19);
-	printf("■                                                                ■ ");
-	gotoxy(26, 20);
-	printf("■                                                                ■ ");
-	gotoxy(26, 21);
-	printf("■                                                                ■ ");
-	gotoxy(26, 22);
-	printf("■                                                                ■ ");
-	gotoxy(26, 23);
-	printf("■                                                                ■ ");
-	gotoxy(26, 24);
-	printf("■                                                                ■ ");
-	gotoxy(26, 25);
-	printf("■                                                                ■ ");
-	gotoxy(26, 26);
-	printf("■                                                                ■ ");
-	gotoxy(26, 27);
-	printf("■                                                                ■ ");
-	gotoxy(26, 27);
-	printf("■                                                                ■ ");
-	gotoxy(26, 28);
-	printf("■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■");
-	gotoxy(53, 10);
-	printf("1. 피아노 타일");
-	gotoxy(53, 12);
-	printf("2. 절대음감인 사람~?");
-	gotoxy(53, 14);
-	printf("3. 미로 탈출");
-	gotoxy(53, 16);
-	printf("4. 줄다리기");
-	gotoxy(53, 18);
-	printf("5. 뱀을 피해라!");
-	gotoxy(53, 20);
-	printf("6. 눈피하기");
-	gotoxy(53, 22);
-	printf("7. 청기 백기");
-	gotoxy(53, 24);
-	printf("8. EXIT");
-	gotoxy(46, 26);
-	printf("게임을 선택해주세요 >> ");
+	// default x, y
+	int x = 8;
+	int y = 2;
 
-	int select;
-	scanf_s("%d", &select);
+	print_auto_y(&x, &y, "                       |>>>");
+	print_auto_y(&x, &y, "                       |");
+	print_auto_y(&x, &y, "         |>>>      _  _|_  _         |>>>");
+	print_auto_y(&x, &y, "         |        |;| |;| |;|        |");
+	print_auto_y(&x, &y, "     _  _|_  _    ＼.    .  /    _  _|_  _");
+	print_auto_y(&x, &y, "    |;|_|;|_|;|    ＼:. ,  /    |;|_|;|_|;|");
+	print_auto_y(&x, &y, "    ＼..      /     ||;   .|   ＼.    .  /");
+	print_auto_y(&x, &y, "     ＼.  ,  /      ||:  . |    ＼:  .  /");
+	print_auto_y(&x, &y, "      ||:   |_   _  ||_ ._ |    _||:   |");
+	print_auto_y(&x, &y, "      ||:  .|||_|;|_|;|_|;|_|;|_|;||:.  |");
+	print_auto_y(&x, &y, "      ||:   ||.    .     .      . ||:  .|");
+	print_auto_y(&x, &y, "      ||: . || .     . .   .  ,   ||:   |");
+	print_auto_y(&x, &y, "      ||:   ||:  ,  _______   .   ||: , |");
+	print_auto_y(&x, &y, "      ||:   || .   /+++++++＼   . ||:   |");
+	print_auto_y(&x, &y, "      ||:   ||.    |+++++++| .    ||: . |");
+	print_auto_y(&x, &y, "   __ ||: . ||: ,  |+++++++|.  . _||_   |");
+	print_auto_y(&x, &y, "`~    '--~~__|.    |+++++__|----~    ~`---,");
+	print_auto_y(&x, &y, "             ~---__|,--~'");
+
+	x = 54;
+	y = 4;
+	print_auto_y(&x, &y, "                   _____   _____    _    _");
+	print_auto_y(&x, &y, "                  / ____| |  __ ＼ | |  | |");
+	print_auto_y(&x, &y, "                 | |      | |__) | | |  | |");
+	print_auto_y(&x, &y, "                 | |      |  ___/  | |  | |");
+	print_auto_y(&x, &y, "                 | |____  | |      | |__| |");
+	print_auto_y(&x, &y, "                 ＼_____| |_|      ＼_____/");
+
+	y += 2;
+	print_auto_y(&x, &y, "  _  __   _____   _   _    _____   _____      ____     __   __");
+	print_auto_y(&x, &y, " | |/ /  |_   _| | ＼ | | / ____|  |  __ ＼  / __ ＼  |  ＼/  |");
+	print_auto_y(&x, &y, " | ' /     | |   |  ＼| | | |  __  | |  | | | |  | |  | ＼  / |");
+	print_auto_y(&x, &y, " |  <      | |   | . `  | | | |_ | | |  | | | |  | |  | |＼/| |");
+	print_auto_y(&x, &y, " | . ＼  ,_| |_  | |＼  | | |__| | | |__| | | |__| |  | |   | |");
+	print_auto_y(&x, &y, " |_|＼_＼|_____| |_| ＼_| ＼_____| |_____/  ＼____/   |_|   |_|");
+
+	x = 10;
+	y = 24;
+	print_auto_y(&x, &y, "① 피아노 타일");
+	y += 2;
+	print_auto_y(&x, &y, "⑤ 뱀 피하기");
+
+	x = 30;
+	y = 24;
+	print_auto_y(&x, &y, "② 절대음감");
+	y += 2;
+	print_auto_y(&x, &y, "⑥ 눈 피하기");
+
+	x = 50;
+	y = 24;
+	print_auto_y(&x, &y, "③ 미로 탈출");
+	y += 2;
+	print_auto_y(&x, &y, "⑦ 청기백기");
+
+	x = 70;
+	y = 24;
+	print_auto_y(&x, &y, "④ 줄다리기");
+	y += 2;
+	print_auto_y(&x, &y, "⑧ 종료");
+
+	int select = 1;
+	int k = 0;
+	while (k != ENTER) {
+		x = 87;
+		y = 24;
+		print_auto_y(&x, &y, "┌─────── 게임 선택 ───────┐");
+		print_auto_y(&x, &y, "│                         │");
+		gotoxy(x, y);
+		printf("│      >      %d           │", select);
+		y += 1;
+		print_auto_y(&x, &y, "│                         │");
+		print_auto_y(&x, &y, "└─────────────────────────┘");
+
+		k = get_key();
+		switch (k) {
+		case UP: case RIGHT:
+			select = select == 8 ? 8 : select + 1;
+			break;
+		case DOWN: case LEFT:
+			select = select == 1 ? 1 : select - 1;
+			break;
+		}
+	}
 
 	return select;
 }
