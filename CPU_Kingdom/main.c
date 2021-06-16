@@ -4,6 +4,9 @@
 #include <stdlib.h>
 // input output ...
 #include <stdio.h>
+#include <mmsystem.h>;
+#pragma comment(lib, "winmm.lib")
+
 
 // header files
 #include "ciano_tiles.h"
@@ -31,11 +34,13 @@ void draw_main(void);
 int select_game(void);
 
 int main(void) {
+	PlaySound(TEXT("intro.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
 	set_console();
-
+	
 	// input value
 	int select;
 	while (select = select_game()) {
+		PlaySound(NULL, 0, 0);
 		switch (select)
 		{
 		case 1:
@@ -68,6 +73,7 @@ int main(void) {
 
 		// end game
 		case 8:
+			PlaySound(NULL, 0, 0);
 			exit(1);
 
 		default:
