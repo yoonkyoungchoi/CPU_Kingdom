@@ -87,7 +87,7 @@ int DamagedPlayer()
     for (i = 0; i < len; i++)
     {
         //적의 상태가 TRUE && 적의 위치가 y=0 즉 바닥 && 적의 x축 위치 = 플레이어의 x축 위치
-        if ((snow[i].con && snow[i].y == 0) && (snow[i].x == one.x || snow[i].x-1 == one.x))
+        if ((snow[i].con && snow[i].y == 0) && (snow[i].x == one.x || snow[i].x - 1 == one.x))
             return TRUE;
     }
     //닿지 않았으면 FALSE 반환
@@ -111,19 +111,15 @@ int MovePlayer()
     //왼쪽 방향키 입력 시
     if (isKeyDown(VK_LEFT))
         one.x--;
-    if (DamagedPlayer()) {
-        return TRUE;
-    }
+    //오른쪽 방향키 입력 시
     if (isKeyDown(VK_RIGHT))
         one.x++;
-    if (DamagedPlayer()) {
-        return TRUE;
-    }
     //위치 범위 제한
     if (one.x < CT)
         one.x = CT;
     if (one.x > WIDTH * 2 - CT - 1)
         one.x = WIDTH * 2 - CT - 1;
+    return FALSE;
 }
 
 //// 게임 화면 출력 ////
@@ -168,6 +164,9 @@ void PrintGame()
     for (i = CT; i < WIDTH + 1; i++)
         printf("▲");//▩
     printf("\n");
+    //이름 넣기
+    //gotoxy(93, 30);
+    //printf(" by 고에스더 김민주 전유리");
 
 }
 
@@ -188,7 +187,7 @@ void endTimer() {
 //게임 끝났을때 메뉴
 bool Outgame(void) {
     bool Bet;
-    int wt = 45;    //열중앙 조절바
+    int wt = 45, push;    //열중앙 조절바
     //경과시간 출력
     gotoxy(wt, 5);
     printf("┌───────────────────────┐\n");
@@ -225,16 +224,20 @@ bool Outgame(void) {
     printf("│     Y      :     N    │");
     gotoxy(wt, 18);
     printf("└───────────────────────┘\n");
+    //이름 넣기
+    //gotoxy(93, 30);
+    //printf(" by 고에스더 김민주 전유리");
 
 
 
     //Y/N 중에 하나를 누를때까지 반복
     while (1) {
-        if (GetAsyncKeyState('Y') & 0x8000) {
+        push = _getch();
+        if (push == 'y') {
             Bet = false;
             break;
         }
-        if (GetAsyncKeyState('N') & 0x8000) {
+        if (push == 'n') {
             Bet = true;
             nowrevel++;
             break;
@@ -243,60 +246,66 @@ bool Outgame(void) {
     }
     return Bet;
 }
-//게임 시작 안내판
-void startMenu(void) {
+
+//게임 방법 설명
+int startMenu(void) {
+    system("cls");
     int ws = 38;
+
+    /*gotoxy(ws, 3); 타이틀 위에부분 테두리
+    for (int i = 0; i < 45; i++)
+        printf(".");  */
+
+        //왼쪽 기둥 테두리
+    for (int i = 5; i < 18; i++) {
+        gotoxy(ws, i);
+        printf(".");
+    }
+    //초반 설명글
+    gotoxy(ws, 4);
+    printf("+++++++++++++++++「눈 피하기 게임」+++++++++++++++");
+    gotoxy(ws + 7, 6);
+    printf(" ●  ← 왼쪽/오른쪽 → 방향키  ●");
+    gotoxy(ws + 1, 7);
+    printf(" o  떨어지는 눈덩이를 피해 오래 살아남으세요! o");
+    gotoxy(ws + 21, 9);
+    printf(" ← ▷ →");
+    gotoxy(ws + 9, 11);
+    printf(" 《시작하려면 아무키를 누르세요》");
+    gotoxy(ws + 6, 17);
+    printf("*  ESC를 누르면 메인으로 돌아갑니다. *");
+
+    //밑에부분 테두리
+    gotoxy(ws, 18);
+    for (int i = 0; i < 50; i++)
+        printf("+");
+    //오른쪽 기둥 테두리
+    for (int i = 5; i < 18; i++) {
+        gotoxy(ws + 49, i);
+        printf(".");
+    }
+    gotoxy(93, 30);
+    printf(" by 고에스더 김민주 전유리");
+
     while (1) {
-        /*gotoxy(ws, 3); 타이틀 위에부분 테두리
-        for (int i = 0; i < 45; i++)
-            printf(".");  */
-
-            //왼쪽 기둥 테두리
-        for (int i = 4; i < 14; i++) {
-            gotoxy(ws, i);
-            printf(".");
-        }
-        //초반 설명글
-        gotoxy(ws + 2, 4);
-        printf("................「눈 피하기」...............");
-        gotoxy(ws, 6);
-        printf("   ●떨어지는 눈덩이를 피해 살아남으세요!●");
-        gotoxy(ws + 19, 7);
-        printf("← ▷ →");
-        gotoxy(ws + 7, 8);
-        printf("《시작하려면 아무키를 누르세요》");
-		gotoxy(ws + 7, 13);
-		printf("ESC를 누르면 메인으로 돌아갑니다.");
-
-        //밑에부분 테두리
-        gotoxy(ws, 14);
-        for (int i = 0; i < 46; i++)
-            printf(".");
-        //오른쪽 기둥 테두리
-        for (int i = 4; i < 14; i++) {
-            gotoxy(ws + 45, i);
-            printf(".");
-        }
-        Sleep(200);
         if (_kbhit()) break;
-		
-		char key = _getch();
-		if (key == ESC) {
-			main();
-			break;
-		}
     }
 }
 //시작할 때 메뉴
 int revel() {
     system("cls");
-    startMenu(); //안내말 호출
+    startMenu();
+    /*gotoxy(50, 6);
+    printf("++++++++++++++++++++++++++");
+    gotoxy(50, 7);
+    printf(" |   눈 피하기 게임     |");
+    gotoxy(50, 8);
+    printf("++++++++++++++++++++++++++");*/
     //레벨 선택 글자 출력
-    int ws = 48;
-    gotoxy(ws + 3, 10);
-    printf("○  * 레벨선택 * ○");
-
-    gotoxy(ws, 12);
+    int ws = 48, push;
+    gotoxy(ws + 5, 13);
+    printf("○  * 레벨선택 *  ○");
+    gotoxy(ws + 3, 15);
     printf("   ¹    ²    ³   ⁴ ");
 
 
@@ -307,24 +316,29 @@ int revel() {
 
     while (1) {
         //위에 숫자를 누르거나 숫자키패드의 숫자를 눌렀을때 조건
-        if (GetAsyncKeyState('1') & 0x8000 || GetAsyncKeyState(VK_NUMPAD1) & 0x8000) {
+        push = _getch();
+        if (push == '1') {
             revelnum = LV1; //1단계
             nowrevel = 1;
             break;
         }
-        else if (GetAsyncKeyState('2') & 0x8000 || GetAsyncKeyState(VK_NUMPAD2) & 0x8000) {
+        else if (push == '2') {
             revelnum = LV2;  //2단계
             nowrevel = 2;
             break;
         }
-        else if (GetAsyncKeyState('3') & 0x8000 || GetAsyncKeyState(VK_NUMPAD3) & 0x8000) {
+        else if (push == '3') {
             revelnum = LV3;  //3단계
             nowrevel = 3;
             break;
         }
-        else if (GetAsyncKeyState('4') & 0x8000 || GetAsyncKeyState(VK_NUMPAD4) & 0x8000) {
+        else if (push == '4') {
             revelnum = LV4;   //4단계
             nowrevel = 4;
+            break;
+        }
+        else if (push == ESC) {
+            main();
             break;
         }
     }
