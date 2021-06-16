@@ -14,3 +14,4 @@ void move_arrow_key(
 	int x_min,
 	int x_max
 );
+void print_auto_y(int* x, int* y, char* str);
