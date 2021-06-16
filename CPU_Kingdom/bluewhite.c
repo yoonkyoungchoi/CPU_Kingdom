@@ -24,9 +24,7 @@ enum KEYBOARD
     DOWN = 80
 };
 
-void SetConsoleView();
 
-void InfoGame();
 void PlayGame();
 void animation();
 void erase();
@@ -41,9 +39,6 @@ int main_bluewhtie(void)
         case GAMESTART:
             PlayGame();
             break;
-        case INFO:
-            InfoGame();
-            break;
         case QUIT:
             if (key == ENTER) exit(0);  //exit(0) 정상종료
             return 0;
@@ -56,47 +51,41 @@ int main_bluewhtie(void)
 void DrawReadyGame()
 {
     system("cls");          //clean screen - 화면 청소
+    gotoxy(45, 5);
+    printf("              ▶");
+    gotoxy(45, 6);
+    printf("              |");
     gotoxy(45, 7);
     printf("******************************");
     gotoxy(45, 8);
     printf("*        청 기 백 기         *");
     gotoxy(45, 9);
     printf("******************************");
-    gotoxy(44, 11);
-    printf("↑↓ 키와 enter키 사용하여 이동");
-    gotoxy(55, 13);
-    printf("GameStart");
-    gotoxy(55, 14);
-    printf("GameInfo");
-    gotoxy(55, 15);
-    printf("Quit\n");
-}
-
-//도움말
-void DrawInfoGame()
-{
-    system("cls");
-    gotoxy(40, 8);
+    gotoxy(38, 10);
     printf("********************************************");
-    gotoxy(40, 9);
+    gotoxy(38, 11);
     printf("|     제한시간은 15초이며 총 3단계입니다   |");
-    gotoxy(40, 10);
+    gotoxy(38, 12);
     printf("|                                          |");
-    gotoxy(40, 11);
+    gotoxy(38, 13);
+    printf("|                Game Start                |");
+    gotoxy(38, 14);
+    printf("|                   Quit                   |");
+    gotoxy(38, 15);
     printf("|                                          |");
-    gotoxy(40, 12);
-    printf("|                                          |");
-    gotoxy(40, 13);
+    gotoxy(38, 16);
     printf("|         청기 올려 Q  청기 내려 A         |");
-    gotoxy(40, 14);
+    gotoxy(38, 17);
     printf("|         백기 올려 E  백기 내려 D         |");
-    gotoxy(40, 15);
+    gotoxy(38, 18);
     printf("|                                          |");
-    gotoxy(40, 16);
+    gotoxy(38, 19);
     printf("********************************************");
+    gotoxy(38, 19);
+    printf("********************************************");
+    gotoxy(98, 30);
+    printf("심이진 조해정 황소은");
 
-    gotoxy(40, 19);
-    printf("아무키나 누르면 다시 메뉴화면으로 돌아갑니다.");
 }
 
 enum MENU ReadyGame()
@@ -115,7 +104,7 @@ enum MENU ReadyGame()
         }
         else if (y >= 2) //커서가 아래로 그만 내려가게
         {
-            y = 2;
+            y = 1;
         }
 
         gotoxy(53, 13 + y); // 커서 메뉴에 맞춰서 위치조정
@@ -141,22 +130,13 @@ enum MENU ReadyGame()
             {
             case 0:    //게임시작
                 return GAMESTART;
-            case 1:     //도움말
-                return INFO;
-            case 2:     //나가기
+            case 1:     //나가기
                 return QUIT;
+
             }
         }
     }
 }
-
-//도움말 뷰
-void InfoGame()
-{
-    DrawInfoGame();
-    system("pause>null");
-}
-
 
 void GameOver() {
     //시간초과시 게임오버 
@@ -173,7 +153,7 @@ void GameOver() {
     gotoxy(44, 12);
     printf(" 당신의 총 점수는 %d점 입니다", score_bluewhite);
     gotoxy(37, 15);
-    printf("메인화면으로 넘어갈려면 아무키나 2번 눌러주세요");
+    printf("메인화면으로 넘어갈려면 아무키나 1번 눌러주세요");
     score_bluewhite = 0;
     RoundCnt = 1;
 
@@ -211,14 +191,14 @@ void FlagRandom() {
 
         cur_time = clock();  //현재  시간
         if (((double)(cur_time - old_time) / CLOCKS_PER_SEC) > 15) {
-            GameOver(); main();  break; //check = 0;
+            GameOver(); main_bluewhtie();  break; //check = 0;
         }
 
         animation(0);
 
         if (c = _getch()) { //키를 입력받아 옳은키인지 판단하고 점수 누적
             switch (c) {
-            case 27: score_bluewhite = 0; main(); break;
+            case 27: score_bluewhite = 0; main_bluewhtie(); break;
             case 'q':
                 animation(c);
 
@@ -314,7 +294,7 @@ void basicAni() {
     printf("■■■■■■■");
 }
 
-//애니메이션 소은아 여기서부터 고쳐
+
 void animation(char key) {
 
     basicAni();
@@ -390,7 +370,7 @@ void animation(char key) {
 }
 void erase(void)
 {
-    gotoxy(40, 12); 
+    gotoxy(40, 12);
     printf("                                                                                                                                                                                                                                                                                                                           ");
     gotoxy(40, 13);
     printf("                                                                                                                                                                                                                                                                                                                           ");
