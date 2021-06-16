@@ -12,7 +12,8 @@
 
 // color
 enum {
-	BLUE = 9,
+	GREY = 8,
+	BLUE,
 	GREEN,
 	MINT,
 	RED,
@@ -50,6 +51,7 @@ int score, fail, step = 1;
 
 // functions
 // menu
+void menu(void);
 void draw_menu(void);
 int select_menu(void);
 void menu_process(int selected_menu);
@@ -86,7 +88,6 @@ void ciano_tiles(void) {
 	// 2021-06-17
 	// manual
 	manual(0);
-
 }
 
 void menu(void) {
@@ -129,14 +130,71 @@ void print_str(int* x, int* y, char* str) {
 	printf("%s", str);
 }
 
+void rectangle(int width, int height, int x, int y) {
+	// ┌――――┐
+	gotoxy(x, y);
+	printf("┌");
+	for (int i = 1; i < width; i++) {
+		printf("─");
+	}
+	printf("┐");
+
+	// ｜      ｜
+	for (int i = 1; i < height; i++) {
+		gotoxy(x, y + i);
+		// ｜      ｜
+		printf("│");
+
+		for (int j = 1; j < width - 1; j++) {
+			printf(" ");
+		}
+		printf(" ");
+
+		printf("│");
+	}
+
+	// └――――┘
+	gotoxy(x, y + height);
+	printf("└");
+	for (int i = 1; i < width; i++) {
+		printf("─");
+	}
+	printf("┘");
+}
+
+void piano_ascii_art(void) {
+	int x = X - 30;
+	int y = Y;
+	print_auto_y(&x, &y, "              ───────");
+	print_auto_y(&x, &y, "             /  ＼   /");
+	print_auto_y(&x, &y, "            /    ＼  ＼__");
+	print_auto_y(&x, &y, "           /      ＼     )");
+	print_auto_y(&x, &y, "        __/__      ＼___/");
+	print_auto_y(&x, &y, "   ____/     |------＼------,");
+	print_auto_y(&x, &y, " __|_________|_________/----|");
+	print_auto_y(&x, &y, "(// /// // /// // /// //)___|");
+	print_auto_y(&x, &y, "   |  | ------   |    |  |");
+	print_auto_y(&x, &y, "   | |  | || |  |     | |");
+	print_auto_y(&x, &y, "    。..|,||  | |      。");
+	print_auto_y(&x, &y, "      .. . ,  ||");
+	print_auto_y(&x, &y, "               。");
+}
+
 // draw menu (chohadam 21-03-20)
 void draw_menu(void) {
-	int x = X;
+	rectangle(114, 29, 2, 1);
+	piano_ascii_art();
+
+	int x = X + 25;
 	int y = Y - 2;
 
 	y -= DISTANCE;
-	print_str(&x, &y, "     피아노 타일");
+	// set color : green
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), BLUE);
+	print_str(&x, &y, "    피아노  타일");
 
+	// set color
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), WHITE);
 	y += 2;
 	print_str(&x, &y, "        시작");
 
@@ -144,7 +202,12 @@ void draw_menu(void) {
 
 	print_str(&x, &y, "        랭킹");
 
+	// set color
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), GREY);
 	print_str(&x, &y, "        종료");
+
+	// set color
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), WHITE);
 }
 
 // select menu (chohadam 21-03-20)
@@ -153,7 +216,7 @@ int select_menu(void) {
 	char pressed_key;
 
 	// set x, y
-	int x = X;
+	int x = X + 25;
 	int y = FIRST;
 
 	do {
@@ -251,7 +314,7 @@ void draw_rectangle(void) {
 	int x = X - 35;
 	int y = Y - 7;
 
-	int width = TILE_WIDTH / 2 * TILE_LINE + 2;
+	int width = TILE_WIDTH * TILE_LINE + 2;
 	int height = TILE_HEIGHT * 4 - 1;
 
 	// clear console
@@ -261,7 +324,7 @@ void draw_rectangle(void) {
 	gotoxy(x, y);
 	printf("┌");
 	for (int i = 1; i < width; i++) {
-		printf("―");
+		printf("─");
 	}
 	printf("┐");
 
@@ -273,20 +336,20 @@ void draw_rectangle(void) {
 			// ├――――┤
 			printf("├");
 			for (int j = 1; j < width; j++) {
-				printf("―");
+				printf("─");
 			}
 			printf("┤");
 		}
 		else {
 			// ｜      ｜
-			printf("｜");
+			printf("│");
 
 			for (int j = 1; j < width - 1; j++) {
-				printf("　");
+				printf(" ");
 			}
 			printf(" ");
 
-			printf("｜");
+			printf("│");
 		}
 	}
 
@@ -294,7 +357,7 @@ void draw_rectangle(void) {
 	gotoxy(x, y + height);
 	printf("└");
 	for (int i = 1; i < width; i++) {
-		printf("―");
+		printf("─");
 	}
 	printf("┘");
 }
@@ -321,7 +384,7 @@ void print_desc(int x, int y, char* str, int color) {
 
 // game ready description (chohadam, 21-03-22)
 void game_ready(void) {
-	int x = X - 24;
+	int x = X - 25;
 	int y = Y + 3;
 
 	// print description

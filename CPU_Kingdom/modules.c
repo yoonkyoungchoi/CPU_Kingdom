@@ -61,3 +61,9 @@ void move_arrow_key(
 		break;
 	}
 }
+
+void print_auto_y(int* x, int* y, char* str) {
+	gotoxy(*x, *y);
+	printf(str);
+	*y += 1;
+}

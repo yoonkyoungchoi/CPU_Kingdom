@@ -98,12 +98,6 @@ void set_cursor(int flag, int size) {
 	SetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE), &cursor);
 }
 
-void print_auto_y(int* x, int* y, char* str) {
-	gotoxy(*x, *y);
-	printf(str);
-	*y += 1;
-}
-
 void draw_main(void) {
 	system("cls");
 
