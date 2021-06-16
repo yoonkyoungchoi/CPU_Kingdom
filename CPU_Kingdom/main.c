@@ -151,7 +151,7 @@ void draw_main(void) {
 	y = 24;
 	print_auto_y(&x, &y, "① 피아노 타일");
 	y += 3;
-	print_auto_y(&x, &y, "⑤ 뱀 피하기");
+	print_auto_y(&x, &y, "⑤ 지렁이 게임");
 
 	x = 40;
 	y = 24;
