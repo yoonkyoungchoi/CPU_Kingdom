@@ -27,6 +27,7 @@
 void set_console(void);
 void set_cursor(int flag, int size);
 
+void draw_main(void);
 int select_game(void);
 
 int main(void) {
@@ -103,8 +104,7 @@ void print_auto_y(int* x, int* y, char* str) {
 	*y += 1;
 }
 
-// select the game (chohadam, 21-06-16)
-int select_game(void) {
+void draw_main(void) {
 	system("cls");
 
 	// default x, y
@@ -147,52 +147,97 @@ int select_game(void) {
 	print_auto_y(&x, &y, " | . ＼  ,_| |_  | |＼  | | |__| | | |__| | | |__| |  | |   | |");
 	print_auto_y(&x, &y, " |_|＼_＼|_____| |_| ＼_| ＼_____| |_____/  ＼____/   |_|   |_|");
 
-	x = 10;
+	x = 15;
 	y = 24;
 	print_auto_y(&x, &y, "① 피아노 타일");
-	y += 2;
+	y += 3;
 	print_auto_y(&x, &y, "⑤ 뱀 피하기");
 
-	x = 30;
+	x = 40;
 	y = 24;
 	print_auto_y(&x, &y, "② 절대음감");
-	y += 2;
+	y += 3;
 	print_auto_y(&x, &y, "⑥ 눈 피하기");
 
-	x = 50;
+	x = 65;
 	y = 24;
 	print_auto_y(&x, &y, "③ 미로 탈출");
-	y += 2;
+	y += 3;
 	print_auto_y(&x, &y, "⑦ 청기백기");
 
-	x = 70;
+	x = 90;
 	y = 24;
 	print_auto_y(&x, &y, "④ 줄다리기");
-	y += 2;
+	y += 3;
 	print_auto_y(&x, &y, "⑧ 종료");
+}
 
+// select the game (chohadam, 21-06-16)
+int select_game(void) {
+	draw_main();
+
+	int select_x[4] = { 12, 37, 62, 87 };
+	int select_y[2] = { 22, 26 };
+
+	// default menu 1
 	int select = 1;
-	int k = 0;
-	while (k != ENTER) {
-		x = 87;
-		y = 24;
-		print_auto_y(&x, &y, "┌─────── 게임 선택 ───────┐");
-		print_auto_y(&x, &y, "│                         │");
-		gotoxy(x, y);
-		printf("│      >      %d           │", select);
-		y += 1;
-		print_auto_y(&x, &y, "│                         │");
-		print_auto_y(&x, &y, "└─────────────────────────┘");
 
-		k = get_key();
-		switch (k) {
-		case UP: case RIGHT:
+	int i, j, x, y;
+
+	int key = 0;
+	while (key != ENTER) {
+		// 1, 5 | 2, 6 | 3, 7 | 4, 8
+		i = (select - 1) % 4;
+		x = select_x[i];
+		// 1, 2, 3, 4 | 5, 6, 7, 8
+		j = select <= 4 ? 0 : 1;
+		y = select_y[j];
+
+		// print rectangle
+		print_auto_y(&x, &y, "┌─────────────────┐");
+		print_auto_y(&x, &y, "│");		
+		gotoxy(x + 18, y - 1); printf("│");
+		print_auto_y(&x, &y, "│");
+		gotoxy(x + 18, y - 1); printf("│");
+		print_auto_y(&x, &y, "│");
+		gotoxy(x + 18, y - 1); printf("│");
+		print_auto_y(&x, &y, "└─────────────────┘");
+
+		// ↑, ↓, ←, →
+		key = _getch();
+
+		switch (key) {
+		case RIGHT:
 			select = select == 8 ? 8 : select + 1;
 			break;
-		case DOWN: case LEFT:
+
+		case LEFT:
 			select = select == 1 ? 1 : select - 1;
 			break;
+
+		case UP:
+			if (select > 4) {
+				select -= 4;
+			}
+			break;
+
+		case DOWN:
+			if (select <= 4) {
+				select += 4;
+			}
+			break;
 		}
+
+		// remove rectangle
+		y -= 5;
+		print_auto_y(&x, &y, "                    ");
+		print_auto_y(&x, &y, "  ");
+		gotoxy(x + 18, y - 1); printf("  ");
+		print_auto_y(&x, &y, "  ");
+		gotoxy(x + 18, y - 1); printf("  ");
+		print_auto_y(&x, &y, "  ");
+		gotoxy(x + 18, y - 1); printf("  ");
+		print_auto_y(&x, &y, "                    ");
 	}
 
 	return select;
