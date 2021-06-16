@@ -174,7 +174,7 @@ void rule() {
 	gotoxy(27, 17);
 	printf("정답을 쓴 후 뭐라고 썼는지 모르겠으면 오른쪽 화살표를 눌러보세요~");
 
-	for (int i = 0; i < sizeof(frequency) / sizeof(double); i++) {
+	for (int i = 0; i < SIZE; i++) {
 		Beep(frequency[i], 200);
 	}
 	for (int helper = 0; helper <= 15; helper++) {

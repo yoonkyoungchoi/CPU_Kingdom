@@ -6,6 +6,7 @@
 #define UP 72
 #define DOWN 80
 #define ESC 27
+#define ENTER 13
 
 // 미로 찾기 단계
 #define STEP1 15
@@ -26,6 +27,7 @@ int* y1 = &num2;
 int score = 0;
 
 // 함수 선언
+int KeyControl();
 COORD getCursor(void);
 void removeCursor(void);
 void textcolor(int color_number);
@@ -36,7 +38,31 @@ void RemoveCharacter_Set(int x, int y);
 void character_static(void);
 void ShowInfo(void);
 void secondView(void);
+int firstView();
 
+int KeyControl() {
+	char temp;
+	while (1) {
+		if (_kbhit()) {
+			temp = _getch();
+			if (temp == -32) {
+				temp = _getch();
+				switch (temp) {
+				case UP:
+					return UP;
+					break;
+				case DOWN:
+					return DOWN;
+					break;
+				}
+			}
+			else if (temp == 13) {
+				return ENTER;
+			}
+		}
+		return 0;
+	}
+}
 
 // 현재 커서 위치 가져오기
 COORD getCursor(void)
@@ -430,8 +456,8 @@ void character_static(void)
 			RemoveCharacter_Set(-2, 0);
 			break;
 		case ESC:
-			textcolor(15);
-			gotoxy(0, 0);
+			textcolor(12);
+			gotoxy(76,17);
 			printf("미로찾기를 끝냅니다.");
 			Sleep(1000);
 			system("cls");
@@ -440,9 +466,10 @@ void character_static(void)
 	}
 }
 
+// 단계 선택 화면 창
 void secondView(void) {
-	int secondView_x = 46;
 	system("cls");
+	int secondView_x = 46;
 	int choose;
 
 	textcolor(15);
@@ -489,6 +516,7 @@ void secondView(void) {
 			break;
 		case 5:
 			main();
+			break;
 		default:
 			textcolor(4);
 			gotoxy(46, 22);
@@ -500,12 +528,81 @@ void secondView(void) {
 	}
 }
 
+// 게임 시작, 종료, 화면 창
+int firstView() {
+	system("cls");
+	int x = 50;
+	int y = 17;
+
+	gotoxy(30, 5);
+	textcolor(15);
+	printf("■ ■ ■ ■ ■ ■ ■ ■ ■ 미로 찾기 ■ ■ ■ ■ ■ ■ ■ ■ ■");
+
+	textcolor(15);
+	gotoxy(30, 7);
+	printf("■               → ← ↑ ↓ 방향키를 이용해                 ■");
+	gotoxy(30, 9);
+	printf("■    1단계 ~ 4단계 까지 나눠져 있는 미로를 탈출해 보세요.   ■");
+	gotoxy(30, 11);
+	printf("■            중간중간 점수(♥) 꼭 잊지 말고 얻기~           ■");
+	gotoxy(30, 13);
+	printf("■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ");
+
+	textcolor(15);
+	gotoxy(x - 2, y); // -2한 이유는 >를 출력하기 위해서
+	printf(">     게 임 시 작 \n");
+	gotoxy(x, y + 3);
+	printf("    게 임 종 료 \n");
+
+
+	while (1) {
+		int n = KeyControl();
+		switch (n) {
+		case UP: {
+			if (y > 17) { //y는 12~14까지만 이동
+				gotoxy(x - 2, y); // x-2하는 이유는 >를 두 칸 이전에 출력하기 위해서
+				printf(" ");
+
+				gotoxy(x - 2, y -= 3); //새로 이동한 위치로 이동하여
+				printf(">"); //다시 그리기
+			}
+			break;
+		}
+		case DOWN: {
+			if (y < 20) { //최대 17
+				gotoxy(x - 2, y);
+				printf(" ");
+
+				gotoxy(x - 2, y += 3);
+				printf(">");
+			}
+			break;
+		}
+		case ENTER: {
+			return y - 17;
+		}
+		}
+	}
+	return 0;
+}
+
 void maze_game(void) {
 	system("title mazeGame");
 	system("cls");
 	removeCursor();
 
-	secondView();
+	while (1) {
+		int menuCode = firstView();
+		switch (menuCode) {
+		case 0:
+			secondView();
+			break;
+		case 3:
+			main();
+			break;
+		}
+		system("cls");
+	}
 
 	// 동적 할당 후 free()
 	free(**maze);
