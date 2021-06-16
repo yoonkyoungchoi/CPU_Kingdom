@@ -29,7 +29,7 @@ enum {
 #define DISTANCE 3
 
 // menu coordinates
-#define FIRST (Y + 2 + DISTANCE)
+#define FIRST (Y + DISTANCE)
 #define LAST (FIRST + 3 * DISTANCE)
 
 // tile size
@@ -62,7 +62,7 @@ void game_start(void);
 void print_score(void);
 void game_over(void);
 // manual
-void manual(void);
+void manual(int flag);
 // ranking
 void save_score(void);
 void ranking(void);
@@ -72,6 +72,24 @@ void print_tile(int x, int y);
 void remove_tile(int x, int y);
 
 void ciano_tiles(void) {
+	system("cls");
+
+	// draw menu
+	// draw_menu();
+
+	// user select a menu
+	// int selected_menu = select_menu();
+
+	// check selected menu
+	// menu_process(selected_menu);
+
+	// 2021-06-17
+	// manual
+	manual(0);
+
+}
+
+void menu(void) {
 	system("cls");
 
 	// draw menu
@@ -114,19 +132,19 @@ void print_str(int* x, int* y, char* str) {
 // draw menu (chohadam 21-03-20)
 void draw_menu(void) {
 	int x = X;
-	int y = Y;
+	int y = Y - 2;
 
 	y -= DISTANCE;
-	print_str(&x, &y, "      CIANO TILES");
+	print_str(&x, &y, "     피아노 타일");
 
 	y += 2;
-	print_str(&x, &y, "          시작");
+	print_str(&x, &y, "        시작");
 
-	print_str(&x, &y, "        게임 방법");
+	print_str(&x, &y, "      게임 방법");
 
-	print_str(&x, &y, "          랭킹");
+	print_str(&x, &y, "        랭킹");
 
-	print_str(&x, &y, "          종료");
+	print_str(&x, &y, "        종료");
 }
 
 // select menu (chohadam 21-03-20)
@@ -185,7 +203,7 @@ void menu_process(int selected_menu) {
 	}
 	// game manual
 	else if (selected_menu == FIRST + DISTANCE) {
-		manual();
+		manual(1);
 	}
 	// ranking
 	else if (selected_menu == FIRST + DISTANCE * 2) {
@@ -296,6 +314,7 @@ void print_desc(int x, int y, char* str, int color) {
 		printf("                                           ");
 		Sleep(400);
 	}
+	char _ = _getch();
 	// reset color
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), WHITE);
 }
@@ -445,7 +464,7 @@ void game_over(void) {
 	save_score();
 
 	// go to menu
-	ciano_tiles();
+	menu();
 }
 
 // print score, fail, step, etc. (chohadam, 21-03-24)
@@ -485,7 +504,7 @@ void print_score(void) {
 }
 
 // print game manual (chohadam, 21-03-21)
-void manual(void) {
+void manual(int flag) {
 	// clear console
 	system("cls");
 
@@ -556,10 +575,22 @@ void manual(void) {
 
 	y += DISTANCE + 1;
 	x = X - 40;
-	print_desc(x, y, "<  아무 키나 누르면 메뉴로 이동합니다  >", YELLOW);
 
-	// go to the menu
-	ciano_tiles();
+	// flag == 1
+	// 메뉴 선택으로 온 것
+	if (flag) {
+		print_desc(x, y, "<  아무 키나 누르면 메뉴로 이동합니다  >", YELLOW);
+
+		// go to the menu
+		menu();
+	}
+	else {
+		// 첫 실행
+		print_desc(x, y, "<  아무 키나 눌러 게임을 시작해보세요  >", YELLOW);
+
+		// game
+		game_process();
+	}
 }
 
 // save score and player name to file (chohadam, 21-03-30)
@@ -638,8 +669,8 @@ void ranking(void) {
 			}
 		}
 
-		// print 5 people
-		count = count < 5 ? count : 5;
+		// print 4 people
+		count = count < 4 ? count : 4;
 
 		// print name and score
 		for (int i = 0; i < count; i++) {
@@ -651,19 +682,19 @@ void ranking(void) {
 		// close
 		fclose(fp);
 
-		gotoxy(x, y + 5);
+		gotoxy(x - 2, y + 5);
 		printf("<  아무 키나 누르면 메뉴로 이동합니다  >");
 
 		int _ = _getch();
 
-		ciano_tiles();
+		menu();
 	}
 	else {
-		gotoxy(x, Y + 15);
+		gotoxy(x - 2, Y + 15);
 		printf("<  아무 키나 누르면 메뉴로 이동합니다  >");
 
 		int _ = _getch();
 
-		ciano_tiles();
+		menu();
 	}
 }
