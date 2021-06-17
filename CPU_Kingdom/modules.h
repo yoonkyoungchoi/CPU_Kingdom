@@ -4,6 +4,18 @@
 #include <mmsystem.h>;
 #pragma comment(lib, "winmm.lib")
 
+// color
+enum {
+	GREY = 8,
+	BLUE,
+	GREEN,
+	MINT,
+	RED,
+	PURPLE,
+	YELLOW,
+	WHITE
+};
+
 void gotoxy(int x, int y);
 int get_key(void);
 void move_arrow_key(
@@ -17,3 +29,4 @@ void move_arrow_key(
 	int x_max
 );
 void print_auto_y(int* x, int* y, char* str);
+void print_by_name(char* name);
