@@ -12,14 +12,6 @@
 #define LV4 0
 #define ESC 27
 
-
-
-
-
-
-
-
-
 //전역변수 선언
 Snow snow[WIDTH - CT];
 Player one;
@@ -121,6 +113,8 @@ int MovePlayer()
     //오른쪽 방향키 입력 시
     if (isKeyDown(VK_RIGHT))
         one.x++;
+    if (isKeyDown(VK_ESCAPE))
+        main();
     //위치 범위 제한
     if (one.x < CT)
         one.x = CT;
@@ -195,7 +189,9 @@ void endTimer() {
 bool Outgame(void) {
     bool Bet;
     int wt = 45, push;    //열중앙 조절바
+
     //경과시간 출력
+    PlaySound(NULL, 0, 0);
     gotoxy(wt, 5);
     printf("┌───────────────────────┐\n");
     gotoxy(wt, 6);
@@ -241,12 +237,11 @@ bool Outgame(void) {
     while (1) {
         push = _getch();
         if (push == 'y') {
-            Bet = false;
+            main();
             break;
         }
         if (push == 'n') {
             Bet = true;
-            nowrevel++;
             break;
 
         }
@@ -256,6 +251,7 @@ bool Outgame(void) {
 
 //게임 방법 설명
 int startMenu(void) {
+	PlaySound(TEXT("avoid.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
     system("cls");
     int ws = 38;
 
@@ -346,6 +342,7 @@ int revel() {
         }
         else if (push == ESC) {
             main();
+			PlaySound(NULL, 0, 0);
             break;
         }
     }
@@ -392,7 +389,4 @@ void main_avoid(void)
         t = ing();
     } while (t);
 
-    system("cls");
-    gotoxy(18, 3);
-    printf("-----종료되었습니다.----\n\n");
 }

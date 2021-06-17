@@ -590,6 +590,7 @@ void maze_game(void) {
 	system("title mazeGame");
 	system("cls");
 	removeCursor();
+	PlaySound(TEXT("maze.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
 
 	while (1) {
 		int menuCode = firstView();
@@ -598,6 +599,7 @@ void maze_game(void) {
 			secondView();
 			break;
 		case 3:
+			PlaySound(NULL, 0, 0);
 			main();
 			break;
 		}

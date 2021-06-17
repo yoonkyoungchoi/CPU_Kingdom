@@ -4,9 +4,6 @@
 #include <stdlib.h>
 // input output ...
 #include <stdio.h>
-#include <mmsystem.h>;
-#pragma comment(lib, "winmm.lib")
-
 
 // header files
 #include "ciano_tiles.h"
@@ -83,6 +80,7 @@ int main(void) {
 
 	return 0;
 }
+
 
 // console settings function (chohadam 21-03-11)
 void set_console(void) {

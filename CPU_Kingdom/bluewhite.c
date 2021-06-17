@@ -30,8 +30,8 @@ void animation();
 void erase();
 
 //메인 루프
-int main_bluewhtie(void)
-{
+int main_bluewhtie(void){
+	PlaySound(TEXT("bluewhite.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
     while (1)
     {
         switch (ReadyGame())    //리턴값 받아서 판단.
@@ -41,6 +41,7 @@ int main_bluewhtie(void)
             break;
         case QUIT:
             if (key == ENTER) exit(0);  //exit(0) 정상종료
+			PlaySound(NULL, 0, 0);
             main();
         }
     }
@@ -68,15 +69,15 @@ void DrawReadyGame()
     gotoxy(38, 12);
     printf("|                                          |");
     gotoxy(38, 13);
-    printf("|                Game Start                |");
+    printf("|                 게임 시작                |");
     gotoxy(38, 14);
-    printf("|                   Quit                   |");
+    printf("|                 게임 종료                |");
     gotoxy(38, 15);
     printf("|                                          |");
     gotoxy(38, 16);
-    printf("|         청기 올려 Q  청기 내려 A         |");
+    printf("|         청기 올려 Q  청기 내려 S         |");
     gotoxy(38, 17);
-    printf("|         백기 올려 E  백기 내려 D         |");
+    printf("|         백기 올려 P  백기 내려 L         |");
     gotoxy(38, 18);
     printf("|                                          |");
     gotoxy(38, 19);
@@ -85,7 +86,30 @@ void DrawReadyGame()
     printf("********************************************");
     gotoxy(98, 30);
     printf("심이진 조해정 황소은");
-
+	gotoxy(12, 12);
+	printf("  _________");
+	gotoxy(13, 13);
+	printf("ㅣl  Q  lㅣ");
+	gotoxy(13, 14);
+	printf("ㅣl____ lㅣ");
+	gotoxy(13, 15);
+	printf("ㅣ/_____ ");
+	gotoxy(20, 15);
+	printf("＼");
+	gotoxy(21, 15);
+	printf(" l");
+	gotoxy(22, 12);
+	printf("  _________");
+	gotoxy(23, 13);
+	printf("ㅣl  M  lㅣ");
+	gotoxy(23, 14);
+	printf("ㅣl____ lㅣ");
+	gotoxy(23, 15);
+	printf("ㅣ/_____ ");
+	gotoxy(30, 15);
+	printf("＼");
+	gotoxy(31, 15);
+	printf(" l");
 }
 
 enum MENU ReadyGame()
@@ -211,7 +235,7 @@ void FlagRandom() {
                     c = _getch();
                 }
                 break;
-            case 'a':
+            case 's':
                 animation(c);
                 Sleep(500);
                 if (rn == 4 || rn == 5 || rn == 6)
@@ -222,7 +246,7 @@ void FlagRandom() {
                     c = _getch();
                 }
                 break;
-            case 'e':
+            case 'p':
                 animation(c);
                 Sleep(500);
                 if (rn == 7 || rn == 8 || rn == 9)
@@ -233,7 +257,7 @@ void FlagRandom() {
                     c = _getch();
                 }
                 break;
-            case 'd':
+            case 'l':
                 animation(c);
                 Sleep(500);
                 if (rn == 10 || rn == 11 || rn == 12)
@@ -316,7 +340,7 @@ void animation(char key) {
         gotoxy(76, 18);
         printf("■");
         break;
-    case 'a':
+    case 's':
         basicAni();
         gotoxy(45, 20);
         printf("□");
@@ -329,7 +353,7 @@ void animation(char key) {
         gotoxy(76, 18);
         printf("■");
         break;
-    case 'e':
+    case 'p':
         basicAni();
         gotoxy(74, 16);
         printf("■");
@@ -342,7 +366,7 @@ void animation(char key) {
         gotoxy(43, 18);
         printf("□");
         break;
-    case 'd':
+    case 'l':
         basicAni();
         gotoxy(74, 20);
         printf("■");

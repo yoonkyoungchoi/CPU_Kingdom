@@ -40,6 +40,7 @@ enum KEYBOARD
 // 게임 시작 메인 함수
 void pushpull() {
 	system("cls");
+	PlaySound(TEXT("push.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
 	while (1) {
 		switch (game()) {
 		case GAMESTART:
@@ -48,7 +49,9 @@ void pushpull() {
 			break;
 
 		case EXIT:
+			PlaySound(NULL, 0, 0);
 			main();
+			
 			break;
 		}
 	}
