@@ -113,6 +113,8 @@ int MovePlayer()
     //오른쪽 방향키 입력 시
     if (isKeyDown(VK_RIGHT))
         one.x++;
+    if (isKeyDown(VK_ESCAPE))
+        main();
     //위치 범위 제한
     if (one.x < CT)
         one.x = CT;
@@ -187,7 +189,9 @@ void endTimer() {
 bool Outgame(void) {
     bool Bet;
     int wt = 45, push;    //열중앙 조절바
+
     //경과시간 출력
+    PlaySound(NULL, 0, 0);
     gotoxy(wt, 5);
     printf("┌───────────────────────┐\n");
     gotoxy(wt, 6);
@@ -233,12 +237,11 @@ bool Outgame(void) {
     while (1) {
         push = _getch();
         if (push == 'y') {
-            Bet = false;
+            main();
             break;
         }
         if (push == 'n') {
             Bet = true;
-            nowrevel++;
             break;
 
         }
@@ -386,7 +389,4 @@ void main_avoid(void)
         t = ing();
     } while (t);
 
-    system("cls");
-    gotoxy(18, 3);
-    printf("-----종료되었습니다.----\n\n");
 }

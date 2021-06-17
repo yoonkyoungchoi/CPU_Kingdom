@@ -10,18 +10,6 @@
 #define LEFT 75
 #define RIGHT 77
 
-// color
-enum {
-	GREY = 8,
-	BLUE,
-	GREEN,
-	MINT,
-	RED,
-	PURPLE,
-	YELLOW,
-	WHITE
-};
-
 // default coordinates
 #define X 50
 #define Y 10
@@ -178,6 +166,8 @@ void piano_ascii_art(void) {
 	print_auto_y(&x, &y, "    。..|,||  | |      。");
 	print_auto_y(&x, &y, "      .. . ,  ||");
 	print_auto_y(&x, &y, "               。");
+
+	print_by_name("조하닮");
 }
 
 // draw menu (chohadam 21-03-20)
@@ -190,11 +180,11 @@ void draw_menu(void) {
 
 	y -= DISTANCE;
 	// set color : green
-	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), BLUE);
+	setColor(BLUE);
 	print_str(&x, &y, "    피아노  타일");
 
 	// set color
-	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), WHITE);
+	setColor(WHITE);
 	y += 2;
 	print_str(&x, &y, "        시작");
 
@@ -203,11 +193,11 @@ void draw_menu(void) {
 	print_str(&x, &y, "        랭킹");
 
 	// set color
-	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), GREY);
+	setColor(GREY);
 	print_str(&x, &y, "        종료");
 
 	// set color
-	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), WHITE);
+	setColor(WHITE);
 }
 
 // select menu (chohadam 21-03-20)
@@ -274,6 +264,10 @@ void menu_process(int selected_menu) {
 	}
 	// end
 	else if (selected_menu == LAST) {
+		// stop sound (ciano tiles)
+		PlaySound(NULL, 0, 0);
+		// back main
+		main();
 		return;
 	}
 	// error
@@ -289,6 +283,7 @@ void game_process(void) {
 	draw_rectangle();
 	game_ready();
 	game_start();
+	menu();
 }
 
 // input player name (chohadam, 21-03-23)
@@ -369,7 +364,7 @@ void print_desc(int x, int y, char* str, int color) {
 		}
 		gotoxy(x, y);
 		// set color
-		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color);
+		setColor(color);
 		printf(str);
 		Sleep(400);
 
@@ -379,7 +374,7 @@ void print_desc(int x, int y, char* str, int color) {
 	}
 	char _ = _getch();
 	// reset color
-	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), WHITE);
+	setColor(WHITE);
 }
 
 // game ready description (chohadam, 21-03-22)
@@ -509,7 +504,7 @@ void game_over(void) {
 
 	// print game over
 	// color red
-	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), RED);
+	setColor(RED);
 	gotoxy(X + 5, Y + 5);
 	printf("GAME OVER");
 
@@ -517,7 +512,7 @@ void game_over(void) {
 	Sleep(2000);
 
 	// color white
-	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), WHITE);
+	setColor(WHITE);
 	gotoxy(X - 10, Y + 10);
 	printf("<  아무 키나 누르면 메뉴로 돌아갑니다  >");
 	
@@ -598,15 +593,15 @@ void manual(int flag) {
 	y += 1;
 
 	// color: mint
-	SetConsoleTextAttribute( GetStdHandle( STD_OUTPUT_HANDLE ), MINT);
+	setColor(MINT);
 	print_str(&x, &y, "점수\t\t0");
 
 	// color red
-	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), RED);
+	setColor(RED);
 	print_str(&x, &y, "실패\t\t0");
 
 	// color white
-	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), WHITE);
+	setColor(WHITE);
 	y += 1;
 	print_str(&x, &y, "이동\t\t← →");
 	print_str(&x, &y, "종료\t\tESC");
