@@ -74,6 +74,7 @@ int choose_mode() {
 }
 
 void snake_game(void) {
+	PlaySound(TEXT("snake.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
 
     while (1) {
         int select = choose_mode();
@@ -82,6 +83,7 @@ void snake_game(void) {
             snake_start();
             break;
         case 2:
+			PlaySound(NULL, 0, 0);
 			main();
             break;
         }

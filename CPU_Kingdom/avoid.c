@@ -12,14 +12,6 @@
 #define LV4 0
 #define ESC 27
 
-
-
-
-
-
-
-
-
 //전역변수 선언
 Snow snow[WIDTH - CT];
 Player one;
@@ -256,6 +248,7 @@ bool Outgame(void) {
 
 //게임 방법 설명
 int startMenu(void) {
+	PlaySound(TEXT("avoid.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
     system("cls");
     int ws = 38;
 
@@ -346,6 +339,7 @@ int revel() {
         }
         else if (push == ESC) {
             main();
+			PlaySound(NULL, 0, 0);
             break;
         }
     }
