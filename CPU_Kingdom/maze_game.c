@@ -553,7 +553,7 @@ int firstView() {
 	printf(">     게 임 시 작 \n");
 	gotoxy(x, y + 3);
 	printf("    게 임 종 료 \n");
-
+	print_by_name("김솔민");
 
 	while (1) {
 		int n = KeyControl();
