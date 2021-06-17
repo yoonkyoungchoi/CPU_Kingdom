@@ -12,14 +12,6 @@
 #define LV4 0
 #define ESC 27
 
-
-
-
-
-
-
-
-
 //전역변수 선언
 Snow snow[WIDTH - CT];
 Player one;
@@ -121,6 +113,8 @@ int MovePlayer()
     //오른쪽 방향키 입력 시
     if (isKeyDown(VK_RIGHT))
         one.x++;
+    if (isKeyDown(VK_ESCAPE))
+        main();
     //위치 범위 제한
     if (one.x < CT)
         one.x = CT;
@@ -241,12 +235,12 @@ bool Outgame(void) {
     while (1) {
         push = _getch();
         if (push == 'y') {
-            Bet = false;
+            PlaySound(NULL, 0, 0);
+            main();
             break;
         }
         if (push == 'n') {
             Bet = true;
-            nowrevel++;
             break;
 
         }
@@ -392,7 +386,4 @@ void main_avoid(void)
         t = ing();
     } while (t);
 
-    system("cls");
-    gotoxy(18, 3);
-    printf("-----종료되었습니다.----\n\n");
 }
