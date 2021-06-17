@@ -99,6 +99,7 @@ void main_show() {
 	gotoxy(56, 20);
 	printf("게임 종료");
 
+	print_by_name("최윤경");
 }
 
 // 메뉴 선택 커서 함수
