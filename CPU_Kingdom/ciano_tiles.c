@@ -64,6 +64,9 @@ void remove_tile(int x, int y);
 void ciano_tiles(void) {
 	system("cls");
 
+	// bgm
+	PlaySound(TEXT("ciano_tiles.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
+
 	// draw menu
 	// draw_menu();
 
@@ -167,7 +170,7 @@ void piano_ascii_art(void) {
 	print_auto_y(&x, &y, "      .. . ,  ||");
 	print_auto_y(&x, &y, "               ¡£");
 
-	print_by_name("Á¶ÇÏ´à, ‹¯‹¯‹¯, ¾Æ¾Æ¾Æ");
+	print_by_name("Á¶ÇÏ´à");
 }
 
 // draw menu (chohadam 21-03-20)
