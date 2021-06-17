@@ -67,3 +67,15 @@ void print_auto_y(int* x, int* y, char* str) {
 	printf(str);
 	*y += 1;
 }
+
+void setColor(int color) {
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color);
+}
+
+void print_by_name(char* name) {
+	// set color : GREY
+	setColor(GREY);
+
+	gotoxy(105, 28);
+	printf("by %s", name);
+}
