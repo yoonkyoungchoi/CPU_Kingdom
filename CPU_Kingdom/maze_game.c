@@ -553,7 +553,7 @@ int firstView() {
 	printf(">     게 임 시 작 \n");
 	gotoxy(x, y + 3);
 	printf("    게 임 종 료 \n");
-
+	print_by_name("김솔민");
 
 	while (1) {
 		int n = KeyControl();
@@ -590,6 +590,7 @@ void maze_game(void) {
 	system("title mazeGame");
 	system("cls");
 	removeCursor();
+	PlaySound(TEXT("maze.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
 
 	while (1) {
 		int menuCode = firstView();
@@ -598,6 +599,7 @@ void maze_game(void) {
 			secondView();
 			break;
 		case 3:
+			PlaySound(NULL, 0, 0);
 			main();
 			break;
 		}

@@ -43,13 +43,22 @@ int keyControl() {
 int menuDraw() {	
 	system("cls");
 	int x = 50;
-	int y = 13;
+	int y = 17;
+
+	gotoxy(30, 5);
+	printf("■ ■ ■ ■ ■ ■ ■ ■ ■ 절대 음감 ■ ■ ■ ■ ■ ■ ■ ■ ■");
+	gotoxy(30, 7);
+	printf("■               들리는 음을 듣고 맞춰보세요!                 ■");
+	gotoxy(30, 9);
+	printf("■    게임 시작 전 한글로 설정되어 있는지 확인해주세요:)   ■");
+	gotoxy(30, 11);
+	printf("■            중간중간 점수(♥) 꼭 잊지 말고 얻기~           ■");
+	gotoxy(30, 13);
+	printf("■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ");
 
 	gotoxy(x-2, y); // -2한 이유는 >를 출력하기 위해서
 	printf(">     게 임 시 작 \n");
 	gotoxy(x, y + 2);
-	printf("    게 임 방 법  \n");
-	gotoxy(x, y + 4);
 	printf("       종 료 \n");
 
 
@@ -57,7 +66,7 @@ int menuDraw() {
 		int n = keyControl();
 		switch (n) {
 		case UP: {
-			if (y > 13) { //y는 12~14까지만 이동
+			if (y > 17) { //y는 12~14까지만 이동
 				gotoxy(x - 2, y); // x-2하는 이유는 >를 두 칸 이전에 출력하기 위해서
 				printf(" ");
 
@@ -67,7 +76,7 @@ int menuDraw() {
 			break;
 		}
 		case DOWN: {
-			if (y < 17) { //최대 17
+			if (y < 19) { //최대 17
 				gotoxy(x - 2, y);
 				printf(" ");
 
@@ -77,7 +86,7 @@ int menuDraw() {
 			break;
 		}
 		case ENTER: {
-			return y - 13; 
+			return y - 17; 
 		}
 		}
 	}
@@ -163,58 +172,38 @@ int playGame() {
 	}
 	return 0;
 }
-void rule() {
-	system("cls");
-	double frequency[] = { 523.2511, 587.3295, 659.2551, 698.456, 783.9909, 880, 987.7666, 1046.502 };
+void rule() {	
+	system("cls");	
 
-	gotoxy(45, 13);
-	printf("들리는 음을 듣고 맞춰보세요!");
-	gotoxy(34, 15);
-	printf("게임 시작 전 한글로 설정되어 있는지 확인해주세요:)");
-	gotoxy(27, 17);
-	printf("정답을 쓴 후 뭐라고 썼는지 모르겠으면 오른쪽 화살표를 눌러보세요~");
-
-	for (int i = 0; i < SIZE; i++) {
-		Beep(frequency[i], 200);
-	}
-	for (int helper = 0; helper <= 15; helper++) {
+	/*for (int helper = 0; helper <= 15; helper++) {
 		gotoxy(81, 29);
 		textcolor(helper); 
 		printf("게임을 시작하려면 엔터를 누르세요...");
 		Sleep(100);
 	}
-	playGame();
+	playGame();*/
 }
 
 void guess_note(void) {
 	system("cls");
+	PlaySound(TEXT("guess_note.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
 
 	char* p[SIZE] = { "도", "레", "미", "파", "솔" , "라", "시", "도" };
 	int x = 100, y = 20;
 	char key;	
 
-
 	while (1) {
 		int menuCode = menuDraw();
 		switch (menuCode) {
 		case 0:
+			PlaySound(NULL, 0, 0);
 			pr_str_array(p, SIZE);
 			break;
 		case 2:
-			rule();
-			break;
-		case 4:
 			main();
 			break;
 		}
 		system("cls");
 	}
-
-	do {
-		gotoxy(x, y);
-		printf("guess note");
-		key = _getch();
-	} while (key != ESC);
-
 	return 0;
 }

@@ -64,6 +64,9 @@ void remove_tile(int x, int y);
 void ciano_tiles(void) {
 	system("cls");
 
+	// bgm
+	PlaySound(TEXT("ciano_tiles.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
+
 	// draw menu
 	// draw_menu();
 

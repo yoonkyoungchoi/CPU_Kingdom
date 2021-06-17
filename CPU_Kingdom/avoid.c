@@ -252,6 +252,7 @@ bool Outgame(void) {
 
 //게임 방법 설명
 int startMenu(void) {
+	PlaySound(TEXT("avoid.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
     system("cls");
     int ws = 38;
 
@@ -288,7 +289,7 @@ int startMenu(void) {
         printf(".");
     }
     gotoxy(93, 30);
-    printf(" by 고에스더 김민주 전유리");
+    print_by_name("고에스더 김민주 전유리");
 
     while (1) {
         if (_kbhit()) break;
@@ -342,6 +343,7 @@ int revel() {
         }
         else if (push == ESC) {
             main();
+			PlaySound(NULL, 0, 0);
             break;
         }
     }
