@@ -41,6 +41,7 @@ int main(void) {
 	int select;
 	while (select = select_game()) {
 		PlaySound(NULL, 0, 0);
+
 		switch (select)
 		{
 		case 1:
@@ -195,11 +196,11 @@ int select_game(void) {
 		// print rectangle
 		print_auto_y(&x, &y, "忙式式式式式式式式式式式式式式式式式忖");
 		print_auto_y(&x, &y, "弛");		
-		gotoxy(x + 18, y - 1); printf("弛");
+		gotoxy(x + 18, y - 1);			printf("弛");
 		print_auto_y(&x, &y, "弛");
-		gotoxy(x + 18, y - 1); printf("弛");
+		gotoxy(x + 18, y - 1);			printf("弛");
 		print_auto_y(&x, &y, "弛");
-		gotoxy(x + 18, y - 1); printf("弛");
+		gotoxy(x + 18, y - 1);			printf("弛");
 		print_auto_y(&x, &y, "戌式式式式式式式式式式式式式式式式式戎");
 
 		// ∟, ⊿, ∠, ⊥
@@ -231,11 +232,11 @@ int select_game(void) {
 		y -= 5;
 		print_auto_y(&x, &y, "                    ");
 		print_auto_y(&x, &y, "  ");
-		gotoxy(x + 18, y - 1); printf("  ");
+		gotoxy(x + 18, y - 1);			printf("  ");
 		print_auto_y(&x, &y, "  ");
-		gotoxy(x + 18, y - 1); printf("  ");
+		gotoxy(x + 18, y - 1);			printf("  ");
 		print_auto_y(&x, &y, "  ");
-		gotoxy(x + 18, y - 1); printf("  ");
+		gotoxy(x + 18, y - 1);			printf("  ");
 		print_auto_y(&x, &y, "                    ");
 	}
 

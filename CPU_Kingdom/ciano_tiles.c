@@ -274,6 +274,10 @@ void menu_process(int selected_menu) {
 	}
 	// end
 	else if (selected_menu == LAST) {
+		// stop sound (ciano tiles)
+		PlaySound(NULL, 0, 0);
+		// back main
+		main();
 		return;
 	}
 	// error
@@ -289,6 +293,7 @@ void game_process(void) {
 	draw_rectangle();
 	game_ready();
 	game_start();
+	menu();
 }
 
 // input player name (chohadam, 21-03-23)
