@@ -167,7 +167,7 @@ void piano_ascii_art(void) {
 	print_auto_y(&x, &y, "      .. . ,  ||");
 	print_auto_y(&x, &y, "               ¡£");
 
-	print_by_name("Á¶ÇÏ´à");
+	print_by_name("Á¶ÇÏ´à, ‹¯‹¯‹¯, ¾Æ¾Æ¾Æ");
 }
 
 // draw menu (chohadam 21-03-20)

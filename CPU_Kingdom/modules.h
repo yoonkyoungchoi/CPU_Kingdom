@@ -1,7 +1,8 @@
 #pragma once
 #include <Windows.h>
 #include <conio.h>
-#include <mmsystem.h>
+#include <mmsystem.h>;
+#include <string.h>
 #pragma comment(lib, "winmm.lib")
 
 // color
