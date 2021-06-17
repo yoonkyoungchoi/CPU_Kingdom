@@ -113,7 +113,7 @@ int MovePlayer()
     //오른쪽 방향키 입력 시
     if (isKeyDown(VK_RIGHT))
         one.x++;
-    if (DamagedPlayer()) return TRUE;
+    if (DamagedPlayer()) return TRUE; 
     if (isKeyDown(VK_ESCAPE))
         main();
     //위치 범위 제한
