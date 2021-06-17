@@ -189,7 +189,9 @@ void endTimer() {
 bool Outgame(void) {
     bool Bet;
     int wt = 45, push;    //열중앙 조절바
+
     //경과시간 출력
+    PlaySound(NULL, 0, 0);
     gotoxy(wt, 5);
     printf("┌───────────────────────┐\n");
     gotoxy(wt, 6);
@@ -235,7 +237,6 @@ bool Outgame(void) {
     while (1) {
         push = _getch();
         if (push == 'y') {
-            PlaySound(NULL, 0, 0);
             main();
             break;
         }
