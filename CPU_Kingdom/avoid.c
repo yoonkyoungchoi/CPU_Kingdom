@@ -113,6 +113,7 @@ int MovePlayer()
     //오른쪽 방향키 입력 시
     if (isKeyDown(VK_RIGHT))
         one.x++;
+    if (DamagedPlayer()) return TRUE;
     if (isKeyDown(VK_ESCAPE))
         main();
     //위치 범위 제한
@@ -188,7 +189,7 @@ void endTimer() {
 //게임 끝났을때 메뉴
 bool Outgame(void) {
     bool Bet;
-    int wt = 45, push;    //열중앙 조절바
+    int wt = 45, push;    //열중앙 조절바 
 
     //경과시간 출력
     PlaySound(NULL, 0, 0);
