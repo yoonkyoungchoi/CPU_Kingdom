@@ -204,7 +204,7 @@ void guess_note(void) {
 			rule();
 			break;
 		case 4:
-			return;
+			main();
 			break;
 		}
 		system("cls");

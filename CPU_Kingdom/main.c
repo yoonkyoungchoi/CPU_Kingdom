@@ -34,7 +34,7 @@ void draw_main(void);
 int select_game(void);
 
 int main(void) {
-	PlaySound(TEXT("intro.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
+	PlaySound(TEXT("main.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
 	set_console();
 	
 	// input value
@@ -73,7 +73,6 @@ int main(void) {
 
 		// end game
 		case 8:
-			PlaySound(NULL, 0, 0);
 			exit(1);
 
 		default:

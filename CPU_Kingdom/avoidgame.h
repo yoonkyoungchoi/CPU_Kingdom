@@ -2,6 +2,7 @@
 #include<stdbool.h>
 #include<Windows.h>
 #include <time.h>
+#include "modules.h"
 
 //적(피할 것)
 typedef struct

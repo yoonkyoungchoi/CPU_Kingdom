@@ -1,6 +1,8 @@
 #pragma once
 #include <Windows.h>
 #include <conio.h>
+#include <mmsystem.h>;
+#pragma comment(lib, "winmm.lib")
 
 void gotoxy(int x, int y);
 int get_key(void);

@@ -11,7 +11,6 @@
 #define l 108
 #define ENTER 13
 
-void menu_draw(void);
 void game_fun(void);
 void start_game(void);
 
@@ -27,7 +26,6 @@ int input = 0;
 enum MENU
 {
 	GAMESTART = 0,
-	RULE,
 	EXIT
 };
 
@@ -49,10 +47,6 @@ void pushpull() {
 			start_game();
 			break;
 
-		case RULE:
-			menu_draw();
-			break;
-
 		case EXIT:
 			main();
 			break;
@@ -61,31 +55,22 @@ void pushpull() {
 	return 0;
 }
 
-// 게임 설명 함수
-void menu_draw() {
-	system("cls");
-	gotoxy(37, 5);
-	printf("★★★★★★★★★★ 줄다리기 ★★★★★★★★★");
-	printf("★");
-	gotoxy(37, 7);
-	printf("★         A키와 L키를 마구마구 연타!!          ★");
-	gotoxy(37, 9);
-	printf("★ 줄을 가장 빨리 자기쪽으로 당기는 게임입니다! ★");
-	gotoxy(37, 11);
-	printf("★                 단판 승부!                   ★");
-	gotoxy(37, 13);
-	printf("★   아무키나 눌러서 메뉴화면으로 돌아가세요    ★");
-	gotoxy(37, 15);
-	printf("★★★★★★★★★★★★★★★★★★★★★★★★★");
-
-	char kk = _getch();
-}
-
 // 게임 메인화면 함수
 void main_show() {
 	system("cls");
-	gotoxy(36, 10);
-	printf("★★★★★★★★★★ 줄다리기 ★★★★★★★★★★");
+	gotoxy(36, 5);
+	printf("★★★★★★★★★★ 줄다리기 ★★★★★★★★★");
+	printf("★");
+	gotoxy(36, 7);
+	printf("★         A키와 L키를 마구마구 연타!!          ★");
+	gotoxy(36, 9);
+	printf("★ 줄을 가장 빨리 자기쪽으로 당기는 게임입니다! ★");
+	gotoxy(36, 11);
+	printf("★                 단판 승부!                   ★");
+	gotoxy(36, 13);
+	printf("★   아무키나 눌러서 메뉴화면으로 돌아가세요    ★");
+	gotoxy(36, 15);
+	printf("★★★★★★★★★★★★★★★★★★★★★★★★★");
 
 	gotoxy(28, 10);
 	printf("●");
@@ -105,13 +90,10 @@ void main_show() {
 	gotoxy(90, 13);
 	printf("/＼");
 
-	gotoxy(56, 13);
+	gotoxy(56, 18);
 	printf("게임 시작");
-
-	gotoxy(56, 15);
-	printf("게임 방법");
 	
-	gotoxy(56, 17);
+	gotoxy(56, 20);
 	printf("게임 종료");
 
 }
@@ -126,12 +108,12 @@ enum MENU game(){
 		{
 			y = 0;
 		}
-		else if (y >= 6)
+		else if (y >= 4)
 		{
 			y = 2;
 		}
 
-		gotoxy(53, 13 + y); 
+		gotoxy(53, 18 + y); 
 		printf(">");
 
 		input = _getch();   
@@ -141,12 +123,12 @@ enum MENU game(){
 			switch (_getch())
 			{
 			case UP:            
-				gotoxy(53, 13 + y);
+				gotoxy(53, 18 + y);
 				printf("  ");
 				y = y - 2;
 				break;
 			case DOWN:           
-				gotoxy(53, 13 + y);
+				gotoxy(53, 18 + y);
 				printf("  ");
 				y = y + 2;
 				break;
@@ -158,9 +140,7 @@ enum MENU game(){
 			{
 			case 0:   
 				return GAMESTART;
-			case 2:    
-				return RULE;
-			case 4:  
+			case 2:  
 				return EXIT;
 			}
 		}

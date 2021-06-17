@@ -41,7 +41,7 @@ int main_bluewhtie(void)
             break;
         case QUIT:
             if (key == ENTER) exit(0);  //exit(0) 정상종료
-            return 0;
+            main();
         }
     }
     return 0;

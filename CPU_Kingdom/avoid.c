@@ -13,6 +13,13 @@
 #define ESC 27
 
 
+
+
+
+
+
+
+
 //전역변수 선언
 Snow snow[WIDTH - CT];
 Player one;

@@ -82,7 +82,7 @@ void snake_game(void) {
             snake_start();
             break;
         case 2:
-            return;
+			main();
             break;
         }
         //system("cls");
