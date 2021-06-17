@@ -76,6 +76,12 @@ void print_by_name(char* name) {
 	// set color : GREY
 	setColor(GREY);
 
-	gotoxy(105, 28);
+	if (strlen(name) > 8) {
+		// 3명 이상이면
+		gotoxy(88, 28);
+	}
+	else {
+		gotoxy(105, 28);
+	}
 	printf("by %s", name);
 }
