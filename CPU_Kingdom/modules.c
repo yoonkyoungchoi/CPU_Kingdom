@@ -84,15 +84,23 @@ void print_by_name(char* name) {
 		gotoxy(105, 28);
 	}
 	printf("by %s", name);
+
+	setColor(WHITE);
 }
 
 void rectangle(int width, int height, int x, int y) {
 	// ¦£¡ª¡ª¡ª¡ª¦¤
+	for (int i = 1; i < width / 2; i++) {
+		gotoxy((x + width) / 2 - i, y);
+		printf("¦¡");
+
+		gotoxy((x + width) / 2 + i, y);
+		printf("¦¡");
+		Sleep(1);
+	}
 	gotoxy(x, y);
 	printf("¦£");
-	for (int i = 1; i < width; i++) {
-		printf("¦¡");
-	}
+	gotoxy(x + width, y);
 	printf("¦¤");
 
 	// £ü      £ü
@@ -107,13 +115,20 @@ void rectangle(int width, int height, int x, int y) {
 		printf(" ");
 
 		printf("¦¢");
+		Sleep(1);
 	}
 
 	// ¦¦¡ª¡ª¡ª¡ª¦¥
 	gotoxy(x, y + height);
 	printf("¦¦");
-	for (int i = 1; i < width; i++) {
-		printf("¦¡");
-	}
+	gotoxy(x + width, y + height);
 	printf("¦¥");
+	for (int i = 1; i < width / 2; i++) {
+		gotoxy(x + i, y + height);
+		printf("¦¡");
+
+		gotoxy((x + width) - i, y + height);
+		printf("¦¡");
+		Sleep(1);
+	}
 }
