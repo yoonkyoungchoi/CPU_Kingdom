@@ -271,7 +271,7 @@ void target(void) {
         if (target_crush_on == 1) continue;
 
         print(MAP_X + target_x, MAP_Y + target_y, "¡Ú");
-        speed -= 5;
+        speed -= 8;
         break;
 
     }
