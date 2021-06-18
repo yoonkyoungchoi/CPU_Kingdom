@@ -85,7 +85,7 @@ void main_show() {
 	printf("/＼");
 
 	x = 6;
-	y = 10;
+	y = 5;
 	print_auto_y(&x, &y, " ./＼＿／＼");
 	print_auto_y(&x, &y, " ／ _/　_ ＼");
 	print_auto_y(&x, &y, " |　━　 ━　i");
@@ -101,19 +101,19 @@ void main_show() {
 	y = 10;
 	print_auto_y(&x, &y, "    ⊂_＼");
 	print_auto_y(&x, &y, "	＼＼ Λ＿Λ");
-	print_auto_y(&x, &y, "	  ＼(ˇωˇ)");
+	print_auto_y(&x, &y, "	  ＼(ˇωˇ)    둠칫");
 	print_auto_y(&x, &y, "	      > ⌒`");
 	print_auto_y(&x, &y, "	      / へ＼");
 	print_auto_y(&x, &y, "	     /　/＼＼");
 	print_auto_y(&x, &y, "	     /  ノ　＼_つ");
 	print_auto_y(&x, &y, "	    /  /");
-	print_auto_y(&x, &y, "	   /　/|");
+	print_auto_y(&x, &y, "둠칫     /　/|");
 	print_auto_y(&x, &y, "	  (   (`");
 	print_auto_y(&x, &y, "	  | |、＼");
 	print_auto_y(&x, &y, "	  | | ＼ ⌒)");
 	print_auto_y(&x, &y, "	  | |　　) /");
 	print_auto_y(&x, &y, "	 ノ )　　L/");
-	print_auto_y(&x, &y, "      (_");
+	print_auto_y(&x, &y, "      (___/");
 
 
 
