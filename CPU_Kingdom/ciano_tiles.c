@@ -121,38 +121,6 @@ void print_str(int* x, int* y, char* str) {
 	printf("%s", str);
 }
 
-void rectangle(int width, int height, int x, int y) {
-	// ¦£¡ª¡ª¡ª¡ª¦¤
-	gotoxy(x, y);
-	printf("¦£");
-	for (int i = 1; i < width; i++) {
-		printf("¦¡");
-	}
-	printf("¦¤");
-
-	// £ü      £ü
-	for (int i = 1; i < height; i++) {
-		gotoxy(x, y + i);
-		// £ü      £ü
-		printf("¦¢");
-
-		for (int j = 1; j < width - 1; j++) {
-			printf(" ");
-		}
-		printf(" ");
-
-		printf("¦¢");
-	}
-
-	// ¦¦¡ª¡ª¡ª¡ª¦¥
-	gotoxy(x, y + height);
-	printf("¦¦");
-	for (int i = 1; i < width; i++) {
-		printf("¦¡");
-	}
-	printf("¦¥");
-}
-
 void piano_ascii_art(void) {
 	int x = X - 30;
 	int y = Y;

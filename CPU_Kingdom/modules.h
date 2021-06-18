@@ -31,3 +31,4 @@ void move_arrow_key(
 );
 void print_auto_y(int* x, int* y, char* str);
 void print_by_name(char* name);
+void rectangle(int width, int height, int x, int y);
