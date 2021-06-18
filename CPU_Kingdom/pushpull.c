@@ -61,7 +61,6 @@ void pushpull() {
 // 게임 메인화면 함수
 void main_show() {
 	system("cls");
-	rectangle(114, 29, 2, 1);
 	gotoxy(36, 5);
 	printf("★★★★★★★★★★ 줄다리기 ★★★★★★★★★");
 	printf("★");
@@ -72,7 +71,7 @@ void main_show() {
 	gotoxy(36, 11);
 	printf("★                 단판 승부!                   ★");
 	gotoxy(36, 13);
-	printf("★   아무키나 눌러서 메뉴화면으로 돌아가세요    ★");
+	printf("★  게임종료를 선택해 메뉴화면으로 돌아가세요   ★");
 	gotoxy(36, 15);
 	printf("★★★★★★★★★★★★★★★★★★★★★★★★★");
 

@@ -42,30 +42,37 @@ int main(void) {
 		switch (select)
 		{
 		case 1:
+			rectangle(114, 29, 2, 1);
 			ciano_tiles();
 			break;
 
 		case 2:
+			rectangle(114, 29, 2, 1);
 			guess_note();
 			break;
 
 		case 3:
+			rectangle(114, 29, 2, 1);
 			maze_game();
 			break;
 
 		case 4:
+			rectangle(114, 29, 2, 1);
 			pushpull();
 			break;
 
 		case 5:
+			rectangle(114, 29, 2, 1);
 			snake_game();
 			break;
 
 		case 6:
+			rectangle(114, 29, 2, 1);
 			main_avoid();
 			break;
 
 		case 7:
+			rectangle(114, 29, 2, 1);
 			main_bluewhtie();
 			break;
 
