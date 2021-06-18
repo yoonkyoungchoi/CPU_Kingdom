@@ -113,7 +113,7 @@ void main_show() {
 	print_auto_y(&x, &y, "	  | | ＼ ⌒)");
 	print_auto_y(&x, &y, "	  | |　　) /");
 	print_auto_y(&x, &y, "	 ノ )　　L/");
-	print_auto_y(&x, &y, "      (___/");
+	print_auto_y(&x, &y, "      (___/     둠칫");
 
 
 
