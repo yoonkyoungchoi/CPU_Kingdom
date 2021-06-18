@@ -112,18 +112,12 @@ void snake_start(void) {
                 dir = key;
             key = 0;
             break;
-        case 115:
-            if (status_on == 0) status_on = 1;
-            else status_on = 0;
-            key = 0;
-            break;
         case ESC:
 			main();
 			break;
         }
         move(dir);
 
-        if (status_on == 1) status();
     }
 }
 
@@ -277,25 +271,10 @@ void target(void) {
         if (target_crush_on == 1) continue;
 
         print(MAP_X + target_x, MAP_Y + target_y, "¡Ú");
-        speed -= 10;
+        speed -= 8;
         break;
 
     }
-}
-
-void status(void) {
-    print(MAP_X + MAP_WIDTH + 1, MAP_Y, "head= ");
-    printf("%2d,%2d", x_move[0], y_move[0]);
-    print(MAP_X + MAP_WIDTH + 1, MAP_Y + 1, "food= ");
-    printf("%2d,%2d", target_x, target_y);
-    print(MAP_X + MAP_WIDTH + 1, MAP_Y + 2, "leng= ");
-    printf("%2d", length);
-    print(MAP_X + MAP_WIDTH + 1, MAP_Y + 3, "key= ");
-    printf("%3d", key);
-    print(MAP_X + MAP_WIDTH + 1, MAP_Y + 4, "spd= ");
-    printf("%3d", speed);
-    print(MAP_X + MAP_WIDTH + 1, MAP_Y + 6, "score= ");
-    printf("%3d", score);
 }
 
 void print(int x_location, int y_location, char* s) {
