@@ -40,6 +40,8 @@ int choose_mode() {
     print(MAP_X + (MAP_WIDTH / 2) - 15, MAP_Y + 12, "===========================================================");
     print(MAP_X + (MAP_WIDTH / 2) - 5, MAP_Y + 14,  ">   게 임 시 작 \n");
     print(MAP_X + (MAP_WIDTH / 2) - 5, MAP_Y + 16,  "       종 료 \n");
+    print_by_name("강소리");
+
 
 
     while (1) {

@@ -486,6 +486,7 @@ void secondView(void) {
 	printf("4. 4단계 모드(%dx%d))\n",STEP4,STEP4);
 	gotoxy(secondView_x, x + 8);
 	printf("5. 종료 하기\n");
+	print_by_name("김솔민");
 
 
 	while (1) {

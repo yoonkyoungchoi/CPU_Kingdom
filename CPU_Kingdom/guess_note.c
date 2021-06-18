@@ -60,6 +60,8 @@ int menuDraw() {
 	printf(">     게 임 시 작 \n");
 	gotoxy(x, y + 2);
 	printf("       종 료 \n");
+	print_by_name("손지우");
+
 
 
 	while (1) {
