@@ -61,6 +61,7 @@ void pushpull() {
 // 게임 메인화면 함수
 void main_show() {
 	system("cls");
+	rectangle(114, 29, 2, 1);
 	gotoxy(36, 5);
 	printf("★★★★★★★★★★ 줄다리기 ★★★★★★★★★");
 	printf("★");
