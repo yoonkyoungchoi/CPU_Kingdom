@@ -289,7 +289,7 @@ int startMenu(void) {
         printf(".");
     }
     gotoxy(93, 30);
-    print_by_name("전유리 고에스더 김민주");
+    print_by_name(" by 전유리 고에스더 김민주");
 
     while (1) {
         if (_kbhit()) break;
