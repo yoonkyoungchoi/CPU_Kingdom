@@ -94,7 +94,7 @@ void main_show() {
 	print_auto_y(&x, &y, "  ／￣￣⌒＼/⌒)―――――――");
 	print_auto_y(&x, &y, ". /　　　　＿／　");
 	print_auto_y(&x, &y, ". |　　　＼");
-	print_auto_y(&x, &y, "  ＼ ＼_　 ＼");
+	print_auto_y(&x, &y, "  ＼ ＼_　＼");
 	print_auto_y(&x, &y, "   ＼/.＼_/");
 
 	x = 90;
