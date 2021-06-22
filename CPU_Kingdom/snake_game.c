@@ -163,7 +163,7 @@ void reset(void) {
     while (_kbhit()) _getch();
 
     dir = LEFT;
-    speed = 150;
+    speed = 120;
     length = 5;
     score = 0;
     for (i = 0; i < length; i++) {
