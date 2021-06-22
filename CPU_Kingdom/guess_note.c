@@ -5,18 +5,17 @@
 #define DOWN 80
 #define SUBMIT 4
 #define ENTER 13
-#define CTRL 17
 
 /* 함수 선언 */
 int keyControl(); 
 int menuDraw();
 void print_piano();
-int pr_str_array(char** dp, int n);
-int playGame();
+int MakeRandNote(int random);
+int playGame(char** dp, int n);
 void rule();
 void guess_note(void);
 
-char* p[SIZE] = { "도", "레", "미", "파", "솔" , "라", "시", "도" };
+char* p[SIZE] = { "도", "레", "미", "파", "솔" , "라", "시", "도", "레", "미" };
 
 
 int keyControl() {
@@ -41,9 +40,6 @@ int keyControl() {
 			else if (temp == 27) {
 				return ESC;
 			}
-			else if (temp == 17) {
-				return CTRL;
-			}
 		}
 		return 0;
 	}
@@ -55,21 +51,21 @@ int menuDraw() {
 
 	rectangle(114, 29, 2, 1);
 
-	int x = 27;
-	int y = 6;
-	print_auto_y(&x, &y, "  d8b   d8888b   d8888    d88b   db      db    db d888888b d88888b   ");
-	print_auto_y(&x, &y, "d8   8b 88   8D 88   YP  8P  Y8  88      88    88    88    88        ");
-	print_auto_y(&x, &y, "88ooo88 88ooob   8bo    88    88 88      88    88    88    88ooooo   ");
-	print_auto_y(&x, &y, "88   88 88   b     Y8b  88    88 88      88    88    88    88        ");
-	print_auto_y(&x, &y, "88   88 88   8D db   8D  8b  d8  88booo  88b  d88    88    88        ");
-	print_auto_y(&x, &y, "88   88 d8888b   8888d    d88b   888888   Y8888P     88    d88888b   ");
-	print_auto_y(&x, &y, "                                                                     ");
-	print_auto_y(&x, &y, "              d8888b   888888   888888    o88b   88   88             ");
-	print_auto_y(&x, &y, "              88   8D    88       88    d8P  d8  88   88             ");
-	print_auto_y(&x, &y, "              88oodD     88       88    8P       88ooo88             ");
-	print_auto_y(&x, &y, "              88         88       88    8b       88   88             ");
-	print_auto_y(&x, &y, "              88         88       88    Y8b  d8  88   88             ");
-	print_auto_y(&x, &y, "              88       888888     88      Y88P   88   88             ");
+	int x = 2;
+	int y = 4;
+
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 1);
+	print_auto_y(&x, &y, " _______  _______  _______  _______  ___      __   __  _______  _______    _______  ___   _______  _______  __   __ ");
+	print_auto_y(&x, &y, "|   _   ||  _    ||       ||       ||   |    |  | |  ||       ||       |  |       ||   | |       ||       ||  | |  |");
+	print_auto_y(&x, &y, "|  |_|  || |_|   ||  _____||   _   ||   |    |  | |  ||_     _||    ___|  |    _  ||   | |_     _||       ||  |_|  |");
+	print_auto_y(&x, &y, "|       ||       || |_____ |  | |  ||   |    |  |_|  |  |   |  |   |___   |   |_| ||   |   |   |  |       ||       |");
+	print_auto_y(&x, &y, "|       ||  _   | |_____  ||  |_|  ||   |___ |       |  |   |  |    ___|  |    ___||   |   |   |  |      _||       |");
+	print_auto_y(&x, &y, "|   _   || |_|   | _____| ||       ||       ||       |  |   |  |   |___   |   |    |   |   |   |  |     |_ |   _   |");
+	print_auto_y(&x, &y, "|__| |__||_______||_______||_______||_______||_______|  |___|  |_______|  |___|    |___|   |___|  |_______||__| |__|");
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+
+
+
 	
 	x = 50;
 	y = 22;
@@ -91,7 +87,9 @@ int menuDraw() {
 				printf(" ");
 
 				gotoxy(x - 2, y-=2); //새로 이동한 위치로 이동하여
+				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 1);
 				printf(">"); //다시 그리기
+				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 			}
 			break;
 		}
@@ -101,7 +99,9 @@ int menuDraw() {
 				printf(" ");
 
 				gotoxy(x - 2, y+=2);
+				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 1);
 				printf(">");
+				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 			}
 			break;
 		}
@@ -135,57 +135,60 @@ void print_piano() {
 	puts("□□□□□□□□□□□□□□□□□□□□□□□□□□");
 }
 
-int pr_str_array(char** dp, int n) {	
+// 랜덤 음 출력하는 함수
+int MakeRandNote(int random) {
+	double frequency[] = { 523, 587, 659, 699, 784, 880, 988, 1047, 1175, 1319 };
+	const int note_len = 600;
+
+	Beep(frequency[random], note_len);
+
+	return 0;
+}
+
+int playGame(char** dp, int n) {
+	int count = 0;
 	while (1) {
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15 | (0 << 4));
-		double frequency[] = { 523.2511, 587.3295, 659.2551, 698.456, 783.9909, 880, 987.7666, 1046.502 };
-		const int note_len = 600;
 
 		srand((unsigned int)time(NULL));
-		int random = (rand() % 8);
+		int random = (rand() % 10);
 
-		for (int i = 0; i < 8; i++) {
-			if (random == i + 1) 
-				Sleep(200);			
-		}
-		Beep(frequency[random], note_len);
+		MakeRandNote(random); //랜덤 음 출력
 
 		system("cls");
 
 		print_piano();
 
+		int n = keyControl();
+		switch (n) {
+		case ESC: {
+			main();
+			break;
+		}
+		}
+
 		int answer;
-		
+
 		gotoxy(34, 9);
 		printf("무슨 음일까요?: ");
-		scanf("%d", &answer);
+		scanf("%d", &answer);	
 		
 		if (answer == random+1) {
 			gotoxy(75, 9);
 			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14 | (0 << 4));
 			printf("정답입니다!\n");
+			count++;
+			//printf("%d", count);
 		}
 		else {
 			gotoxy(64, 9);
-			printf("땡! 정답은 %d(%s)입니다.\n", random+1, *(dp + random));
+			printf("땡! 정답은 %d(%s)입니다.\n", random + 1, *(dp + random));
 			gotoxy(82, 29);
 			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 12 | (0 << 4));
 			printf("3초 후에 메인화면으로 돌아갑니다...");
-			Sleep(3000);
+			Sleep(2500);
 			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15 | (0 << 4));
 			break;
-		}
-	}
-	return 0;
-}
-
-int playGame() {
-	while (1) {
-		int n = keyControl();
-		switch (n) {
-		case ENTER: {
-			return pr_str_array(p, SIZE);
-		}
 		}
 	}
 	return 0;
@@ -205,15 +208,12 @@ void rule() {
 void guess_note(void) {
 	system("cls");
 
-	int x = 100, y = 20;
-	char key;	
-
 	while (1) {
 		int menuCode = menuDraw();
 		switch (menuCode) {
 		case 0:
 			PlaySound(NULL, 0, 0);
-			pr_str_array(p, SIZE);
+			playGame(p, SIZE);
 			break;
 		case 2:
 			main();

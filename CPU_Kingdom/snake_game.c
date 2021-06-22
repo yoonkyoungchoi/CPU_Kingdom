@@ -269,8 +269,9 @@ void target(void) {
         }
 
         if (target_crush_on == 1) continue;
-
+        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
         print(MAP_X + target_x, MAP_Y + target_y, "¡Ú");
+        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
         speed -= 8;
         break;
 

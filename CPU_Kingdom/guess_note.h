@@ -5,5 +5,5 @@
 #include <windows.h>
 #include "modules.h"
 
-#define SIZE 8
+#define SIZE 10
 void guess_note(void);
