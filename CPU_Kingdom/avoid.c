@@ -9,7 +9,7 @@
 #define LV1 100
 #define LV2 50
 #define LV3 17
-#define LV4 0
+#define LV4 5
 #define ESC 27
 
 //전역변수 선언
@@ -289,7 +289,7 @@ int startMenu(void) {
         printf(".");
     }
     gotoxy(93, 30);
-    print_by_name(" by 전유리 고에스더 김민주");
+    print_by_name("전유리 고에스더 김민주");
 
     while (1) {
         if (_kbhit()) break;
