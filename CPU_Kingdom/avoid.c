@@ -94,7 +94,7 @@ int DamagedPlayer()
 }
 
 //// 플레이어 처리 ////
-/* 키 다운 처리 */
+/* 키 다운 처리 */ 
 int isKeyDown(int key)
 {
     //***GetAsyncKey는 키가 눌렸다면 최상위 비트를 1로 설정, 이전에 키가 눌렸다면 최하위 비트를 1로 설정
