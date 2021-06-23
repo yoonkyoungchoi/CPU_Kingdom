@@ -52,7 +52,7 @@ int menuDraw() {
 	rectangle(114, 29, 2, 1);
 
 	int x = 2;
-	int y = 4;
+	int y = 5;
 
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 1);
 	print_auto_y(&x, &y, " _______  _______  _______  _______  ___      __   __  _______  _______    _______  ___   _______  _______  __   __ ");
@@ -62,13 +62,15 @@ int menuDraw() {
 	print_auto_y(&x, &y, "|       ||  _   | |_____  ||  |_|  ||   |___ |       |  |   |  |    ___|  |    ___||   |   |   |  |      _||       |");
 	print_auto_y(&x, &y, "|   _   || |_|   | _____| ||       ||       ||       |  |   |  |   |___   |   |    |   |   |   |  |     |_ |   _   |");
 	print_auto_y(&x, &y, "|__| |__||_______||_______||_______||_______||_______|  |___|  |_______|  |___|    |___|   |___|  |_______||__| |__|");
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 6);
+
+	gotoxy(41, 15);
+	printf("들리는 음을 듣고 알맞은 숫자를 쓰세요~!");
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
-
-
 
 	
 	x = 50;
-	y = 22;
+	y = 21;
 
 	gotoxy(x-2, y); // -2한 이유는 >를 출력하기 위해서
 	printf(">     게 임 시 작 \n");
@@ -82,7 +84,7 @@ int menuDraw() {
 		int n = keyControl();
 		switch (n) {
 		case UP: {
-			if (y > 22) { //y는 12~14까지만 이동
+			if (y > 21) { //y는 12~14까지만 이동
 				gotoxy(x - 2, y); // x-2하는 이유는 >를 두 칸 이전에 출력하기 위해서
 				printf(" ");
 
@@ -94,7 +96,7 @@ int menuDraw() {
 			break;
 		}
 		case DOWN: {
-			if (y < 24) { //최대 20
+			if (y < 23) { //최대 20
 				gotoxy(x - 2, y);
 				printf(" ");
 
@@ -106,7 +108,7 @@ int menuDraw() {
 			break;
 		}
 		case ENTER: {
-			return y - 22; 
+			return y - 21; 
 			break;
 		}
 		}
