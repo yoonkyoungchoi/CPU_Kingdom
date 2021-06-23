@@ -1,5 +1,4 @@
-#include "guess_note.h"
-
+ï»¿#include "guess_note.h"
 // _getch() value of ESC key
 #define ESC 27
 #define UP 72
@@ -7,14 +6,17 @@
 #define SUBMIT 4
 #define ENTER 13
 
-/* ÇÔ¼ö ¼±¾ð */
+/* í•¨ìˆ˜ ì„ ì–¸ */
 int keyControl(); 
 int menuDraw();
 void print_piano();
-int pr_str_array(char** dp, int n);
-int playGame();
+int MakeRandNote(int random);
+int playGame(char** dp, int n);
 void rule();
 void guess_note(void);
+
+char* p[SIZE] = { "ë„", "ë ˆ", "ë¯¸", "íŒŒ", "ì†”" , "ë¼", "ì‹œ", "ë„", "ë ˆ", "ë¯¸" };
+
 
 int keyControl() {
 	char temp;
@@ -35,32 +37,44 @@ int keyControl() {
 			else if (temp == 13) {
 				return ENTER;
 			}
+			else if (temp == 27) {
+				return ESC;
+			}
 		}
 		return 0;
 	}
 }
 
 int menuDraw() {	
+	PlaySound(TEXT("guess_note.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
 	system("cls");
-	int x = 50;
-	int y = 17;
 
-	gotoxy(30, 5);
-	printf("¡á ¡á ¡á ¡á ¡á ¡á ¡á ¡á ¡á Àý´ë À½°¨ ¡á ¡á ¡á ¡á ¡á ¡á ¡á ¡á ¡á");
-	gotoxy(30, 7);
-	printf("¡á               µé¸®´Â À½À» µè°í ¸ÂÃçº¸¼¼¿ä!                 ¡á");
-	gotoxy(30, 9);
-	printf("¡á    °ÔÀÓ ½ÃÀÛ Àü ÇÑ±Û·Î ¼³Á¤µÇ¾î ÀÖ´ÂÁö È®ÀÎÇØÁÖ¼¼¿ä:)   ¡á");
-	gotoxy(30, 11);
-	printf("¡á            Áß°£Áß°£ Á¡¼ö(¢¾) ²À ÀØÁö ¸»°í ¾ò±â~           ¡á");
-	gotoxy(30, 13);
-	printf("¡á ¡á ¡á ¡á ¡á ¡á ¡á ¡á ¡á ¡á ¡á ¡á ¡á ¡á ¡á ¡á ¡á ¡á ¡á ¡á ¡á ");
+	rectangle(114, 29, 2, 1);
 
-	gotoxy(x-2, y); // -2ÇÑ ÀÌÀ¯´Â >¸¦ Ãâ·ÂÇÏ±â À§ÇØ¼­
-	printf(">     °Ô ÀÓ ½Ã ÀÛ \n");
+	int x = 2;
+	int y = 4;
+
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 1);
+	print_auto_y(&x, &y, " _______  _______  _______  _______  ___      __   __  _______  _______    _______  ___   _______  _______  __   __ ");
+	print_auto_y(&x, &y, "|   _   ||  _    ||       ||       ||   |    |  | |  ||       ||       |  |       ||   | |       ||       ||  | |  |");
+	print_auto_y(&x, &y, "|  |_|  || |_|   ||  _____||   _   ||   |    |  | |  ||_     _||    ___|  |    _  ||   | |_     _||       ||  |_|  |");
+	print_auto_y(&x, &y, "|       ||       || |_____ |  | |  ||   |    |  |_|  |  |   |  |   |___   |   |_| ||   |   |   |  |       ||       |");
+	print_auto_y(&x, &y, "|       ||  _   | |_____  ||  |_|  ||   |___ |       |  |   |  |    ___|  |    ___||   |   |   |  |      _||       |");
+	print_auto_y(&x, &y, "|   _   || |_|   | _____| ||       ||       ||       |  |   |  |   |___   |   |    |   |   |   |  |     |_ |   _   |");
+	print_auto_y(&x, &y, "|__| |__||_______||_______||_______||_______||_______|  |___|  |_______|  |___|    |___|   |___|  |_______||__| |__|");
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+
+
+
+	
+	x = 50;
+	y = 22;
+
+	gotoxy(x-2, y); // -2í•œ ì´ìœ ëŠ” >ë¥¼ ì¶œë ¥í•˜ê¸° ìœ„í•´ì„œ
+	printf(">     ê²Œ ìž„ ì‹œ ìž‘ \n");
 	gotoxy(x, y + 2);
-	printf("       Á¾ ·á \n");
-	print_by_name("¼ÕÁö¿ì");
+	printf("       ì¢… ë£Œ \n");
+	print_by_name("ì†ì§€ìš°");
 
 
 
@@ -68,27 +82,32 @@ int menuDraw() {
 		int n = keyControl();
 		switch (n) {
 		case UP: {
-			if (y > 17) { //y´Â 12~14±îÁö¸¸ ÀÌµ¿
-				gotoxy(x - 2, y); // x-2ÇÏ´Â ÀÌÀ¯´Â >¸¦ µÎ Ä­ ÀÌÀü¿¡ Ãâ·ÂÇÏ±â À§ÇØ¼­
+			if (y > 22) { //yëŠ” 12~14ê¹Œì§€ë§Œ ì´ë™
+				gotoxy(x - 2, y); // x-2í•˜ëŠ” ì´ìœ ëŠ” >ë¥¼ ë‘ ì¹¸ ì´ì „ì— ì¶œë ¥í•˜ê¸° ìœ„í•´ì„œ
 				printf(" ");
 
-				gotoxy(x - 2, y-=2); //»õ·Î ÀÌµ¿ÇÑ À§Ä¡·Î ÀÌµ¿ÇÏ¿©
-				printf(">"); //´Ù½Ã ±×¸®±â
+				gotoxy(x - 2, y-=2); //ìƒˆë¡œ ì´ë™í•œ ìœ„ì¹˜ë¡œ ì´ë™í•˜ì—¬
+				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 1);
+				printf(">"); //ë‹¤ì‹œ ê·¸ë¦¬ê¸°
+				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 			}
 			break;
 		}
 		case DOWN: {
-			if (y < 19) { //ÃÖ´ë 17
+			if (y < 24) { //ìµœëŒ€ 20
 				gotoxy(x - 2, y);
 				printf(" ");
 
 				gotoxy(x - 2, y+=2);
+				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 1);
 				printf(">");
+				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 			}
 			break;
 		}
 		case ENTER: {
-			return y - 17; 
+			return y - 22; 
+			break;
 		}
 		}
 	}
@@ -97,79 +116,79 @@ int menuDraw() {
 
 void print_piano() {
 	gotoxy(34, 11);
-	puts("¡à¡à¡á¡á ¡á¡á¡à¡à¡à¡á¡á ¡á¡á ¡á¡á¡à¡à¡à¡á¡á ¡á¡á¡à¡à");
+	puts("â–¡â–¡â– â–  â– â– â–¡â–¡â–¡â– â–  â– â–  â– â– â–¡â–¡â–¡â– â–  â– â– â–¡â–¡");
 	gotoxy(34, 12);
-	puts("¡à  ¡á¡á ¡á¡á  ¡à  ¡á¡á ¡á¡á ¡á¡á  ¡à  ¡á¡á ¡á¡á  ¡à ");
+	puts("â–¡  â– â–  â– â–   â–¡  â– â–  â– â–  â– â–   â–¡  â– â–  â– â–   â–¡ ");
 	gotoxy(34, 13);
-	puts("¡à  ¡á¡á ¡á¡á  ¡à  ¡á¡á ¡á¡á ¡á¡á  ¡à  ¡á¡á ¡á¡á  ¡à ");
+	puts("â–¡  â– â–  â– â–   â–¡  â– â–  â– â–  â– â–   â–¡  â– â–  â– â–   â–¡ ");
 	gotoxy(34, 14);
-	puts("¡à  ¡á¡á ¡á¡á  ¡à  ¡á¡á ¡á¡á ¡á¡á  ¡à  ¡á¡á ¡á¡á  ¡à ");
+	puts("â–¡  â– â–  â– â–   â–¡  â– â–  â– â–  â– â–   â–¡  â– â–  â– â–   â–¡ ");
 	gotoxy(34, 15);
-	puts("¡à  ¡á¡á ¡á¡á  ¡à  ¡á¡á ¡á¡á ¡á¡á  ¡à  ¡á¡á ¡á¡á  ¡à ");
+	puts("â–¡  â– â–  â– â–   â–¡  â– â–  â– â–  â– â–   â–¡  â– â–  â– â–   â–¡ ");
 	gotoxy(34, 16);
-	puts("¡à  ¡á¡á ¡á¡á  ¡à  ¡á¡á ¡á¡á ¡á¡á  ¡à  ¡á¡á ¡á¡á  ¡à ");
+	puts("â–¡  â– â–  â– â–   â–¡  â– â–  â– â–  â– â–   â–¡  â– â–  â– â–   â–¡ ");
 	gotoxy(34, 17);
-	puts("¡à   ¡à   ¡à   ¡à   ¡à   ¡à   ¡à   ¡à   ¡à   ¡à   ¡à");
+	puts("â–¡   â–¡   â–¡   â–¡   â–¡   â–¡   â–¡   â–¡   â–¡   â–¡   â–¡");
 	gotoxy(34, 18);
-	puts("¡à   ¡à   ¡à   ¡à   ¡à   ¡à   ¡à   ¡à   ¡à   ¡à   ¡à");
+	puts("â–¡ 1 â–¡ 2 â–¡ 3 â–¡ 4 â–¡ 5 â–¡ 6 â–¡ 7 â–¡ 8 â–¡ 9 â–¡ 10â–¡");
 	gotoxy(34, 19);
-	puts("¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à");
+	puts("â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡");
 }
 
-int pr_str_array(char** dp, int n) {	
-	while (1) {
-		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15 | (0 << 4));
-		double frequency[] = { 523.2511, 587.3295, 659.2551, 698.456, 783.9909, 880, 987.7666, 1046.502 };
-		const int note_len = 600;
+// ëžœë¤ ìŒ ì¶œë ¥í•˜ëŠ” í•¨ìˆ˜
+int MakeRandNote(int random) {
+	double frequency[] = { 523, 587, 659, 699, 784, 880, 988, 1047, 1175, 1319 };
+	const int note_len = 600;
 
-		srand((unsigned int)time(NULL));
-		int random = (rand() % 8);
+	Beep(frequency[random], note_len);
 
-		for (int i = 0; i < 8; i++) {
-			if (random == i + 1) {
-				Sleep(200);
-			}
-		}
-		Beep(frequency[random], note_len);
-
-
-		system("cls");
-
-		char answer[10];
-
-		print_piano();
-
-		gotoxy(34, 9);
-		printf("¹«½¼ À½ÀÏ±î¿ä?: ");
-		scanf("%s", answer);
-
-		if (!strcmp(answer, *(dp + random))) {
-			gotoxy(75, 9);
-			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14 | (0 << 4));
-			printf("Á¤´äÀÔ´Ï´Ù!\n");
-		}
-		else {
-			gotoxy(67, 9);
-			printf("¶¯! Á¤´äÀº %sÀÔ´Ï´Ù.\n", *(dp + random));
-			gotoxy(82, 29);
-			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 12 | (0 << 4));
-			printf("3ÃÊ ÈÄ¿¡ ¸ÞÀÎÈ­¸éÀ¸·Î µ¹¾Æ°©´Ï´Ù...");
-			Sleep(3000);
-			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15 | (0 << 4));
-			break;
-		}
-	}
 	return 0;
 }
 
-int playGame() {
-	char* p[SIZE] = { "µµ", "·¹", "¹Ì", "ÆÄ", "¼Ö" , "¶ó", "½Ã", "µµ" };
+int playGame(char** dp, int n) {
+	int count = 0;
 	while (1) {
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15 | (0 << 4));
+
+		srand((unsigned int)time(NULL));
+		int random = (rand() % 10);
+
+		MakeRandNote(random); //ëžœë¤ ìŒ ì¶œë ¥
+
+		system("cls");
+
+		print_piano();
+
 		int n = keyControl();
 		switch (n) {
-		case ENTER: {
-			return pr_str_array(p, SIZE);
+		case ESC: {
+			main();
+			break;
 		}
+		}
+
+		int answer;
+
+		gotoxy(34, 9);
+		printf("ë¬´ìŠ¨ ìŒì¼ê¹Œìš”?: ");
+		scanf("%d", &answer);	
+		
+		if (answer == random+1) {
+			gotoxy(75, 9);
+			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14 | (0 << 4));
+			printf("ì •ë‹µìž…ë‹ˆë‹¤!\n");
+			count++;
+			//printf("%d", count);
+		}
+		else {
+			gotoxy(64, 9);
+			printf("ë•¡! ì •ë‹µì€ %d(%s)ìž…ë‹ˆë‹¤.\n", random + 1, *(dp + random));
+			gotoxy(82, 29);
+			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 12 | (0 << 4));
+			printf("3ì´ˆ í›„ì— ë©”ì¸í™”ë©´ìœ¼ë¡œ ëŒì•„ê°‘ë‹ˆë‹¤...");
+			Sleep(2500);
+			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15 | (0 << 4));
+			break;
 		}
 	}
 	return 0;
@@ -180,7 +199,7 @@ void rule() {
 	/*for (int helper = 0; helper <= 15; helper++) {
 		gotoxy(81, 29);
 		textcolor(helper); 
-		printf("°ÔÀÓÀ» ½ÃÀÛÇÏ·Á¸é ¿£ÅÍ¸¦ ´©¸£¼¼¿ä...");
+		printf("ê²Œìž„ì„ ì‹œìž‘í•˜ë ¤ë©´ ì—”í„°ë¥¼ ëˆ„ë¥´ì„¸ìš”...");
 		Sleep(100);
 	}
 	playGame();*/
@@ -188,18 +207,13 @@ void rule() {
 
 void guess_note(void) {
 	system("cls");
-	PlaySound(TEXT("guess_note.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
-
-	char* p[SIZE] = { "µµ", "·¹", "¹Ì", "ÆÄ", "¼Ö" , "¶ó", "½Ã", "µµ" };
-	int x = 100, y = 20;
-	char key;	
 
 	while (1) {
 		int menuCode = menuDraw();
 		switch (menuCode) {
 		case 0:
 			PlaySound(NULL, 0, 0);
-			pr_str_array(p, SIZE);
+			playGame(p, SIZE);
 			break;
 		case 2:
 			main();

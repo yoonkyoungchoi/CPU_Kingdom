@@ -47,7 +47,6 @@ int main(void) {
 			break;
 
 		case 2:
-			rectangle(114, 29, 2, 1);
 			guess_note();
 			break;
 
@@ -113,7 +112,7 @@ void draw_main(void) {
 	system("cls");
 
 	// default x, y
-	int x = 6;
+	int x = 6; 
 	int y = 2;
 
 	print_auto_y(&x, &y, "                       |>>>");

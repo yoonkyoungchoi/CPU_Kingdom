@@ -163,7 +163,7 @@ void reset(void) {
     while (_kbhit()) _getch();
 
     dir = LEFT;
-    speed = 150;
+    speed = 120;
     length = 5;
     score = 0;
     for (i = 0; i < length; i++) {
@@ -269,8 +269,9 @@ void target(void) {
         }
 
         if (target_crush_on == 1) continue;
-
+        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
         print(MAP_X + target_x, MAP_Y + target_y, "¡Ú");
+        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
         speed -= 8;
         break;
 

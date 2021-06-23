@@ -168,7 +168,7 @@ void PrintGame()
     printf("\n");
     //이름 넣기
     //gotoxy(93, 30);
-    //printf(" by 고에스더 김민주 전유리");
+    //printf(" by 전유리 고에스더 김민주 ");
 
 }
 
