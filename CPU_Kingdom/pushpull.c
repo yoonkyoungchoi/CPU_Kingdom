@@ -220,6 +220,32 @@ void line(int x, int y)
 	gotoxy(87, 13);
 	printf("/＼");
 
+	gotoxy(8, 9);
+	printf("  _________");
+	gotoxy(9, 10);
+	printf("ㅣl  A  lㅣ");
+	gotoxy(9, 11);
+	printf("ㅣl____ lㅣ");
+	gotoxy(9, 12);
+	printf("ㅣ/_____ ");
+	gotoxy(16, 12);
+	printf("＼");
+	gotoxy(17, 12);
+	printf(" l");
+
+	gotoxy(103, 9);
+	printf("  _________");
+	gotoxy(104, 10);
+	printf("ㅣl  L  lㅣ");
+	gotoxy(104, 11);
+	printf("ㅣl____ lㅣ");
+	gotoxy(104, 12);
+	printf("ㅣ/_____ ");
+	gotoxy(111, 12);
+	printf("＼");
+	gotoxy(112, 12);
+	printf(" l");
+
 	gotoxy(42, 2);
 	printf("움직이지 않는다면 한영키를 바꿔보세요!");
 
@@ -255,10 +281,10 @@ void start_game() {
 	gotoxy(47, 10);
 	printf("시작 전 팀 이름을 정해주세요!\n");
 	gotoxy(47, 12);
-	printf("첫번째 팀 이름입력 후 엔터!> ");
+	printf("첫번째 팀 이름 > ");
 	scanf_s("%s", &t_name1, 20);
 	gotoxy(47, 14);
-	printf("두번째 팀 이름입력 후 엔터!> ");
+	printf("두번째 팀 이름 > ");
 	scanf_s("%s", &t_name2, 20);
 
 	// 이름 입력 후 화면 지우기
