@@ -28,18 +28,29 @@ int status_on = 0;
 
 int choose_mode() {
     system("cls");
-    int x = 54;
-    int y = 19;
 
-    print(MAP_X + (MAP_WIDTH / 2) - 15, MAP_Y + 4,  "===========================================================");
-    print(MAP_X + (MAP_WIDTH / 2) - 15, MAP_Y + 5,  "=                                                         =");
-    print(MAP_X + (MAP_WIDTH / 2) - 15, MAP_Y + 6,  "=            방향키를 사용해서 지렁이를 움직여요!         =");
-    print(MAP_X + (MAP_WIDTH / 2) - 15, MAP_Y + 8,  "=지도에 보이는 별★을 먹을 때 마다 길이가 조금씩 늘어나요!=");
-    print(MAP_X + (MAP_WIDTH / 2) - 15, MAP_Y + 10, "=           속도도 조금씩 빨라지니 집중하세요!            =");
-    print(MAP_X + (MAP_WIDTH / 2) - 15, MAP_Y + 11, "=                                                         =");
-    print(MAP_X + (MAP_WIDTH / 2) - 15, MAP_Y + 12, "===========================================================");
-    print(MAP_X + (MAP_WIDTH / 2) - 5, MAP_Y + 14,  ">   게 임 시 작 \n");
-    print(MAP_X + (MAP_WIDTH / 2) - 5, MAP_Y + 16,  "       종 료 \n");
+
+    int x = 54;
+    int y = 22;
+
+    print(MAP_X + (MAP_WIDTH / 2) - 15, MAP_Y - 1 , "                       /)* ェ*)/)                          ");
+    print(MAP_X + (MAP_WIDTH / 2) - 15, MAP_Y    , "                   __／　　￣￣　＼                         ");
+    print(MAP_X + (MAP_WIDTH / 2) - 15, MAP_Y + 1, "                 ／　　　　　　 　　 ㅡㅡ                   ");
+    print(MAP_X + (MAP_WIDTH / 2) - 15, MAP_Y + 2, "                /　　　　●　　　   　● |                  ");
+    print(MAP_X + (MAP_WIDTH / 2) - 15, MAP_Y + 3, "                !　　　　　　 　 ▼      |                  ");
+    print(MAP_X + (MAP_WIDTH / 2) - 15, MAP_Y + 4, "                 `_ 　 　　　 　 人   　/                   ");
+    print(MAP_X + (MAP_WIDTH / 2) - 15, MAP_Y + 5, "                     **ㅡＪㅡㅡㅡㅡＪ                       ");
+    print(MAP_X + (MAP_WIDTH / 2) - 15, MAP_Y + 6,  "===============------------------------------==============");
+    print(MAP_X + (MAP_WIDTH / 2) - 15, MAP_Y + 8,  "=                                                         =");
+    print(MAP_X + (MAP_WIDTH / 2) - 15, MAP_Y + 9,  "=            방향키를 사용해서 지렁이를 움직여요!         =");
+    print(MAP_X + (MAP_WIDTH / 2) - 15, MAP_Y + 11,  "=지도에 보이는 별★을 먹을 때 마다 길이가 조금씩 늘어나요!=");
+    print(MAP_X + (MAP_WIDTH / 2) - 15, MAP_Y + 13, "=           속도도 조금씩 빨라지니 집중하세요!            =");
+    print(MAP_X + (MAP_WIDTH / 2) - 15, MAP_Y + 14, "=                                                         =");
+    print(MAP_X + (MAP_WIDTH / 2) - 15, MAP_Y + 15, "===========================================================");
+    print(MAP_X + (MAP_WIDTH / 2) - 5, MAP_Y + 17,  ">   게 임 시 작 \n");
+    print(MAP_X + (MAP_WIDTH / 2) - 5, MAP_Y + 19,  "       종 료 \n");
+    
+    void print_auto_y(int* x, int* y, char* str);
     print_by_name("강소리");
 
 
@@ -48,7 +59,7 @@ int choose_mode() {
         int n = keyControl();
         switch (n) {
             case UP: {
-                if (y > 19) {
+                if (y > 22) {
                     gotoxy(x - 2, y);
                     printf(" ");
 
@@ -58,7 +69,7 @@ int choose_mode() {
                 break;
             }
             case DOWN: {
-                if (y < 21) {
+                if (y < 24) {
                     gotoxy(x - 2, y);
                     printf(" ");
 
@@ -68,7 +79,7 @@ int choose_mode() {
                 break;
             }
             case ENTER: {
-                return y - 19;
+                return y - 22;
             }
         }
     }
