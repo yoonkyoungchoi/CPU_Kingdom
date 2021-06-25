@@ -66,6 +66,8 @@ int menuDraw() {
 
 	gotoxy(41, 15);
 	printf("들리는 음을 듣고 알맞은 숫자를 쓰세요~!");
+	gotoxy(46, 16);
+	printf("다시 들으려면 0을 입력하세요!");
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 
 	
@@ -155,56 +157,49 @@ int playGame(char** dp, int n) {
 		srand((unsigned int)time(NULL));
 		int random = (rand() % 10);
 
-		MakeRandNote(random); //랜덤 음 출력
+		MakeRandNote(random);
 
 		system("cls");
 
 		print_piano();
 
-		int n = keyControl();
-		switch (n) {
-		case ESC: {
-			main();
-			break;
-		}
-		}
-
 		int answer;
 
-		gotoxy(34, 9);
-		printf("무슨 음일까요?: ");
-		scanf("%d", &answer);	
-		
-		if (answer == random+1) {
+		while (1) {
+			gotoxy(34, 9);
+			printf("무슨 음일까요?: ");
+			scanf("%d", &answer);
+
+			if (answer == 0) {
+				MakeRandNote(random);
+			}
+			else {
+				break;
+			}
+		}
+
+		if (answer == random + 1) {
 			gotoxy(75, 9);
 			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14 | (0 << 4));
 			printf("정답입니다!\n");
 			count++;
 			//printf("%d", count);
 		}
-		else {
+		else if (answer != 0 && answer != random + 1) {
 			gotoxy(64, 9);
 			printf("땡! 정답은 %d(%s)입니다.\n", random + 1, *(dp + random));
-			gotoxy(82, 29);
 			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 12 | (0 << 4));
-			printf("3초 후에 메인화면으로 돌아갑니다...");
-			Sleep(2500);
+			for (int n = 3; n > 0; --n) {
+				gotoxy(82, 29);
+				printf("%d초 후에 메인화면으로 돌아갑니다...\n", n);
+				Sleep(1000);
+			}
+			//Sleep(2500);
 			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15 | (0 << 4));
 			break;
 		}
 	}
 	return 0;
-}
-void rule() {	
-	system("cls");	
-
-	/*for (int helper = 0; helper <= 15; helper++) {
-		gotoxy(81, 29);
-		textcolor(helper); 
-		printf("게임을 시작하려면 엔터를 누르세요...");
-		Sleep(100);
-	}
-	playGame();*/
 }
 
 void guess_note(void) {
